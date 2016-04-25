@@ -18,7 +18,6 @@ public class UserAction {
         um.setId("id222");
         um.setId("i333");
         um.setId("local");
-        um.setId("remote");
         um.setName("namewww");
         dao.create(um);
         // dao.update(um);

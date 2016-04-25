@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="DimCity">
+	<typeAlias alias="dc" type="pers.bigData.vo.DimCity" />
+
+	<resultMap id="dimcity-result" class="pers.bigData.vo.DimCity">
+		<result property="prov_name" column="prov_name" />
+		<result property="prov_code" column="prov_code" />
+		<result property="city_name" column="city_name" />
+		<result property="city_code" column="city_code" />
+		<result property="data_id" column="data_id" />
+		<result property="pt" column="pt" />
+	</resultMap>
+
+	<statement id="getAllCity" resultMap="dimcity-result">
+	   <![CDATA[
+		select * from dim_city
+	   ]]>
+	</statement>
+
+	<select id="getAllCitys" resultClass="dc">
+  		<![CDATA[
+          select prov_name,prov_code from dim_city
+        ]]>
+	</select>
+
+</sqlMap>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="DimBrand">
+	<typeAlias alias="db" type="pers.bigData.vo.DimBrand" />
+
+	<resultMap id="dimbrand-result" class="pers.bigData.vo.DimBrand">
+		<result property="brand_name" column="brand_name" />
+		<result property="brand_code" column="brand_code" />
+		<result property="data_id" column="data_id" />
+		<result property="pt" column="pt" />
+	</resultMap>
+
+	<statement id="getAllBrand" resultMap="dimbrand-result">
+	   <![CDATA[
+		 select * from dim_brand 
+	   ]]>
+	</statement>
+
+	<select id="getAllBrands" resultClass="db">
+  		<![CDATA[
+          select brand_name,brand_code from dim_brand
+        ]]>
+	</select>
+
+</sqlMap>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="user">
+
+  <!-- Use type aliases to avoid typing the full classname every time. -->
+  <typeAlias alias="um" type="pers.bigData.vo.UserModel"/>
+  <typeAlias alias="uqm" type="pers.bigData.vo.UserQueryModel"/>
+
+  <!-- Select with no parameters using the result map for Account class. -->
+  <select id="getUserByName" 
+  		parameterClass="java.lang.String" 
+  		resultClass="um">
+  		<![CDATA[
+    select id,name from tbl_user where name=#name#
+    ]]>
+  </select>
+  
+ <select id="getAll" 
+ 		parameterClass="uqm" 
+  		resultClass="um" 
+  		>
+  		<![CDATA[
+    select id,name from (
+    				select rownum r ,id,name from tbl_user 
+    				) where 
+    				r > #fromNum# and r <= #toNum# 
+    ]]>
+  </select>
+  
+  <update id="updateUser" parameterClass="um">
+    <![CDATA[
+    update tbl_user set name=#name# where id=#id#
+    ]]>
+  </update>
+
+  <insert id="create" parameterClass="um">
+    <![CDATA[
+    insert into tbl_user(id,name) values(#id#,#name#) 
+    ]]>
+  </insert>
+
+  <delete id="delete" parameterClass="java.lang.String">
+   <![CDATA[
+    delete from tbl_user where id = #id#
+    ]]>
+  </delete>
+
+	<select id="queryByCondition" 
+		parameterClass="um" 
+  		resultClass="um" >
+  		select id,name from tbl_user
+  		<dynamic prepend="WHERE">  
+            <isNotNull prepend="AND" property="id">       
+				id = #id#   
+            </isNotNull>  
+            <isNotNull prepend="AND" property="name">  
+                name like #name#   
+            </isNotNull>  
+            <isNotNull prepend="AND" property="age"  >  
+                age> #age#   
+            </isNotNull>  
+        </dynamic>  
+	</select>
+</sqlMap>

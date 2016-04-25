@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="rptPrice">
+	<!-- Use type aliases to avoid typing the full classname every time. -->
+	<typeAlias alias="rp" type="pers.bigData.vo.RptPrice" />
+	<resultMap id="rptPrice-result" class="pers.bigData.vo.RptPrice">
+		<result property="brand_name" column="brand_name" />
+		<result property="brand_code" column="brand_code" />
+		<result property="factory" column="factory" />
+		<result property="serial" column="serial" />
+		<result property="yearType" column="yearType" />
+		<result property="volumn" column="volumn" />
+		<result property="carStyle" column="carStyle" />
+		<result property="guide_price" column="guide_price" />
+		<result property="buy_tax" column="buy_tax" />
+		<result property="deal_price" column="deal_price" />
+		<result property="comm_ins" column="comm_ins" />
+		<result property="use_tax" column="use_tax" />
+		<result property="trff_tax" column="trff_tax" />
+		<result property="license_fee" column="license_fee" />
+		<result property="total_price" column="total_price" />
+		<result property="invoce_flg" column="invoce_flg" />
+		<result property="promotion" column="promotion" />
+		<result property="deal_date" column="deal_date" />
+		<result property="post_date" column="post_date" />
+		<result property="username" column="username" />
+		<result property="prov_name" column="prov_name" />
+		<result property="prov_code" column="prov_code" />
+		<result property="city_name" column="city_name" />
+		<result property="city_code" column="city_code" />
+		<result property="sales_name" column="sales_name" />
+		<result property="sales_telno" column="sales_telno" />
+		<result property="sales_addr" column="sales_addr" />
+		<result property="comment" column="comment" />
+		<result property="curl_timestamp" column="curl_timestamp" />
+		<result property="url" column="url" />
+		<result property="data_id" column="data_id" />
+		<result property="used_month" column="used_month" />
+		<result property="year_discount" column="year_discount" />
+		<result property="pt" column="pt" />
+
+	</resultMap>
+	<statement id="queryByConditionrp" parameterClass="rp"
+		resultMap="rptPrice-result">
+	 <![CDATA[
+		select * from rpt_price
+		]]>
+		<dynamic prepend="WHERE">
+			<isNotNull prepend="AND" property="prov_code">
+				prov_code = #prov_code#
+			</isNotNull>
+			<isNotNull prepend="AND" property="brand_code">
+				brand_code = #brand_code#
+			</isNotNull>
+			<isNotNull prepend="AND" property="sales_name">
+				sales_name = #sales_name#
+			</isNotNull>
+		</dynamic>
+	</statement>
+
+</sqlMap>

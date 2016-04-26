@@ -22,6 +22,7 @@ import java.io.File;
 public class HelloWorldFive {
     
     public File file;
+    public File file2;
 
 }
  

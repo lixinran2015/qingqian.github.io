@@ -6,7 +6,10 @@
  * Copyright (c) 2016, qingqian All Rights Reserved. 
  * 
  */  
-package pers.qingqian.study.five;  
+package pers.qingqian.study.five;
+
+import java.io.File;
+
 /** 
  * ClassName:HelloWorldFive <br/> 
  * Function: TODO ADD FUNCTION. <br/> 
@@ -17,6 +20,8 @@ package pers.qingqian.study.five;
  * @see       
  */
 public class HelloWorldFive {
+    
+    public File file;
 
 }
  

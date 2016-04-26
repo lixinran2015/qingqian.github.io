@@ -23,6 +23,7 @@ public class HelloWorldFive {
     
     public File file;
     public File file2;
+    public File file3;
 
 }
  

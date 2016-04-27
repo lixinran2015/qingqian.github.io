@@ -1,0 +1,1246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>hadoop&#25645;&#24314;&#29615;&#22659;</title>
+<style type="text/css">
+    li { list-style: none;  margin: 0; }
+    p { margin: 0; }
+    span.foldopened { color: white; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: visible;
+    cursor:pointer; }
+
+
+    span.foldclosed { color: #666666; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: hidden;
+    cursor:pointer; }
+
+    span.foldspecial { color: #666666; font-size: xx-small; border-style: none solid solid none;
+    border-color: #CCCCCC; border-width: 1; font-family: sans-serif; padding: 0em 0.1em 0em 0.1em; background: #e0e0e0;
+    cursor:pointer; }
+
+    span.l { color: red; font-weight: bold; }
+
+    a.mapnode:link {text-decoration: none; color: black; }
+    a.mapnode:visited {text-decoration: none; color: black; }
+    a.mapnode:active {text-decoration: none; color: black; }
+    a.mapnode:hover {text-decoration: none; color: black; background: #eeeee0; }
+
+</style>
+<!-- ^ Position is not set to relative / absolute here because of Mozilla -->
+</head>
+<body>
+
+<script type="text/javascript">
+   // Here we implement folding. It works fine with MSIE5.5, MSIE6.0 and
+   // Mozilla 0.9.6.
+
+   if (document.layers) {
+      //Netscape 4 specific code
+      pre = 'document.';
+      post = ''; }
+   if (document.getElementById) {
+      //Netscape 6 specific code
+      pre = 'document.getElementById("';
+      post = '").style'; }
+   if (document.all) {
+      //IE4+ specific code
+      pre = 'document.all.';
+      post = '.style'; }
+
+function layer_exists(layer) {
+   try {
+      eval(pre + layer + post);
+      return true; }
+   catch (error) {
+      return false; }}
+
+function show_layer(layer) {
+   eval(pre + layer + post).position = 'relative'; 
+   eval(pre + layer + post).visibility = 'visible'; }
+
+function hide_layer(layer) {
+   eval(pre + layer + post).visibility = 'hidden';
+   eval(pre + layer + post).position = 'absolute'; }
+
+function hide_folder(folder) {
+    hide_folding_layer(folder)
+    show_layer('show'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function show_folder(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_layer('show'+folder+'_'+i); }
+}
+function show_folder_completely(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+
+
+function hide_folding_layer(folder) {
+   var i;
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folding_layer(folder+'_'+i); }
+
+   hide_layer('hide'+folder);
+   hide_layer('show'+folder);
+   hide_layer('fold'+folder);
+
+   scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function fold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folder(folder+'_'+i); }
+}
+
+function unfold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+</script>
+<SPAN class="foldspecial" onclick="fold_document()">All +</SPAN>
+<SPAN class="foldspecial" onclick="unfold_document()">All -</SPAN>
+<p><span style="color: #000000;font-size: 166%;font-family: SansSerif, sans-serif; ">hadoop&#25645;&#24314;&#29615;&#22659;</span>
+<ul>
+<li><span id="show1_3" class="foldclosed" onClick="show_folder('1_3')" style="POSITION: absolute">+</span> <span id="hide1_3" class="foldopened" onClick="hide_folder('1_3')">-</span>
+<span style="color: #0033ff;font-size: 150%;font-family: SansSerif, sans-serif; ">1 &#30446;&#30340;</span>
+<ul id="fold1_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="color: #00b439;font-size: 133%;font-family: SansSerif, sans-serif; ">&#23558;hadoop 2.7.1 &#23433;&#35013;&#21040;&nbsp;166&#12289;167&#12289;168 &#19977;&#21488;&#26426;&#22120;&#19978;</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_4" class="foldclosed" onClick="show_folder('1_4')" style="POSITION: absolute">+</span> <span id="hide1_4" class="foldopened" onClick="hide_folder('1_4')">-</span>
+<span style="color: #0033ff;font-size: 150%;font-family: SansSerif, sans-serif; ">2 &#25552;&#20379;&#29615;&#22659;</span>
+<ul id="fold1_4" style="POSITION: relative; VISIBILITY: visible;"><li><span style="color: #00b439;font-size: 133%;font-family: SansSerif, sans-serif; ">&#36339;&#25203;&#26426;</span>
+<ul><li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">ssh: &nbsp;&nbsp;&nbsp;210.14.77.99 22
+<br>
+user&#65306;open
+<br>
+passwd&#65306;123456</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #00b439;font-size: 133%;font-family: SansSerif, sans-serif; ">&#32451;&#20064;&#29615;&#22659;</span>
+<ul><li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">192.168.0.166 master
+<br>
+192.168.0.167 slave01
+<br>
+192.168.0.168 slave02</span>
+
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">user&#65306;hadoop
+<br>
+passwd: hadoop</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_5" class="foldclosed" onClick="show_folder('1_5')" style="POSITION: absolute">+</span> <span id="hide1_5" class="foldopened" onClick="hide_folder('1_5')">-</span>
+<span style="color: #0033ff;font-size: 150%;font-family: SansSerif, sans-serif; ">3 &#20934;&#22791;&#24037;&#20316;</span>
+<ul id="fold1_5" style="POSITION: relative; VISIBILITY: visible;"><li><span style="color: #00b439;font-size: 133%;font-family: SansSerif, sans-serif; ">&#26816;&#26597;&#29615;&#22659;</span>
+<ul><li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">1&#65289;&#26381;&#21153;&#22120;&#26159;&#21542;&#21487;&#30331;&#24405;</span>
+<ul><li><span style="color: #111111;">&#19977;&#21488;&#21487;&#27491;&#24120;&#30331;&#24405;</span>
+
+</li>
+<li><span style="color: #111111;">1&#65289;ssh user@ip
+<br>
+2&#65289;&#36755;&#20837; passwd</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">2&#65289;&#26159;&#21542;&#26377;&#26435;&#38480;&#36827;&#34892;&#20889;&#25805;&#20316;</span>
+<ul><li><span style="color: #111111;">&#26377;&#26435;&#38480;</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">3&#65289;&#30828;&#30424;&#26159;&#21542;&#26377;&#31354;&#38388;&#20379;&#25805;&#20316;</span>
+<ul><li><span style="color: #111111;">df -lh</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">4&#65289;&#26816;&#26597;hadoop&#29615;&#22659;&#20381;&#36182;</span>
+<ul><li><span style="color: #111111;">uname -a</span>
+<ul><li><span style="color: #111111;">Linux 2.6.32-504.30.3.el6.x86_64</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #111111;">java -version</span>
+<ul><li><p><span style="color: #111111;">[hadoop@master ~]$ java -version
+<br>
+java version "1.8.0_60"
+<br>
+Java(TM) SE Runtime Environment (build 1.8.0_60-b27)
+<br>
+Java HotSpot(TM) 64-Bit Server VM (build 25.60-b23, mixed mode)</span>
+</li>
+</ul>
+</li>
+<li><span style="color: #111111;">openssh</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="color: #00b439;font-size: 133%;font-family: SansSerif, sans-serif; ">&#20934;&#22791;&#23433;&#35013;&#25991;&#20214;</span>
+<ul><li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">jdk-8u60-linux-x64.rpm</span>
+
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">hadoop-2.7.1.tar.gz</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #00b439;font-size: 133%;font-family: SansSerif, sans-serif; ">&#20250;&#29992;&#21040;&#21629;&#20196;</span>
+<ul><li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">scp</span>
+
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">rpm</span>
+
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">ssh</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #00b439;font-size: 133%;font-family: SansSerif, sans-serif; ">&#37197;&#32622;hostname</span>
+<ul><li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">vi /etc/hosts
+<br>
+192.168.0.166 master
+<br>
+192.168.0.167 slave01
+<br>
+192.168.0.168 slave02</span>
+
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">master</span>
+<ul><li><span style="color: #111111;">[hadoop@master backup]$ cat /etc/sysconfig/network
+<br>
+NETWORKING=yes
+<br>
+HOSTNAME=master</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">slave01</span>
+<ul><li><span style="color: #111111;">[hadoop@slave01 logs]$ cat /etc/sysconfig/network
+<br>
+NETWORKING=yes
+<br>
+HOSTNAME=slave01</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">slave02</span>
+<ul><li><span style="color: #111111;">[hadoop@slave02 ~]$ cat /etc/sysconfig/network
+<br>
+NETWORKING=yes
+<br>
+HOSTNAME=slave02</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+
+
+
+<li><span id="show1_1" class="foldclosed" onClick="show_folder('1_1')" style="POSITION: absolute">+</span> <span id="hide1_1" class="foldopened" onClick="hide_folder('1_1')">-</span>
+
+<span style="color: #0033ff;font-size: 150%;font-family: SansSerif, sans-serif; ">4 &#27491;&#24335;&#23433;&#35013;</span>
+<ul id="fold1_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_1_1" class="foldclosed" onClick="show_folder('1_1_1')" style="POSITION: absolute">+</span> <span id="hide1_1_1" class="foldopened" onClick="hide_folder('1_1_1')">-</span>
+<span style="color: #00b439;font-size: 133%;font-family: SansSerif, sans-serif; ">&#37197;&#32622;&#29615;&#22659;&#21464;&#37327;</span>
+<ul id="fold1_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">&#35774;&#32622;&#25991;&#20214; .bashrc</span>
+<p><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">export JAVA_HOME=/usr/java/jdk1.8.0_60
+<br>
+export HADOOP_HOME=/home/hadoop/bigdata/hadoop
+<br>
+export HADOOP_USER_NAME=hadoop
+<br>
+export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH</span>
+<ul><li><span style="color: #111111;">JAVA_HOME &#34920;&#31034;java &#23433;&#35013;&#30446;&#24405;</span>
+
+</li>
+<li><span style="color: #111111;">HADOOP_HOME &#34920;&#31034;hadoop &#23433;&#35013;&#30446;&#24405;</span>
+
+</li>
+<li><span style="color: #111111;">HADOOP_USER_NAME &#34920;&#31034;&#23433;&#35013;hadoop&#26102; &#38656;&#35201;&#29992;&#21040;&#30340;&#29992;&#25143;</span>
+
+</li>
+
+</ul><p><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">source .bashrc</span>
+<p><span id="show1_1_1_1" class="foldclosed" onClick="show_folder('1_1_1_1')" style="POSITION: absolute">+</span> <span id="hide1_1_1_1" class="foldopened" onClick="hide_folder('1_1_1_1')">-</span>
+<span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">&#39564;&#35777;</span>
+<ul id="fold1_1_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="color: #111111;">[hadoop@master ~]$ echo $HADOOP_HOME
+<br>
+/home/hadoop/bigdata/hadoop</span>
+<p><span style="color: #111111;">[hadoop@master ~]$ echo $JAVA_HOME
+<br>
+/usr/java/jdk1.8.0_60
+<br>
+[hadoop@master ~]$ java -version
+<br>
+java version "1.8.0_60"
+<br>
+Java(TM) SE Runtime Environment (build 1.8.0_60-b27)
+<br>
+Java HotSpot(TM) 64-Bit Server VM (build 25.60-b23, mixed mode)</span>
+</li>
+</ul><p><span id="show1_1_1_2" class="foldclosed" onClick="show_folder('1_1_1_2')" style="POSITION: absolute">+</span> <span id="hide1_1_1_2" class="foldopened" onClick="hide_folder('1_1_1_2')">-</span>
+<span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">&#25335;&#36125;&#21040;slave&#26426;&#22120;</span>
+<ul id="fold1_1_1_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="color: #111111;">scp .bashrc hadoop@192.168.0.167:/home/hadoop/</span>
+
+</li>
+<li><span style="color: #111111;">scp .bashrc hadoop@192.168.0.168:/home/hadoop/</span>
+
+</li>
+
+</ul><p><span id="show1_1_1_3" class="foldclosed" onClick="show_folder('1_1_1_3')" style="POSITION: absolute">+</span> <span id="hide1_1_1_3" class="foldopened" onClick="hide_folder('1_1_1_3')">-</span>
+<span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">&#39564;&#35777;slave &#37197;&#32622;</span>
+<ul id="fold1_1_1_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="color: #111111;">slave01</span>
+<ul><li><p><span style="color: #111111;">ssh hadoop@192.168.0.167</span>
+<p><span style="color: #111111;">source .bashrc</span>
+<p><span style="color: #111111;">[hadoop@slave01 ~]$ echo $HADOOP_HOME
+<br>
+/home/hadoop/bigdata/hadoop
+<br>
+[hadoop@slave01 ~]$ 
+<br>
+[hadoop@slave01 ~]$ echo $JAVA_HOME
+<br>
+/usr/java/jdk1.8.0_60
+<br>
+[hadoop@slave01 ~]$ java -version
+<br>
+java version "1.8.0_60"
+<br>
+Java(TM) SE Runtime Environment (build 1.8.0_60-b27)
+<br>
+Java HotSpot(TM) 64-Bit Server VM (build 25.60-b23, mixed mode)</span>
+</li>
+</ul>
+</li>
+<li><span style="color: #111111;">slave02</span>
+<ul><li><p><span style="color: #111111;">ssh hadoop@192.168.0.168</span>
+<p><span style="color: #111111;">source .bashrc</span>
+<p><span style="color: #111111;">[hadoop@slave02 ~]$ echo $HADOOP_HOME
+<br>
+/home/hadoop/bigdata/hadoop
+<br>
+[hadoop@slave02 ~]$ 
+<br>
+[hadoop@slave02 ~]$ echo $JAVA_HOME
+<br>
+/usr/java/jdk1.8.0_60
+<br>
+[hadoop@slave02 ~]$ java -version
+<br>
+java version "1.8.0_60"
+<br>
+Java(TM) SE Runtime Environment (build 1.8.0_60-b27)
+<br>
+Java HotSpot(TM) 64-Bit Server VM (build 25.60-b23, mixed mode)
+<br>
+[hadoop@slave02 ~]$ </span>
+</li>
+</ul>
+</li>
+
+</ul></li>
+</ul>
+</li>
+<li><span id="show1_1_2" class="foldclosed" onClick="show_folder('1_1_2')" style="POSITION: absolute">+</span> <span id="hide1_1_2" class="foldopened" onClick="hide_folder('1_1_2')">-</span>
+<span style="color: #00b439;font-size: 133%;font-family: SansSerif, sans-serif; ">&#37197;&#32622;&#26080;&#23494;&#30721;&#30331;&#24405;</span>
+<ul id="fold1_1_2" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_1_2_1" class="foldclosed" onClick="show_folder('1_1_2_1')" style="POSITION: absolute">+</span> <span id="hide1_1_2_1" class="foldopened" onClick="hide_folder('1_1_2_1')">-</span>
+<span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">&#30446;&#30340;</span>
+<ul id="fold1_1_2_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="color: #111111;">&#30331;&#24405;&#26041;&#20415;</span>
+
+</li>
+<li><span style="color: #111111;">&#20256;&#36755;&#25991;&#20214;&#26041;&#20415;</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1_2_2" class="foldclosed" onClick="show_folder('1_1_2_2')" style="POSITION: absolute">+</span> <span id="hide1_1_2_2" class="foldopened" onClick="hide_folder('1_1_2_2')">-</span>
+<span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">master</span>
+<ul id="fold1_1_2_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="color: #111111;">&#25805;&#20316;&#30446;&#24405; /home/hadoop/.ssh</span>
+
+</li>
+<li><span id="show1_1_2_2_1" class="foldclosed" onClick="show_folder('1_1_2_2_1')" style="POSITION: absolute">+</span> <span id="hide1_1_2_2_1" class="foldopened" onClick="hide_folder('1_1_2_2_1')">-</span>
+<span style="color: #111111;">&#29983;&#25104;&#20844;&#38053;</span>
+<ul id="fold1_1_2_2_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="color: #111111;">ssh-keygen</span>
+<ul><li><p><span style="color: #111111;">[hadoop@master .ssh]$ ssh-keygen
+<br>
+Generating public/private rsa key pair.
+<br>
+Enter file in which to save the key (/home/hadoop/.ssh/id_rsa): 
+<br>
+/home/hadoop/.ssh/id_rsa already exists.
+<br>
+Overwrite (y/n)? y
+<br>
+Enter passphrase (empty for no passphrase): 
+<br>
+Enter same passphrase again: 
+<br>
+Your identification has been saved in /home/hadoop/.ssh/id_rsa.
+<br>
+Your public key has been saved in /home/hadoop/.ssh/id_rsa.pub.
+<br>
+The key fingerprint is:
+<br>
+26:88:c4:9e:98:cb:b5:ff:36:ee:36:9d:8b:15:f4:48 hadoop@master
+<br>
+The key's randomart image is:
+<br>
++--[ RSA 2048]----+
+<br>
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+<br>
+| . &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+<br>
+| &nbsp;o &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+<br>
+| = o . &nbsp;o o &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+<br>
+|o +.. . So . &nbsp;&nbsp;&nbsp;&nbsp;|
+<br>
+|... . &nbsp;o &nbsp;. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+<br>
+|.. . &nbsp;&nbsp;&nbsp;... &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+<br>
+| &nbsp;&nbsp;&nbsp;. &nbsp;=oo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+<br>
+| &nbsp;&nbsp;&nbsp;&nbsp;.*=o.. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+<br>
++-----------------+</span>
+<p><span style="color: #111111;">[hadoop@master .ssh]$ ls -lh
+<br>
+total 16K
+<br>
+-rwxrwx---. 1 hadoop hadoop &nbsp;396 Jan 16 04:06 authorized_keys
+<br>
+-rw-------. 1 hadoop hadoop 1.7K Jan 16 12:39 id_rsa
+<br>
+-rw-r--r--. 1 hadoop hadoop &nbsp;395 Jan 16 12:39 id_rsa.pub
+<br>
+-rw-r--r--. 1 hadoop hadoop 2.7K Jan 14 15:11 known_hosts
+<br>
+[hadoop@master .ssh]$ date
+<br>
+Sat Jan 16 12:43:06 CST 2016
+<br>
+[hadoop@master .ssh]$ </span>
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="color: #111111;">&#25335;&#36125;slave01 slave02 &#21040;master</span>
+<ul><li><span style="color: #111111;">&#22797;&#21046;slave01 &#26426;&#22120;&#19978;&#30340;id_rsa.pub &#30340;&#20869;&#23481;&nbsp;&#21040;master &#30340;&nbsp;authorized_keys &#25991;&#20214;&#20013;</span>
+
+</li>
+<li><span style="color: #111111;">&#22797;&#21046;slave02 &#26426;&#22120;&#19978;&#30340;id_rsa.pub &#30340;&#20869;&#23481;&nbsp;&#21040;master &#30340;&nbsp;authorized_keys &#25991;&#20214;&#20013;</span>
+
+</li>
+<li><span style="color: #111111;">scp hadoop@192.168.0.167:/home/hadoop/.ssh/id_rsa.pub &nbsp;/home/hadoop/.ssh/167.pub</span>
+
+</li>
+<li><span style="color: #111111;">scp hadoop@192.168.0.168:/home/hadoop/.ssh/id_rsa.pub &nbsp;/home/hadoop/.ssh/168.pub</span>
+
+</li>
+<li><span style="color: #111111;">cat 167.pub &gt;&gt; /home/hadoop/.ssh/authorized_keys</span>
+
+</li>
+<li><span style="color: #111111;">cat 168.pub &gt;&gt; /home/hadoop/.ssh/authorized_keys</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #111111;">&#35774;&#32622;&#26435;&#38480;</span>
+<ul><li><span style="color: #111111;">chmod 600 authorized_keys</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #111111;">&#39564;&#35777; &#26080;&#23494;&#30721;&#30331;&#24405;</span>
+<ul><li><span style="color: #111111;">ssh 192.168.0.167</span>
+
+</li>
+<li><span style="color: #111111;">ssh 192.168.0.168</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1_2_3" class="foldclosed" onClick="show_folder('1_1_2_3')" style="POSITION: absolute">+</span> <span id="hide1_1_2_3" class="foldopened" onClick="hide_folder('1_1_2_3')">-</span>
+<span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">slave01</span>
+<ul id="fold1_1_2_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="color: #111111;">&#25805;&#20316;&#30446;&#24405; /home/hadoop/.ssh</span>
+
+</li>
+<li><span style="color: #111111;">&#29983;&#25104;&#20844;&#38053;</span>
+<ul><li><span style="color: #111111;">ssh-keygen</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #111111;">&#25335;&#36125;master &nbsp;slave02 &#21040;slave01</span>
+<ul><li><span style="color: #111111;">&#22797;&#21046;master &#26426;&#22120;&#19978;&#30340;id_rsa.pub &#30340;&#20869;&#23481;&nbsp;&#21040;slave01 &#30340;&nbsp;authorized_keys &#25991;&#20214;&#20013;</span>
+
+</li>
+<li><span style="color: #111111;">&#22797;&#21046;slave02 &#26426;&#22120;&#19978;&#30340;id_rsa.pub &#30340;&#20869;&#23481;&nbsp;&#21040;slave01 &#30340;&nbsp;authorized_keys &#25991;&#20214;&#20013;</span>
+
+</li>
+<li><span style="color: #111111;">scp hadoop@192.168.0.166:/home/hadoop/.ssh/id_rsa.pub &nbsp;/home/hadoop/.ssh/166.pub</span>
+
+</li>
+<li><span style="color: #111111;">scp hadoop@192.168.0.168:/home/hadoop/.ssh/id_rsa.pub &nbsp;/home/hadoop/.ssh/168.pub</span>
+
+</li>
+<li><span style="color: #111111;">cat 166.pub &gt;&gt; /home/hadoop/.ssh/authorized_keys</span>
+
+</li>
+<li><span style="color: #111111;">cat 168.pub &gt;&gt; /home/hadoop/.ssh/authorized_keys</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #111111;">&#35774;&#32622;&#26435;&#38480;</span>
+<ul><li><span style="color: #111111;">chmod 600 authorized_keys</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #111111;">&#39564;&#35777; &#26080;&#23494;&#30721;&#30331;&#24405;</span>
+<ul><li><span style="color: #111111;">ssh 192.168.0.166</span>
+
+</li>
+<li><span style="color: #111111;">ssh 192.168.0.168</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">slave02</span>
+<ul><li><span style="color: #111111;">&#25805;&#20316;&#30446;&#24405; /home/hadoop/.ssh</span>
+
+</li>
+<li><span style="color: #111111;">&#29983;&#25104;&#20844;&#38053;</span>
+<ul><li><span style="color: #111111;">ssh-keygen</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #111111;">&#25335;&#36125;master slave01 &#21040;slave02</span>
+<ul><li><span style="color: #111111;">&#22797;&#21046;master &#26426;&#22120;&#19978;&#30340;id_rsa.pub &#30340;&#20869;&#23481;&nbsp;&#21040;slave02 &#30340;&nbsp;authorized_keys &#25991;&#20214;&#20013;</span>
+
+</li>
+<li><span style="color: #111111;">&#22797;&#21046;slave01 &#26426;&#22120;&#19978;&#30340;id_rsa.pub &#30340;&#20869;&#23481;&nbsp;&#21040;slave02&#30340; authorized_keys &#25991;&#20214;&#20013;</span>
+
+</li>
+<li><span style="color: #111111;">scp hadoop@192.168.0.166:/home/hadoop/.ssh/id_rsa.pub &nbsp;/home/hadoop/.ssh/166.pub</span>
+
+</li>
+<li><span style="color: #111111;">scp hadoop@192.168.0.167:/home/hadoop/.ssh/id_rsa.pub &nbsp;/home/hadoop/.ssh/167.pub</span>
+
+</li>
+<li><span style="color: #111111;">cat 166.pub &gt;&gt; /home/hadoop/.ssh/authorized_keys</span>
+
+</li>
+<li><span style="color: #111111;">cat 167.pub &gt;&gt; /home/hadoop/.ssh/authorized_keys</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #111111;">&#35774;&#32622;&#26435;&#38480;</span>
+<ul><li><span style="color: #111111;">chmod 600 authorized_keys</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #111111;">&#39564;&#35777; &#26080;&#23494;&#30721;&#30331;&#24405;</span>
+<ul><li><span style="color: #111111;">ssh 192.168.0.166</span>
+
+</li>
+<li><span style="color: #111111;">ssh 192.168.0.167</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1_3" class="foldclosed" onClick="show_folder('1_1_3')" style="POSITION: absolute">+</span> <span id="hide1_1_3" class="foldopened" onClick="hide_folder('1_1_3')">-</span>
+<span style="color: #00b439;font-size: 133%;font-family: SansSerif, sans-serif; ">&#37197;&#32622;hadoop</span>
+<ul id="fold1_1_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">&#23558;hadoop &#23433;&#35013;&#25991;&#20214;&#22797;&#21046;&#21040;&nbsp;master&#26426;&#22120;</span>
+<ul><li><span style="color: #111111;">scp hadoop-2.7.1.tar.gz &nbsp;hadoop@192.168.0.166:/home/hadoop/</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">&#35299;&#21387;&#32553;&#21644;&#25913;&#30446;&#24405;</span>
+<ul><li><p><span style="color: #111111;">tar -zxf hadoop-2.7.1.tar.gz
+<br>
+mkdir bigdata
+<br>
+mv hadoop-2.7.1 bigdata/
+<br>
+cd bigdata/
+<br>
+mv hadoop-2.7.1 hadoop</span>
+</li>
+</ul>
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">&#37197;&#32622;&#25991;&#20214;</span>
+<ul><li><span style="color: #111111;">&#25991;&#20214;&#22312;/home/hadoop/bigdata/hadoop/etc/hadoop</span>
+
+</li>
+<li><span style="color: #111111;">&#38656;&#20462;&#25913;&#30340;&#25991;&#20214;</span>
+<ul><li><span style="color: #111111;">core-site.xml </span>
+<ul><li><p><span style="color: #111111;">&lt;configuration&gt;
+<br>
+	&lt;property&gt;
+<br>
+		&lt;name&gt;fs.defaultFS&lt;/name&gt;
+<br>
+		&lt;value&gt;hdfs://192.168.0.166:9000/&lt;/value&gt;
+<br>
+	&lt;/property&gt;
+<br>
+	&lt;property&gt;
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- &#35774;&#32622;&#27599;&#20010;&#33410;&#28857;&#20020;&#26102;&#25991;&#20214;&#30446;&#24405;&nbsp;--&gt;
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- &#24403;&#21069;&#29992;&#25143;&#39035;&#35201;&#23545;&#27492;&#30446;&#24405;&#26377;&#35835;&#20889;&#26435;&#38480;&#65292;&#21551;&#21160;&#38598;&#32676;&#26102;&#33258;&#21160;&#21019;&#24314;&nbsp;&nbsp;--&gt;
+<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;value&gt;/home/hadoop/bigdata/data/hadoop/tmp&lt;/value&gt;
+<br>
+&#12288;&#12288; &lt;/property&gt;
+<br>
+&lt;/configuration&gt;</span>
+</li>
+</ul>
+</li>
+<li><span style="color: #111111;">hdfs-site.xml </span>
+<ul><li><p><span style="color: #111111;">&lt;configuration&gt;
+<br>
+	&lt;property&gt;
+<br>
+	 &nbsp;&nbsp;&nbsp;&lt;!-- &#25351;&#23450;SecondaryNamenode&#25152;&#22312;&#22320;&#22336;&#12290;&#26412;&#20363;&#35774;&#20026;&#21644;NN&#22312;&#21516;&#19968;&#20010;&#20027;&#26426; --&gt;
+<br>
+	 &nbsp;&nbsp;&nbsp;&lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;
+<br>
+	 &nbsp;&nbsp;&nbsp;&lt;value&gt;master:9001&lt;/value&gt;
+<br>
+	&lt;/property&gt;
+<br>
+	&lt;property&gt;
+<br>
+		&lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+<br>
+		&lt;value&gt;file:/home/hadoop/bigdata/data/hadoop/hdfs/datanode&lt;/value&gt;
+<br>
+	&lt;/property&gt;
+<br>
+	&lt;property&gt;
+<br>
+		&lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+<br>
+		&lt;value&gt;file:/home/hadoop/bigdata/data/hadoop/hdfs/namenode&lt;/value&gt;
+<br>
+	&lt;/property&gt;
+<br>
+
+<br>
+	&lt;property&gt;
+<br>
+		&lt;name&gt;dfs.replication&lt;/name&gt;
+<br>
+		&lt;value&gt;3&lt;/value&gt;
+<br>
+	&lt;/property&gt;
+<br>
+&lt;/configuration&gt;</span>
+</li>
+</ul>
+</li>
+<li><span style="color: #111111;"> mapred-site.xml</span>
+<ul><li><p><span style="color: #111111;">&lt;configuration&gt;
+<br>
+	&lt;property&gt;
+<br>
+		&lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+<br>
+		&lt;value&gt;yarn&lt;/value&gt;
+<br>
+	&lt;/property&gt;
+<br>
+&lt;/configuration&gt;</span>
+</li>
+</ul>
+</li>
+<li><span style="color: #111111;">yarn-site.xml</span>
+<ul><li><p><span style="color: #111111;">&lt;configuration&gt;
+<br>
+
+<br>
+&lt;!-- Site specific YARN configuration properties --&gt;
+<br>
+	&lt;property&gt;
+<br>
+		&lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;
+<br>
+		&lt;value&gt;master&lt;/value&gt;
+<br>
+	&lt;/property&gt;
+<br>
+	&lt;property&gt;
+<br>
+		&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+<br>
+		&lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+<br>
+	&lt;/property&gt;
+<br>
+&lt;/configuration&gt;</span>
+</li>
+</ul>
+</li>
+<li><span style="color: #111111;">slaves</span>
+<ul><li><span style="color: #111111;">slave01
+<br>
+slave02</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #111111;">hadoop-policy.xml </span>
+
+</li>
+<li><span style="color: #111111;">httpfs-site.xml</span>
+
+</li>
+<li><span style="color: #111111;">kms-acls.xml </span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1_3_1" class="foldclosed" onClick="show_folder('1_1_3_1')" style="POSITION: absolute">+</span> <span id="hide1_1_3_1" class="foldopened" onClick="hide_folder('1_1_3_1')">-</span>
+<span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">&#23558;&#37197;&#32622;&#22909;&#30340;&#22797;&#21046;&#21040;slave</span>
+<ul id="fold1_1_3_1" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="color: #111111;">chmod -R 777 /home/hadoop/bigdata/data/hadoop/tmp
+<br>
+cd /home/hadoop
+<br>
+tar -czf bigdata.tar.gz bigdata/
+<br>
+scp bigdata.tar.gz 192.168.0.167:/home/hadoop/
+<br>
+scp bigdata.tar.gz 192.168.0.168:/home/hadoop/</span>
+<p><span style="color: #111111;">slave01</span>
+<ul><li><span style="color: #111111;">tar -zxf bigdata.tar.gz </span>
+
+</li>
+
+</ul><p><span style="color: #111111;">slave02</span>
+<ul><li><span style="color: #111111;">tar -zxf bigdata.tar.gz </span>
+
+</li>
+
+</ul></li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1_4" class="foldclosed" onClick="show_folder('1_1_4')" style="POSITION: absolute">+</span> <span id="hide1_1_4" class="foldopened" onClick="hide_folder('1_1_4')">-</span>
+<span style="color: #00b439;font-size: 133%;font-family: SansSerif, sans-serif; ">&#21551;&#21160;hadoop</span>
+<ul id="fold1_1_4" style="POSITION: relative; VISIBILITY: visible;"><li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">&#21551;&#21160;&#21629;&#20196;&#22312;&#65306;/home/hadoop/bigdata/hadoop/sbin</span>
+
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">hdfs namenode -format</span>
+
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">./start-all.sh</span>
+<ul><li><p><span style="color: #111111;">[hadoop@master sbin]$ ./start-all.sh 
+<br>
+This script is Deprecated. Instead use start-dfs.sh and start-yarn.sh
+<br>
+16/01/16 15:13:44 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+<br>
+Starting namenodes on [master]
+<br>
+hadoop@master's password: 
+<br>
+master: starting namenode, logging to /home/hadoop/bigdata/hadoop/logs/hadoop-hadoop-namenode-master.out
+<br>
+slave02: starting datanode, logging to /home/hadoop/bigdata/hadoop/logs/hadoop-hadoop-datanode-slave02.out
+<br>
+slave01: starting datanode, logging to /home/hadoop/bigdata/hadoop/logs/hadoop-hadoop-datanode-slave01.out
+<br>
+Starting secondary namenodes [master]
+<br>
+hadoop@master's password: 
+<br>
+master: starting secondarynamenode, logging to /home/hadoop/bigdata/hadoop/logs/hadoop-hadoop-secondarynamenode-master.out
+<br>
+16/01/16 15:15:01 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+<br>
+starting yarn daemons
+<br>
+starting resourcemanager, logging to /home/hadoop/bigdata/hadoop/logs/yarn-hadoop-resourcemanager-master.out
+<br>
+slave02: starting nodemanager, logging to /home/hadoop/bigdata/hadoop/logs/yarn-hadoop-nodemanager-slave02.out
+<br>
+slave01: starting nodemanager, logging to /home/hadoop/bigdata/hadoop/logs/yarn-hadoop-nodemanager-slave01.out
+<br>
+[hadoop@master sbin]$ </span>
+</li>
+</ul>
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">master</span>
+<ul><li><span style="color: #111111;">[hadoop@master sbin]$ jps
+<br>
+13952 Jps
+<br>
+13350 NameNode
+<br>
+13543 SecondaryNameNode
+<br>
+13695 ResourceManager</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">slave01</span>
+<ul><li><span style="color: #111111;">[hadoop@slave01 logs]$ jps
+<br>
+3664 NodeManager
+<br>
+3560 DataNode
+<br>
+3800 Jps</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">slave02</span>
+<ul><li><span style="color: #111111;">[hadoop@slave02 ~]$ jps
+<br>
+3907 Jps
+<br>
+3875 NodeManager
+<br>
+3771 DataNode</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1_5" class="foldclosed" onClick="show_folder('1_1_5')" style="POSITION: absolute">+</span> <span id="hide1_1_5" class="foldopened" onClick="hide_folder('1_1_5')">-</span>
+<span style="color: #00b439;font-size: 133%;font-family: SansSerif, sans-serif; ">&#36935;&#21040;&#30340;&#38382;&#39064;</span>
+<ul id="fold1_1_5" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">Could not resolve hostname localhost: Name or service not known</span>
+<ul><li><span style="color: #111111;">slaves &#27809;&#26377;&#37197;&#32622;</span>
+
+</li>
+
+</ul><p><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">slave &#27809;&#26377;&#21551;&#21160;</span>
+<ul><li><span style="color: #111111;">/etc/hosts &#27809;&#26377;&#37197;&#32622;</span>
+
+</li>
+
+</ul><p><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">2016-01-16 14:52:06,957 ERROR org.apache.hadoop.hdfs.server.namenode.NameNode: Failed to start namenode.
+<br>
+java.io.IOException: NameNode is not formatted.
+<br>
+	at org.apache.hadoop.hdfs.server.namenode.FSImage.recoverTransitionRead(FSImage.java:225)
+<br>
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.loadFSImage(FSNamesystem.java:975)
+<br>
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.loadFromDisk(FSNamesystem.java:681)
+<br>
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.loadNamesystem(NameNode.java:584)
+<br>
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.initialize(NameNode.java:644)
+<br>
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.&lt;init&gt;(NameNode.java:811)
+<br>
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.&lt;init&gt;(NameNode.java:795)
+<br>
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.createNameNode(NameNode.java:1488)
+<br>
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.main(NameNode.java:1554)
+<br>
+2016-01-16 14:52:06,963 INFO org.apache.hadoop.util.ExitUtil: Exiting with status 1</span>
+<ul><li><span style="color: #111111;">hdfs namenode -format</span>
+
+</li>
+
+</ul></li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_2" class="foldclosed" onClick="show_folder('1_2')" style="POSITION: absolute">+</span> <span id="hide1_2" class="foldopened" onClick="hide_folder('1_2')">-</span>
+<span style="color: #0033ff;font-size: 150%;font-family: SansSerif, sans-serif; ">5 &#39564;&#35777;</span>
+<ul id="fold1_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="color: #00b439;font-size: 133%;font-family: SansSerif, sans-serif; ">master</span>
+<ul><li><p><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">[hadoop@master sbin]$ hdfs dfsadmin -report
+<br>
+16/01/16 15:16:52 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+<br>
+Configured Capacity: 19391348736 (18.06 GB)
+<br>
+Present Capacity: 12925202432 (12.04 GB)
+<br>
+DFS Remaining: 12925153280 (12.04 GB)
+<br>
+DFS Used: 49152 (48 KB)
+<br>
+DFS Used%: 0.00%
+<br>
+Under replicated blocks: 0
+<br>
+Blocks with corrupt replicas: 0
+<br>
+Missing blocks: 0
+<br>
+Missing blocks (with replication factor 1): 0
+<br>
+
+<br>
+-------------------------------------------------
+<br>
+Live datanodes (2):
+<br>
+
+<br>
+Name: 192.168.0.167:50010 (slave01)
+<br>
+Hostname: slave01
+<br>
+Decommission Status : Normal
+<br>
+Configured Capacity: 9695674368 (9.03 GB)
+<br>
+DFS Used: 24576 (24 KB)
+<br>
+Non DFS Used: 3649736704 (3.40 GB)
+<br>
+DFS Remaining: 6045913088 (5.63 GB)
+<br>
+DFS Used%: 0.00%
+<br>
+DFS Remaining%: 62.36%
+<br>
+Configured Cache Capacity: 0 (0 B)
+<br>
+Cache Used: 0 (0 B)
+<br>
+Cache Remaining: 0 (0 B)
+<br>
+Cache Used%: 100.00%
+<br>
+Cache Remaining%: 0.00%
+<br>
+Xceivers: 1
+<br>
+Last contact: Sat Jan 16 15:16:53 CST 2016
+<br>
+
+<br>
+
+<br>
+Name: 192.168.0.168:50010 (slave02)
+<br>
+Hostname: slave02
+<br>
+Decommission Status : Normal
+<br>
+Configured Capacity: 9695674368 (9.03 GB)
+<br>
+DFS Used: 24576 (24 KB)
+<br>
+Non DFS Used: 2816409600 (2.62 GB)
+<br>
+DFS Remaining: 6879240192 (6.41 GB)
+<br>
+DFS Used%: 0.00%
+<br>
+DFS Remaining%: 70.95%
+<br>
+Configured Cache Capacity: 0 (0 B)
+<br>
+Cache Used: 0 (0 B)
+<br>
+Cache Remaining: 0 (0 B)
+<br>
+Cache Used%: 100.00%
+<br>
+Cache Remaining%: 0.00%
+<br>
+Xceivers: 1
+<br>
+Last contact: Sat Jan 16 15:16:53 CST 2016</span>
+<p><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">hdfs dfs -mkdir /test
+<br>
+[hadoop@master hadoop]$ hdfs dfs -ls /
+<br>
+drwxr-xr-x &nbsp;&nbsp;- hadoop supergroup &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 2016-01-16 15:19 /test
+<br>
+[hadoop@master hadoop]$ hdfs dfs -copyFromLocal ./NOTICE.txt /test
+<br>
+[hadoop@master hadoop]$ 
+<br>
+[hadoop@master hadoop]$ hdfs dfs -ls /test
+<br>
+Found 1 items
+<br>
+-rw-r--r-- &nbsp;&nbsp;3 hadoop supergroup &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;101 2016-01-16 15:21 /test/NOTICE.txt
+<br>
+hadoop jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.1.jar wordcount /test/NOTICE.txt /output03
+<br>
+16/01/16 15:24:58 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+<br>
+16/01/16 15:25:00 INFO client.RMProxy: Connecting to ResourceManager at master/192.168.0.166:8032
+<br>
+16/01/16 15:25:02 INFO input.FileInputFormat: Total input paths to process : 1
+<br>
+16/01/16 15:25:03 INFO mapreduce.JobSubmitter: number of splits:1
+<br>
+16/01/16 15:25:03 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1452928505894_0001
+<br>
+16/01/16 15:25:04 INFO impl.YarnClientImpl: Submitted application application_1452928505894_0001
+<br>
+16/01/16 15:25:04 INFO mapreduce.Job: The url to track the job: http://master:8088/proxy/application_1452928505894_0001/
+<br>
+16/01/16 15:25:04 INFO mapreduce.Job: Running job: job_1452928505894_0001
+<br>
+16/01/16 15:25:22 INFO mapreduce.Job: Job job_1452928505894_0001 running in uber mode : false
+<br>
+16/01/16 15:25:22 INFO mapreduce.Job: &nbsp;map 0% reduce 0%
+<br>
+16/01/16 15:25:30 INFO mapreduce.Job: &nbsp;map 100% reduce 0%
+<br>
+16/01/16 15:25:43 INFO mapreduce.Job: &nbsp;map 100% reduce 100%
+<br>
+16/01/16 15:25:43 INFO mapreduce.Job: Job job_1452928505894_0001 completed successfully
+<br>
+16/01/16 15:25:44 INFO mapreduce.Job: Counters: 49
+<br>
+	File System Counters
+<br>
+		FILE: Number of bytes read=173
+<br>
+		FILE: Number of bytes written=231305
+<br>
+		FILE: Number of read operations=0
+<br>
+		FILE: Number of large read operations=0
+<br>
+		FILE: Number of write operations=0
+<br>
+		HDFS: Number of bytes read=207
+<br>
+		HDFS: Number of bytes written=123
+<br>
+		HDFS: Number of read operations=6
+<br>
+		HDFS: Number of large read operations=0
+<br>
+		HDFS: Number of write operations=2
+<br>
+	Job Counters 
+<br>
+		Launched map tasks=1
+<br>
+		Launched reduce tasks=1
+<br>
+		Data-local map tasks=1
+<br>
+		Total time spent by all maps in occupied slots (ms)=6503
+<br>
+		Total time spent by all reduces in occupied slots (ms)=9816
+<br>
+		Total time spent by all map tasks (ms)=6503
+<br>
+		Total time spent by all reduce tasks (ms)=9816
+<br>
+		Total vcore-seconds taken by all map tasks=6503
+<br>
+		Total vcore-seconds taken by all reduce tasks=9816
+<br>
+		Total megabyte-seconds taken by all map tasks=6659072
+<br>
+		Total megabyte-seconds taken by all reduce tasks=10051584
+<br>
+	Map-Reduce Framework
+<br>
+		Map input records=2
+<br>
+		Map output records=11
+<br>
+		Map output bytes=145
+<br>
+		Map output materialized bytes=173
+<br>
+		Input split bytes=106
+<br>
+		Combine input records=11
+<br>
+		Combine output records=11
+<br>
+		Reduce input groups=11
+<br>
+		Reduce shuffle bytes=173
+<br>
+		Reduce input records=11
+<br>
+		Reduce output records=11
+<br>
+		Spilled Records=22
+<br>
+		Shuffled Maps =1
+<br>
+		Failed Shuffles=0
+<br>
+		Merged Map outputs=1
+<br>
+		GC time elapsed (ms)=257
+<br>
+		CPU time spent (ms)=1870
+<br>
+		Physical memory (bytes) snapshot=288600064
+<br>
+		Virtual memory (bytes) snapshot=4119134208
+<br>
+		Total committed heap usage (bytes)=138178560
+<br>
+	Shuffle Errors
+<br>
+		BAD_ID=0
+<br>
+		CONNECTION=0
+<br>
+		IO_ERROR=0
+<br>
+		WRONG_LENGTH=0
+<br>
+		WRONG_MAP=0
+<br>
+		WRONG_REDUCE=0
+<br>
+	File Input Format Counters 
+<br>
+		Bytes Read=101
+<br>
+	File Output Format Counters 
+<br>
+		Bytes Written=123
+<br>
+[hadoop@master hadoop]$ </span>
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+
+</li>
+</ul>
+
+<SCRIPT type="text/javascript">
+fold_document();
+</SCRIPT>
+
+</body>
+</html>

@@ -1,0 +1,737 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><HTML><HEAD><META 
+content="IE=11.0000" http-equiv="X-UA-Compatible">
+ <TITLE>hadoop搭建环境</TITLE> 
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<STYLE type="text/css">
+    li { list-style: none;  margin: 0; }
+    p { margin: 0; }
+    span.foldopened { color: white; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: visible;
+    cursor:pointer; }
+
+
+    span.foldclosed { color: #666666; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: hidden;
+    cursor:pointer; }
+
+    span.foldspecial { color: #666666; font-size: xx-small; border-style: none solid solid none;
+    border-color: #CCCCCC; border-width: 1; font-family: sans-serif; padding: 0em 0.1em 0em 0.1em; background: #e0e0e0;
+    cursor:pointer; }
+
+    span.l { color: red; font-weight: bold; }
+
+    a.mapnode:link {text-decoration: none; color: black; }
+    a.mapnode:visited {text-decoration: none; color: black; }
+    a.mapnode:active {text-decoration: none; color: black; }
+    a.mapnode:hover {text-decoration: none; color: black; background: #eeeee0; }
+
+</STYLE>
+ <!-- ^ Position is not set to relative / absolute here because of Mozilla --> 
+<META name="GENERATOR" content="MSHTML 11.00.9600.18161"></HEAD> 
+<BODY>
+<SCRIPT type="text/javascript">
+   // Here we implement folding. It works fine with MSIE5.5, MSIE6.0 and
+   // Mozilla 0.9.6.
+
+   if (document.layers) {
+      //Netscape 4 specific code
+      pre = 'document.';
+      post = ''; }
+   if (document.getElementById) {
+      //Netscape 6 specific code
+      pre = 'document.getElementById("';
+      post = '").style'; }
+   if (document.all) {
+      //IE4+ specific code
+      pre = 'document.all.';
+      post = '.style'; }
+
+function layer_exists(layer) {
+   try {
+      eval(pre + layer + post);
+      return true; }
+   catch (error) {
+      return false; }}
+
+function show_layer(layer) {
+   eval(pre + layer + post).position = 'relative'; 
+   eval(pre + layer + post).visibility = 'visible'; }
+
+function hide_layer(layer) {
+   eval(pre + layer + post).visibility = 'hidden';
+   eval(pre + layer + post).position = 'absolute'; }
+
+function hide_folder(folder) {
+    hide_folding_layer(folder)
+    show_layer('show'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function show_folder(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_layer('show'+folder+'_'+i); }
+}
+function show_folder_completely(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+
+
+function hide_folding_layer(folder) {
+   var i;
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folding_layer(folder+'_'+i); }
+
+   hide_layer('hide'+folder);
+   hide_layer('show'+folder);
+   hide_layer('fold'+folder);
+
+   scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function fold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folder(folder+'_'+i); }
+}
+
+function unfold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+</SCRIPT>
+ <SPAN class="foldspecial" onclick="fold_document()">All +</SPAN> <SPAN class="foldspecial" 
+onclick="unfold_document()">All -</SPAN> 
+<P><SPAN style="color: rgb(0, 0, 0); font-family: SansSerif, sans-serif; font-size: 166%;">hadoop搭建环境</SPAN> 
+<UL>
+  <LI><SPAN class="foldclosed" id="show1_3" style="position: absolute;" onclick="show_folder('1_3')">+</SPAN> 
+  <SPAN class="foldopened" id="hide1_3" onclick="hide_folder('1_3')">-</SPAN> 
+  <SPAN style="color: rgb(0, 51, 255); font-family: SansSerif, sans-serif; font-size: 150%;">1 
+  目的</SPAN> 
+  <UL id="fold1_3" style="visibility: visible; position: relative;">
+    <LI><SPAN style="color: rgb(0, 180, 57); font-family: SansSerif, sans-serif; font-size: 133%;">将hadoop 
+    2.7.1 安装到&nbsp;166、167、168 三台机器上</SPAN> </LI></UL></LI>
+  <LI><SPAN class="foldclosed" id="show1_4" style="position: absolute;" onclick="show_folder('1_4')">+</SPAN> 
+  <SPAN class="foldopened" id="hide1_4" onclick="hide_folder('1_4')">-</SPAN> 
+  <SPAN style="color: rgb(0, 51, 255); font-family: SansSerif, sans-serif; font-size: 150%;">2 
+  提供环境</SPAN> 
+  <UL id="fold1_4" style="visibility: visible; position: relative;">
+    <LI><SPAN style="color: rgb(0, 180, 57); font-family: SansSerif, sans-serif; font-size: 133%;">跳扳机</SPAN> 
+    <UL>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">ssh: 
+      &nbsp;&nbsp;&nbsp;210.14.77.99 22 <BR>user：open <BR>passwd：123456</SPAN> 
+      </LI></UL></LI>
+    <LI><SPAN style="color: rgb(0, 180, 57); font-family: SansSerif, sans-serif; font-size: 133%;">练习环境</SPAN> 
+    <UL>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">192.168.0.166 
+      master <BR>192.168.0.167 slave01 <BR>192.168.0.168 slave02</SPAN> </LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">user：hadoop 
+      <BR>passwd: hadoop</SPAN> </LI></UL></LI></UL></LI>
+  <LI><SPAN class="foldclosed" id="show1_5" style="position: absolute;" onclick="show_folder('1_5')">+</SPAN> 
+  <SPAN class="foldopened" id="hide1_5" onclick="hide_folder('1_5')">-</SPAN> 
+  <SPAN style="color: rgb(0, 51, 255); font-family: SansSerif, sans-serif; font-size: 150%;">3 
+  准备工作</SPAN> 
+  <UL id="fold1_5" style="visibility: visible; position: relative;">
+    <LI><SPAN style="color: rgb(0, 180, 57); font-family: SansSerif, sans-serif; font-size: 133%;">检查环境</SPAN> 
+    <UL>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">1）服务器是否可登录</SPAN> 
+      <UL>
+        <LI><SPAN style="color: rgb(17, 17, 17);">三台可正常登录</SPAN> </LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">1）ssh user@ip <BR>2）输入 
+        passwd</SPAN> </LI></UL></LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">2）是否有权限进行写操作</SPAN> 
+      <UL>
+        <LI><SPAN style="color: rgb(17, 17, 17);">有权限</SPAN> </LI></UL></LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">3）硬盘是否有空间供操作</SPAN> 
+      <UL>
+        <LI><SPAN style="color: rgb(17, 17, 17);">df -lh</SPAN> </LI></UL></LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">4）检查hadoop环境依赖</SPAN> 
+      <UL>
+        <LI><SPAN style="color: rgb(17, 17, 17);">uname -a</SPAN> 
+        <UL>
+          <LI><SPAN style="color: rgb(17, 17, 17);">Linux 
+          2.6.32-504.30.3.el6.x86_64</SPAN> </LI></UL></LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">java -version</SPAN> 
+        <UL>
+          <LI>
+          <P><SPAN style="color: rgb(17, 17, 17);">[hadoop@master ~]$ java 
+          -version <BR>java version "1.8.0_60" <BR>Java(TM) SE Runtime 
+          Environment (build 1.8.0_60-b27) <BR>Java HotSpot(TM) 64-Bit Server VM 
+          (build 25.60-b23, mixed mode)</SPAN> </P></LI></UL></LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">openssh</SPAN> 
+    </LI></UL></LI></UL></LI>
+    <LI><SPAN style="color: rgb(0, 180, 57); font-family: SansSerif, sans-serif; font-size: 133%;">准备安装文件</SPAN> 
+    <UL>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">jdk-8u60-linux-x64.rpm</SPAN> 
+      </LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">hadoop-2.7.1.tar.gz</SPAN> 
+      </LI></UL></LI>
+    <LI><SPAN style="color: rgb(0, 180, 57); font-family: SansSerif, sans-serif; font-size: 133%;">会用到命令</SPAN> 
+    <UL>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">scp</SPAN> 
+      </LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">rpm</SPAN> 
+      </LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">ssh</SPAN> 
+      </LI></UL></LI>
+    <LI><SPAN style="color: rgb(0, 180, 57); font-family: SansSerif, sans-serif; font-size: 133%;">配置hostname</SPAN> 
+    <UL>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">vi 
+      /etc/hosts <BR>192.168.0.166 master <BR>192.168.0.167 slave01 <BR>
+      192.168.0.168 slave02</SPAN> </LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">master</SPAN> 
+      <UL>
+        <LI><SPAN style="color: rgb(17, 17, 17);">[hadoop@master backup]$ cat 
+        /etc/sysconfig/network <BR>NETWORKING=yes <BR>HOSTNAME=master</SPAN> 
+        </LI></UL></LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">slave01</SPAN> 
+      <UL>
+        <LI><SPAN style="color: rgb(17, 17, 17);">[hadoop@slave01 logs]$ cat 
+        /etc/sysconfig/network <BR>NETWORKING=yes <BR>HOSTNAME=slave01</SPAN> 
+        </LI></UL></LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">slave02</SPAN> 
+      <UL>
+        <LI><SPAN style="color: rgb(17, 17, 17);">[hadoop@slave02 ~]$ cat 
+        /etc/sysconfig/network <BR>NETWORKING=yes <BR>HOSTNAME=slave02</SPAN> 
+        </LI></UL></LI></UL></LI></UL>
+  <LI><SPAN class="foldclosed" id="show1_1" style="position: absolute;" onclick="show_folder('1_1')">+</SPAN> 
+  <SPAN class="foldopened" id="hide1_1" onclick="hide_folder('1_1')">-</SPAN> 
+  <SPAN style="color: rgb(0, 51, 255); font-family: SansSerif, sans-serif; font-size: 150%;">4 
+  正式安装</SPAN> 
+  <UL id="fold1_1" style="visibility: visible; position: relative;">
+    <LI><SPAN class="foldclosed" id="show1_1_1" style="position: absolute;" 
+    onclick="show_folder('1_1_1')">+</SPAN> <SPAN class="foldopened" id="hide1_1_1" 
+    onclick="hide_folder('1_1_1')">-</SPAN> <SPAN style="color: rgb(0, 180, 57); font-family: SansSerif, sans-serif; font-size: 133%;">配置环境变量</SPAN> 
+    <UL id="fold1_1_1" style="visibility: visible; position: relative;">
+      <LI>
+      <P><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">设置文件 
+      .bashrc</SPAN> 
+      <P><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">export 
+      JAVA_HOME=/usr/java/jdk1.8.0_60 <BR>export 
+      HADOOP_HOME=/home/hadoop/bigdata/hadoop <BR>export HADOOP_USER_NAME=hadoop 
+      <BR>export 
+      PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH</SPAN> 
+      <UL>
+        <LI><SPAN style="color: rgb(17, 17, 17);">JAVA_HOME 表示java 安装目录</SPAN> 
+        </LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">HADOOP_HOME 表示hadoop 
+        安装目录</SPAN> </LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">HADOOP_USER_NAME 表示安装hadoop时 
+        需要用到的用户</SPAN> </LI></UL>
+      <P><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">source 
+      .bashrc</SPAN> 
+      <P><SPAN class="foldclosed" id="show1_1_1_1" style="position: absolute;" 
+      onclick="show_folder('1_1_1_1')">+</SPAN> <SPAN class="foldopened" id="hide1_1_1_1" 
+      onclick="hide_folder('1_1_1_1')">-</SPAN> <SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">验证</SPAN> 
+      <UL id="fold1_1_1_1" style="visibility: visible; position: relative;">
+        <LI>
+        <P><SPAN style="color: rgb(17, 17, 17);">[hadoop@master ~]$ echo 
+        $HADOOP_HOME <BR>/home/hadoop/bigdata/hadoop</SPAN> 
+        <P><SPAN style="color: rgb(17, 17, 17);">[hadoop@master ~]$ echo 
+        $JAVA_HOME <BR>/usr/java/jdk1.8.0_60 <BR>[hadoop@master ~]$ java 
+        -version <BR>java version "1.8.0_60" <BR>Java(TM) SE Runtime Environment 
+        (build 1.8.0_60-b27) <BR>Java HotSpot(TM) 64-Bit Server VM (build 
+        25.60-b23, mixed mode)</SPAN> </P></LI></UL>
+      <P><SPAN class="foldclosed" id="show1_1_1_2" style="position: absolute;" 
+      onclick="show_folder('1_1_1_2')">+</SPAN> <SPAN class="foldopened" id="hide1_1_1_2" 
+      onclick="hide_folder('1_1_1_2')">-</SPAN> <SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">拷贝到slave机器</SPAN> 
+      <UL id="fold1_1_1_2" style="visibility: visible; position: relative;">
+        <LI><SPAN style="color: rgb(17, 17, 17);">scp .bashrc 
+        hadoop@192.168.0.167:/home/hadoop/</SPAN> </LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">scp .bashrc 
+        hadoop@192.168.0.168:/home/hadoop/</SPAN> </LI></UL>
+      <P><SPAN class="foldclosed" id="show1_1_1_3" style="position: absolute;" 
+      onclick="show_folder('1_1_1_3')">+</SPAN> <SPAN class="foldopened" id="hide1_1_1_3" 
+      onclick="hide_folder('1_1_1_3')">-</SPAN> <SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">验证slave 
+      配置</SPAN> 
+      <UL id="fold1_1_1_3" style="visibility: visible; position: relative;">
+        <LI><SPAN style="color: rgb(17, 17, 17);">slave01</SPAN> 
+        <UL>
+          <LI>
+          <P><SPAN style="color: rgb(17, 17, 17);">ssh 
+          hadoop@192.168.0.167</SPAN> 
+          <P><SPAN style="color: rgb(17, 17, 17);">source .bashrc</SPAN> 
+          <P><SPAN style="color: rgb(17, 17, 17);">[hadoop@slave01 ~]$ echo 
+          $HADOOP_HOME <BR>/home/hadoop/bigdata/hadoop <BR>[hadoop@slave01 ~]$  
+          <BR>[hadoop@slave01 ~]$ echo $JAVA_HOME <BR>/usr/java/jdk1.8.0_60 <BR>
+          [hadoop@slave01 ~]$ java -version <BR>java version "1.8.0_60" <BR>
+          Java(TM) SE Runtime Environment (build 1.8.0_60-b27) <BR>Java 
+          HotSpot(TM) 64-Bit Server VM (build 25.60-b23, mixed mode)</SPAN> 
+          </P></LI></UL></LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">slave02</SPAN> 
+        <UL>
+          <LI>
+          <P><SPAN style="color: rgb(17, 17, 17);">ssh 
+          hadoop@192.168.0.168</SPAN> 
+          <P><SPAN style="color: rgb(17, 17, 17);">source .bashrc</SPAN> 
+          <P><SPAN style="color: rgb(17, 17, 17);">[hadoop@slave02 ~]$ echo 
+          $HADOOP_HOME <BR>/home/hadoop/bigdata/hadoop <BR>[hadoop@slave02 ~]$  
+          <BR>[hadoop@slave02 ~]$ echo $JAVA_HOME <BR>/usr/java/jdk1.8.0_60 <BR>
+          [hadoop@slave02 ~]$ java -version <BR>java version "1.8.0_60" <BR>
+          Java(TM) SE Runtime Environment (build 1.8.0_60-b27) <BR>Java 
+          HotSpot(TM) 64-Bit Server VM (build 25.60-b23, mixed mode) <BR>
+          [hadoop@slave02 ~]$ </SPAN> </P></LI></UL></LI></UL></LI></UL></LI>
+    <LI><SPAN class="foldclosed" id="show1_1_2" style="position: absolute;" 
+    onclick="show_folder('1_1_2')">+</SPAN> <SPAN class="foldopened" id="hide1_1_2" 
+    onclick="hide_folder('1_1_2')">-</SPAN> <SPAN style="color: rgb(0, 180, 57); font-family: SansSerif, sans-serif; font-size: 133%;">配置无密码登录</SPAN> 
+    <UL id="fold1_1_2" style="visibility: visible; position: relative;">
+      <LI><SPAN class="foldclosed" id="show1_1_2_1" style="position: absolute;" 
+      onclick="show_folder('1_1_2_1')">+</SPAN> <SPAN class="foldopened" id="hide1_1_2_1" 
+      onclick="hide_folder('1_1_2_1')">-</SPAN> <SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">目的</SPAN> 
+      <UL id="fold1_1_2_1" style="visibility: visible; position: relative;">
+        <LI><SPAN style="color: rgb(17, 17, 17);">登录方便</SPAN> </LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">传输文件方便</SPAN> </LI></UL></LI>
+      <LI><SPAN class="foldclosed" id="show1_1_2_2" style="position: absolute;" 
+      onclick="show_folder('1_1_2_2')">+</SPAN> <SPAN class="foldopened" id="hide1_1_2_2" 
+      onclick="hide_folder('1_1_2_2')">-</SPAN> <SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">master</SPAN> 
+      <UL id="fold1_1_2_2" style="visibility: visible; position: relative;">
+        <LI><SPAN style="color: rgb(17, 17, 17);">操作目录 /home/hadoop/.ssh</SPAN> 
+        </LI>
+        <LI><SPAN class="foldclosed" id="show1_1_2_2_1" style="position: absolute;" 
+        onclick="show_folder('1_1_2_2_1')">+</SPAN> <SPAN class="foldopened" id="hide1_1_2_2_1" 
+        onclick="hide_folder('1_1_2_2_1')">-</SPAN> <SPAN style="color: rgb(17, 17, 17);">生成公钥</SPAN> 
+        <UL id="fold1_1_2_2_1" 
+          style="visibility: visible; position: relative;"><LI><SPAN style="color: rgb(17, 17, 17);">ssh-keygen</SPAN> 
+          <UL>
+            <LI>
+            <P><SPAN style="color: rgb(17, 17, 17);">[hadoop@master .ssh]$ 
+            ssh-keygen <BR>Generating public/private rsa key pair. <BR>Enter 
+            file in which to save the key (/home/hadoop/.ssh/id_rsa):  <BR>
+            /home/hadoop/.ssh/id_rsa already exists. <BR>Overwrite (y/n)? y <BR>
+            Enter passphrase (empty for no passphrase):  <BR>Enter same 
+            passphrase again:  <BR>Your identification has been saved in 
+            /home/hadoop/.ssh/id_rsa. <BR>Your public key has been saved in 
+            /home/hadoop/.ssh/id_rsa.pub. <BR>The key fingerprint is: <BR>
+            26:88:c4:9e:98:cb:b5:ff:36:ee:36:9d:8b:15:f4:48 hadoop@master <BR>
+            The key's randomart image is: <BR>+--[ RSA 2048]----+ <BR>| 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 
+            <BR>| . 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 
+            <BR>| &nbsp;o &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <BR>| = o . &nbsp;o o 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <BR>|o +.. . So . 
+            &nbsp;&nbsp;&nbsp;&nbsp;| <BR>|... . &nbsp;o &nbsp;. 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <BR>|.. . &nbsp;&nbsp;&nbsp;... 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <BR>| &nbsp;&nbsp;&nbsp;. &nbsp;=oo 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <BR>| 
+            &nbsp;&nbsp;&nbsp;&nbsp;.*=o.. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <BR>
+            +-----------------+</SPAN> 
+            <P><SPAN style="color: rgb(17, 17, 17);">[hadoop@master .ssh]$ ls 
+            -lh <BR>total 16K <BR>-rwxrwx---. 1 hadoop hadoop &nbsp;396 Jan 16 
+            04:06 authorized_keys <BR>-rw-------. 1 hadoop hadoop 1.7K Jan 16 
+            12:39 id_rsa <BR>-rw-r--r--. 1 hadoop hadoop &nbsp;395 Jan 16 12:39 
+            id_rsa.pub <BR>-rw-r--r--. 1 hadoop hadoop 2.7K Jan 14 15:11 
+            known_hosts <BR>[hadoop@master .ssh]$ date <BR>Sat Jan 16 12:43:06 
+            CST 2016 <BR>[hadoop@master .ssh]$ </SPAN> </P></LI></UL></LI></UL></LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">拷贝slave01 slave02 
+        到master</SPAN> 
+        <UL>
+          <LI><SPAN style="color: rgb(17, 17, 17);">复制slave01 机器上的id_rsa.pub 
+          的内容&nbsp;到master 的&nbsp;authorized_keys 文件中</SPAN> </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">复制slave02 机器上的id_rsa.pub 
+          的内容&nbsp;到master 的&nbsp;authorized_keys 文件中</SPAN> </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">scp 
+          hadoop@192.168.0.167:/home/hadoop/.ssh/id_rsa.pub 
+          &nbsp;/home/hadoop/.ssh/167.pub</SPAN> </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">scp 
+          hadoop@192.168.0.168:/home/hadoop/.ssh/id_rsa.pub 
+          &nbsp;/home/hadoop/.ssh/168.pub</SPAN> </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">cat 167.pub &gt;&gt; 
+          /home/hadoop/.ssh/authorized_keys</SPAN> </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">cat 168.pub &gt;&gt; 
+          /home/hadoop/.ssh/authorized_keys</SPAN> </LI></UL></LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">设置权限</SPAN> 
+        <UL>
+          <LI><SPAN style="color: rgb(17, 17, 17);">chmod 600 
+          authorized_keys</SPAN> </LI></UL></LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">验证 无密码登录</SPAN> 
+        <UL>
+          <LI><SPAN style="color: rgb(17, 17, 17);">ssh 192.168.0.167</SPAN> 
+          </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">ssh 192.168.0.168</SPAN> 
+          </LI></UL></LI></UL></LI>
+      <LI><SPAN class="foldclosed" id="show1_1_2_3" style="position: absolute;" 
+      onclick="show_folder('1_1_2_3')">+</SPAN> <SPAN class="foldopened" id="hide1_1_2_3" 
+      onclick="hide_folder('1_1_2_3')">-</SPAN> <SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">slave01</SPAN> 
+      <UL id="fold1_1_2_3" style="visibility: visible; position: relative;">
+        <LI><SPAN style="color: rgb(17, 17, 17);">操作目录 /home/hadoop/.ssh</SPAN> 
+        </LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">生成公钥</SPAN> 
+        <UL>
+          <LI><SPAN style="color: rgb(17, 17, 17);">ssh-keygen</SPAN> 
+        </LI></UL></LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">拷贝master &nbsp;slave02 
+        到slave01</SPAN> 
+        <UL>
+          <LI><SPAN style="color: rgb(17, 17, 17);">复制master 机器上的id_rsa.pub 
+          的内容&nbsp;到slave01 的&nbsp;authorized_keys 文件中</SPAN> </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">复制slave02 机器上的id_rsa.pub 
+          的内容&nbsp;到slave01 的&nbsp;authorized_keys 文件中</SPAN> </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">scp 
+          hadoop@192.168.0.166:/home/hadoop/.ssh/id_rsa.pub 
+          &nbsp;/home/hadoop/.ssh/166.pub</SPAN> </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">scp 
+          hadoop@192.168.0.168:/home/hadoop/.ssh/id_rsa.pub 
+          &nbsp;/home/hadoop/.ssh/168.pub</SPAN> </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">cat 166.pub &gt;&gt; 
+          /home/hadoop/.ssh/authorized_keys</SPAN> </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">cat 168.pub &gt;&gt; 
+          /home/hadoop/.ssh/authorized_keys</SPAN> </LI></UL></LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">设置权限</SPAN> 
+        <UL>
+          <LI><SPAN style="color: rgb(17, 17, 17);">chmod 600 
+          authorized_keys</SPAN> </LI></UL></LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">验证 无密码登录</SPAN> 
+        <UL>
+          <LI><SPAN style="color: rgb(17, 17, 17);">ssh 192.168.0.166</SPAN> 
+          </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">ssh 192.168.0.168</SPAN> 
+          </LI></UL></LI></UL></LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">slave02</SPAN> 
+      <UL>
+        <LI><SPAN style="color: rgb(17, 17, 17);">操作目录 /home/hadoop/.ssh</SPAN> 
+        </LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">生成公钥</SPAN> 
+        <UL>
+          <LI><SPAN style="color: rgb(17, 17, 17);">ssh-keygen</SPAN> 
+        </LI></UL></LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">拷贝master slave01 
+        到slave02</SPAN> 
+        <UL>
+          <LI><SPAN style="color: rgb(17, 17, 17);">复制master 机器上的id_rsa.pub 
+          的内容&nbsp;到slave02 的&nbsp;authorized_keys 文件中</SPAN> </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">复制slave01 机器上的id_rsa.pub 
+          的内容&nbsp;到slave02的 authorized_keys 文件中</SPAN> </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">scp 
+          hadoop@192.168.0.166:/home/hadoop/.ssh/id_rsa.pub 
+          &nbsp;/home/hadoop/.ssh/166.pub</SPAN> </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">scp 
+          hadoop@192.168.0.167:/home/hadoop/.ssh/id_rsa.pub 
+          &nbsp;/home/hadoop/.ssh/167.pub</SPAN> </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">cat 166.pub &gt;&gt; 
+          /home/hadoop/.ssh/authorized_keys</SPAN> </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">cat 167.pub &gt;&gt; 
+          /home/hadoop/.ssh/authorized_keys</SPAN> </LI></UL></LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">设置权限</SPAN> 
+        <UL>
+          <LI><SPAN style="color: rgb(17, 17, 17);">chmod 600 
+          authorized_keys</SPAN> </LI></UL></LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">验证 无密码登录</SPAN> 
+        <UL>
+          <LI><SPAN style="color: rgb(17, 17, 17);">ssh 192.168.0.166</SPAN> 
+          </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">ssh 192.168.0.167</SPAN> 
+          </LI></UL></LI></UL></LI></UL></LI>
+    <LI><SPAN class="foldclosed" id="show1_1_3" style="position: absolute;" 
+    onclick="show_folder('1_1_3')">+</SPAN> <SPAN class="foldopened" id="hide1_1_3" 
+    onclick="hide_folder('1_1_3')">-</SPAN> <SPAN style="color: rgb(0, 180, 57); font-family: SansSerif, sans-serif; font-size: 133%;">配置hadoop</SPAN> 
+    <UL id="fold1_1_3" style="visibility: visible; position: relative;">
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">将hadoop 
+      安装文件复制到&nbsp;master机器</SPAN> 
+      <UL>
+        <LI><SPAN style="color: rgb(17, 17, 17);">scp hadoop-2.7.1.tar.gz 
+        &nbsp;hadoop@192.168.0.166:/home/hadoop/</SPAN> </LI></UL></LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">解压缩和改目录</SPAN> 
+      <UL>
+        <LI>
+        <P><SPAN style="color: rgb(17, 17, 17);">tar -zxf hadoop-2.7.1.tar.gz 
+        <BR>mkdir bigdata <BR>mv hadoop-2.7.1 bigdata/ <BR>cd bigdata/ <BR>mv 
+        hadoop-2.7.1 hadoop</SPAN> </P></LI></UL></LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">配置文件</SPAN> 
+      <UL>
+        <LI><SPAN 
+        style="color: rgb(17, 17, 17);">文件在/home/hadoop/bigdata/hadoop/etc/hadoop</SPAN> 
+        </LI>
+        <LI><SPAN style="color: rgb(17, 17, 17);">需修改的文件</SPAN> 
+        <UL>
+          <LI><SPAN style="color: rgb(17, 17, 17);">core-site.xml </SPAN> 
+          <UL>
+            <LI>
+            <P><SPAN style="color: rgb(17, 17, 17);">&lt;configuration&gt; <BR>
+            	&lt;property&gt; <BR>		&lt;name&gt;fs.defaultFS&lt;/name&gt; <BR>
+            		&lt;value&gt;hdfs://192.168.0.166:9000/&lt;/value&gt; <BR>
+            	&lt;/property&gt; <BR>	&lt;property&gt; <BR> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- 
+            设置每个节点临时文件目录&nbsp;--&gt;<BR> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;name&gt;hadoop.tmp.dir&lt;/name&gt; 
+            <BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- 
+            当前用户须要对此目录有读写权限，启动集群时自动创建&nbsp;&nbsp;--&gt;<BR> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;value&gt;/home/hadoop/bigdata/data/hadoop/tmp&lt;/value&gt; 
+            <BR>　　 &lt;/property&gt; <BR>&lt;/configuration&gt;</SPAN> 
+          </P></LI></UL></LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">hdfs-site.xml </SPAN> 
+          <UL>
+            <LI>
+            <P><SPAN style="color: rgb(17, 17, 17);">&lt;configuration&gt; <BR>
+            	&lt;property&gt; <BR>	 &nbsp;&nbsp;&nbsp;&lt;!-- 
+            指定SecondaryNamenode所在地址。本例设为和NN在同一个主机 --&gt;<BR>	 
+            &nbsp;&nbsp;&nbsp;&lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt; 
+            <BR>	 &nbsp;&nbsp;&nbsp;&lt;value&gt;master:9001&lt;/value&gt; <BR>
+            	&lt;/property&gt; <BR>	&lt;property&gt; <BR>
+            		&lt;name&gt;dfs.datanode.data.dir&lt;/name&gt; <BR>
+            		&lt;value&gt;file:/home/hadoop/bigdata/data/hadoop/hdfs/datanode&lt;/value&gt; 
+            <BR>	&lt;/property&gt; <BR>	&lt;property&gt; <BR>
+            		&lt;name&gt;dfs.namenode.name.dir&lt;/name&gt; <BR>
+            		&lt;value&gt;file:/home/hadoop/bigdata/data/hadoop/hdfs/namenode&lt;/value&gt; 
+            <BR>	&lt;/property&gt; <BR><BR>	&lt;property&gt; <BR>
+            		&lt;name&gt;dfs.replication&lt;/name&gt; <BR>
+            		&lt;value&gt;3&lt;/value&gt; <BR>	&lt;/property&gt; <BR>
+            &lt;/configuration&gt;</SPAN> </P></LI></UL></LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);"> mapred-site.xml</SPAN> 
+          <UL>
+            <LI>
+            <P><SPAN style="color: rgb(17, 17, 17);">&lt;configuration&gt; <BR>
+            	&lt;property&gt; <BR>
+            		&lt;name&gt;mapreduce.framework.name&lt;/name&gt; <BR>
+            		&lt;value&gt;yarn&lt;/value&gt; <BR>	&lt;/property&gt; <BR>
+            &lt;/configuration&gt;</SPAN> </P></LI></UL></LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">yarn-site.xml</SPAN> 
+          <UL>
+            <LI>
+            <P><SPAN style="color: rgb(17, 17, 17);">&lt;configuration&gt; 
+            <BR><BR>&lt;!-- Site specific YARN configuration properties --&gt;
+            <BR>	&lt;property&gt; <BR>
+            		&lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt; <BR>
+            		&lt;value&gt;master&lt;/value&gt; <BR>	&lt;/property&gt; <BR>
+            	&lt;property&gt; <BR>
+            		&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt; <BR>
+            		&lt;value&gt;mapreduce_shuffle&lt;/value&gt; <BR>
+            	&lt;/property&gt; <BR>&lt;/configuration&gt;</SPAN> 
+          </P></LI></UL></LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">slaves</SPAN> 
+          <UL>
+            <LI><SPAN style="color: rgb(17, 17, 17);">slave01 <BR>slave02</SPAN> 
+            </LI></UL></LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">hadoop-policy.xml </SPAN> 
+          </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">httpfs-site.xml</SPAN> </LI>
+          <LI><SPAN style="color: rgb(17, 17, 17);">kms-acls.xml </SPAN> 
+        </LI></UL></LI></UL></LI>
+      <LI><SPAN class="foldclosed" id="show1_1_3_1" style="position: absolute;" 
+      onclick="show_folder('1_1_3_1')">+</SPAN> <SPAN class="foldopened" id="hide1_1_3_1" 
+      onclick="hide_folder('1_1_3_1')">-</SPAN> <SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">将配置好的复制到slave</SPAN> 
+      <UL id="fold1_1_3_1" style="visibility: visible; position: relative;">
+        <LI>
+        <P><SPAN style="color: rgb(17, 17, 17);">chmod -R 777 
+        /home/hadoop/bigdata/data/hadoop/tmp <BR>cd /home/hadoop <BR>tar -czf 
+        bigdata.tar.gz bigdata/ <BR>scp bigdata.tar.gz 
+        192.168.0.167:/home/hadoop/ <BR>scp bigdata.tar.gz 
+        192.168.0.168:/home/hadoop/</SPAN> 
+        <P><SPAN style="color: rgb(17, 17, 17);">slave01</SPAN> 
+        <UL>
+          <LI><SPAN style="color: rgb(17, 17, 17);">tar -zxf bigdata.tar.gz 
+          </SPAN> </LI></UL>
+        <P><SPAN style="color: rgb(17, 17, 17);">slave02</SPAN> 
+        <UL>
+          <LI><SPAN style="color: rgb(17, 17, 17);">tar -zxf bigdata.tar.gz 
+          </SPAN> </LI></UL></LI></UL></LI></UL></LI>
+    <LI><SPAN class="foldclosed" id="show1_1_4" style="position: absolute;" 
+    onclick="show_folder('1_1_4')">+</SPAN> <SPAN class="foldopened" id="hide1_1_4" 
+    onclick="hide_folder('1_1_4')">-</SPAN> <SPAN style="color: rgb(0, 180, 57); font-family: SansSerif, sans-serif; font-size: 133%;">启动hadoop</SPAN> 
+    <UL id="fold1_1_4" style="visibility: visible; position: relative;">
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">启动命令在：/home/hadoop/bigdata/hadoop/sbin</SPAN> 
+      </LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">hdfs 
+      namenode -format</SPAN> </LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">./start-all.sh</SPAN> 
+      <UL>
+        <LI>
+        <P><SPAN style="color: rgb(17, 17, 17);">[hadoop@master sbin]$ 
+        ./start-all.sh  <BR>This script is Deprecated. Instead use start-dfs.sh 
+        and start-yarn.sh <BR>16/01/16 15:13:44 WARN util.NativeCodeLoader: 
+        Unable to load native-hadoop library for your platform... using 
+        builtin-java classes where applicable <BR>Starting namenodes on [master] 
+        <BR>hadoop@master's password:  <BR>master: starting namenode, logging to 
+        /home/hadoop/bigdata/hadoop/logs/hadoop-hadoop-namenode-master.out <BR>
+        slave02: starting datanode, logging to 
+        /home/hadoop/bigdata/hadoop/logs/hadoop-hadoop-datanode-slave02.out <BR>
+        slave01: starting datanode, logging to 
+        /home/hadoop/bigdata/hadoop/logs/hadoop-hadoop-datanode-slave01.out <BR>
+        Starting secondary namenodes [master] <BR>hadoop@master's password:  
+        <BR>master: starting secondarynamenode, logging to 
+        /home/hadoop/bigdata/hadoop/logs/hadoop-hadoop-secondarynamenode-master.out 
+        <BR>16/01/16 15:15:01 WARN util.NativeCodeLoader: Unable to load 
+        native-hadoop library for your platform... using builtin-java classes 
+        where applicable <BR>starting yarn daemons <BR>starting resourcemanager, 
+        logging to 
+        /home/hadoop/bigdata/hadoop/logs/yarn-hadoop-resourcemanager-master.out 
+        <BR>slave02: starting nodemanager, logging to 
+        /home/hadoop/bigdata/hadoop/logs/yarn-hadoop-nodemanager-slave02.out 
+        <BR>slave01: starting nodemanager, logging to 
+        /home/hadoop/bigdata/hadoop/logs/yarn-hadoop-nodemanager-slave01.out 
+        <BR>[hadoop@master sbin]$ </SPAN> </P></LI></UL></LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">master</SPAN> 
+      <UL>
+        <LI><SPAN style="color: rgb(17, 17, 17);">[hadoop@master sbin]$ jps <BR>
+        13952 Jps <BR>13350 NameNode <BR>13543 SecondaryNameNode <BR>13695 
+        ResourceManager</SPAN> </LI></UL></LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">slave01</SPAN> 
+      <UL>
+        <LI><SPAN style="color: rgb(17, 17, 17);">[hadoop@slave01 logs]$ jps 
+        <BR>3664 NodeManager <BR>3560 DataNode <BR>3800 Jps</SPAN> </LI></UL></LI>
+      <LI><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">slave02</SPAN> 
+      <UL>
+        <LI><SPAN style="color: rgb(17, 17, 17);">[hadoop@slave02 ~]$ jps <BR>
+        3907 Jps <BR>3875 NodeManager <BR>3771 DataNode</SPAN> 
+    </LI></UL></LI></UL></LI>
+    <LI><SPAN class="foldclosed" id="show1_1_5" style="position: absolute;" 
+    onclick="show_folder('1_1_5')">+</SPAN> <SPAN class="foldopened" id="hide1_1_5" 
+    onclick="hide_folder('1_1_5')">-</SPAN> <SPAN style="color: rgb(0, 180, 57); font-family: SansSerif, sans-serif; font-size: 133%;">遇到的问题</SPAN> 
+    <UL id="fold1_1_5" style="visibility: visible; position: relative;">
+      <LI>
+      <P><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">Could 
+      not resolve hostname localhost: Name or service not known</SPAN> 
+      <UL>
+        <LI><SPAN style="color: rgb(17, 17, 17);">slaves 没有配置</SPAN> </LI></UL>
+      <P><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">slave 
+      没有启动</SPAN> 
+      <UL>
+        <LI><SPAN style="color: rgb(17, 17, 17);">/etc/hosts 没有配置</SPAN> 
+</LI></UL>
+      <P><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">2016-01-16 
+      14:52:06,957 ERROR org.apache.hadoop.hdfs.server.namenode.NameNode: Failed 
+      to start namenode. <BR>java.io.IOException: NameNode is not formatted. 
+      <BR>	at 
+      org.apache.hadoop.hdfs.server.namenode.FSImage.recoverTransitionRead(FSImage.java:225) 
+      <BR>	at 
+      org.apache.hadoop.hdfs.server.namenode.FSNamesystem.loadFSImage(FSNamesystem.java:975) 
+      <BR>	at 
+      org.apache.hadoop.hdfs.server.namenode.FSNamesystem.loadFromDisk(FSNamesystem.java:681) 
+      <BR>	at 
+      org.apache.hadoop.hdfs.server.namenode.NameNode.loadNamesystem(NameNode.java:584) 
+      <BR>	at 
+      org.apache.hadoop.hdfs.server.namenode.NameNode.initialize(NameNode.java:644) 
+      <BR>	at 
+      org.apache.hadoop.hdfs.server.namenode.NameNode.&lt;init&gt;(NameNode.java:811) 
+      <BR>	at 
+      org.apache.hadoop.hdfs.server.namenode.NameNode.&lt;init&gt;(NameNode.java:795) 
+      <BR>	at 
+      org.apache.hadoop.hdfs.server.namenode.NameNode.createNameNode(NameNode.java:1488) 
+      <BR>	at 
+      org.apache.hadoop.hdfs.server.namenode.NameNode.main(NameNode.java:1554) 
+      <BR>2016-01-16 14:52:06,963 INFO org.apache.hadoop.util.ExitUtil: Exiting 
+      with status 1</SPAN> 
+      <UL>
+        <LI><SPAN style="color: rgb(17, 17, 17);">hdfs namenode -format</SPAN> 
+        </LI></UL></LI></UL></LI></UL></LI>
+  <LI><SPAN class="foldclosed" id="show1_2" style="position: absolute;" onclick="show_folder('1_2')">+</SPAN> 
+  <SPAN class="foldopened" id="hide1_2" onclick="hide_folder('1_2')">-</SPAN> 
+  <SPAN style="color: rgb(0, 51, 255); font-family: SansSerif, sans-serif; font-size: 150%;">5 
+  验证</SPAN> 
+  <UL id="fold1_2" style="visibility: visible; position: relative;">
+    <LI><SPAN style="color: rgb(0, 180, 57); font-family: SansSerif, sans-serif; font-size: 133%;">master</SPAN> 
+    <UL>
+      <LI>
+      <P><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">[hadoop@master 
+      sbin]$ hdfs dfsadmin -report <BR>16/01/16 15:16:52 WARN 
+      util.NativeCodeLoader: Unable to load native-hadoop library for your 
+      platform... using builtin-java classes where applicable <BR>Configured 
+      Capacity: 19391348736 (18.06 GB) <BR>Present Capacity: 12925202432 (12.04 
+      GB) <BR>DFS Remaining: 12925153280 (12.04 GB) <BR>DFS Used: 49152 (48 KB) 
+      <BR>DFS Used%: 0.00% <BR>Under replicated blocks: 0 <BR>Blocks with 
+      corrupt replicas: 0 <BR>Missing blocks: 0 <BR>Missing blocks (with 
+      replication factor 1): 0 <BR><BR>
+      ------------------------------------------------- <BR>Live datanodes (2): 
+      <BR><BR>Name: 192.168.0.167:50010 (slave01) <BR>Hostname: slave01 <BR>
+      Decommission Status : Normal <BR>Configured Capacity: 9695674368 (9.03 GB) 
+      <BR>DFS Used: 24576 (24 KB) <BR>Non DFS Used: 3649736704 (3.40 GB) <BR>DFS 
+      Remaining: 6045913088 (5.63 GB) <BR>DFS Used%: 0.00% <BR>DFS Remaining%: 
+      62.36% <BR>Configured Cache Capacity: 0 (0 B) <BR>Cache Used: 0 (0 B) <BR>
+      Cache Remaining: 0 (0 B) <BR>Cache Used%: 100.00% <BR>Cache Remaining%: 
+      0.00% <BR>Xceivers: 1 <BR>Last contact: Sat Jan 16 15:16:53 CST 2016 
+      <BR><BR><BR>Name: 192.168.0.168:50010 (slave02) <BR>Hostname: slave02 <BR>
+      Decommission Status : Normal <BR>Configured Capacity: 9695674368 (9.03 GB) 
+      <BR>DFS Used: 24576 (24 KB) <BR>Non DFS Used: 2816409600 (2.62 GB) <BR>DFS 
+      Remaining: 6879240192 (6.41 GB) <BR>DFS Used%: 0.00% <BR>DFS Remaining%: 
+      70.95% <BR>Configured Cache Capacity: 0 (0 B) <BR>Cache Used: 0 (0 B) <BR>
+      Cache Remaining: 0 (0 B) <BR>Cache Used%: 100.00% <BR>Cache Remaining%: 
+      0.00% <BR>Xceivers: 1 <BR>Last contact: Sat Jan 16 15:16:53 CST 
+      2016</SPAN> 
+      <P><SPAN style="color: rgb(153, 0, 0); font-family: SansSerif, sans-serif; font-size: 116%;">hdfs 
+      dfs -mkdir /test <BR>[hadoop@master hadoop]$ hdfs dfs -ls / <BR>drwxr-xr-x 
+      &nbsp;&nbsp;- hadoop supergroup 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 2016-01-16 15:19 
+      /test <BR>[hadoop@master hadoop]$ hdfs dfs -copyFromLocal ./NOTICE.txt 
+      /test <BR>[hadoop@master hadoop]$  <BR>[hadoop@master hadoop]$ hdfs dfs 
+      -ls /test <BR>Found 1 items <BR>-rw-r--r-- &nbsp;&nbsp;3 hadoop supergroup 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;101 2016-01-16 15:21 
+      /test/NOTICE.txt <BR>hadoop jar 
+      ./share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.1.jar wordcount 
+      /test/NOTICE.txt /output03 <BR>16/01/16 15:24:58 WARN 
+      util.NativeCodeLoader: Unable to load native-hadoop library for your 
+      platform... using builtin-java classes where applicable <BR>16/01/16 
+      15:25:00 INFO client.RMProxy: Connecting to ResourceManager at 
+      master/192.168.0.166:8032 <BR>16/01/16 15:25:02 INFO 
+      input.FileInputFormat: Total input paths to process : 1 <BR>16/01/16 
+      15:25:03 INFO mapreduce.JobSubmitter: number of splits:1 <BR>16/01/16 
+      15:25:03 INFO mapreduce.JobSubmitter: Submitting tokens for job: 
+      job_1452928505894_0001 <BR>16/01/16 15:25:04 INFO impl.YarnClientImpl: 
+      Submitted application application_1452928505894_0001 <BR>16/01/16 15:25:04 
+      INFO mapreduce.Job: The url to track the job: 
+      http://master:8088/proxy/application_1452928505894_0001/ <BR>16/01/16 
+      15:25:04 INFO mapreduce.Job: Running job: job_1452928505894_0001 <BR>
+      16/01/16 15:25:22 INFO mapreduce.Job: Job job_1452928505894_0001 running 
+      in uber mode : false <BR>16/01/16 15:25:22 INFO mapreduce.Job: &nbsp;map 
+      0% reduce 0% <BR>16/01/16 15:25:30 INFO mapreduce.Job: &nbsp;map 100% 
+      reduce 0% <BR>16/01/16 15:25:43 INFO mapreduce.Job: &nbsp;map 100% reduce 
+      100% <BR>16/01/16 15:25:43 INFO mapreduce.Job: Job job_1452928505894_0001 
+      completed successfully <BR>16/01/16 15:25:44 INFO mapreduce.Job: Counters: 
+      49 <BR>	File System Counters <BR>		FILE: Number of bytes read=173 <BR>
+      		FILE: Number of bytes written=231305 <BR>		FILE: Number of read 
+      operations=0 <BR>		FILE: Number of large read operations=0 <BR>		FILE: 
+      Number of write operations=0 <BR>		HDFS: Number of bytes read=207 <BR>
+      		HDFS: Number of bytes written=123 <BR>		HDFS: Number of read 
+      operations=6 <BR>		HDFS: Number of large read operations=0 <BR>		HDFS: 
+      Number of write operations=2 <BR>	Job Counters  <BR>		Launched map tasks=1 
+      <BR>		Launched reduce tasks=1 <BR>		Data-local map tasks=1 <BR>		Total 
+      time spent by all maps in occupied slots (ms)=6503 <BR>		Total time spent 
+      by all reduces in occupied slots (ms)=9816 <BR>		Total time spent by all 
+      map tasks (ms)=6503 <BR>		Total time spent by all reduce tasks (ms)=9816 
+      <BR>		Total vcore-seconds taken by all map tasks=6503 <BR>		Total 
+      vcore-seconds taken by all reduce tasks=9816 <BR>		Total megabyte-seconds 
+      taken by all map tasks=6659072 <BR>		Total megabyte-seconds taken by all 
+      reduce tasks=10051584 <BR>	Map-Reduce Framework <BR>		Map input records=2 
+      <BR>		Map output records=11 <BR>		Map output bytes=145 <BR>		Map output 
+      materialized bytes=173 <BR>		Input split bytes=106 <BR>		Combine input 
+      records=11 <BR>		Combine output records=11 <BR>		Reduce input groups=11 
+      <BR>		Reduce shuffle bytes=173 <BR>		Reduce input records=11 <BR>		Reduce 
+      output records=11 <BR>		Spilled Records=22 <BR>		Shuffled Maps =1 <BR>
+      		Failed Shuffles=0 <BR>		Merged Map outputs=1 <BR>		GC time elapsed 
+      (ms)=257 <BR>		CPU time spent (ms)=1870 <BR>		Physical memory (bytes) 
+      snapshot=288600064 <BR>		Virtual memory (bytes) snapshot=4119134208 <BR>
+      		Total committed heap usage (bytes)=138178560 <BR>	Shuffle Errors <BR>
+      		BAD_ID=0 <BR>		CONNECTION=0 <BR>		IO_ERROR=0 <BR>		WRONG_LENGTH=0 <BR>
+      		WRONG_MAP=0 <BR>		WRONG_REDUCE=0 <BR>	File Input Format Counters  <BR>
+      		Bytes Read=101 <BR>	File Output Format Counters  <BR>		Bytes Written=123 
+      <BR>[hadoop@master hadoop]$ </SPAN> </P></LI></UL></LI></UL></LI></UL>
+<SCRIPT type="text/javascript">
+fold_document();
+</SCRIPT>
+ </BODY></HTML>

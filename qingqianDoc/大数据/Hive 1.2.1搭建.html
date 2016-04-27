@@ -1,0 +1,477 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Hive 1.2.1&#25645;&#24314;</title>
+<style type="text/css">
+    li { list-style: none;  margin: 0; }
+    p { margin: 0; }
+    span.foldopened { color: white; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: visible;
+    cursor:pointer; }
+
+
+    span.foldclosed { color: #666666; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: hidden;
+    cursor:pointer; }
+
+    span.foldspecial { color: #666666; font-size: xx-small; border-style: none solid solid none;
+    border-color: #CCCCCC; border-width: 1; font-family: sans-serif; padding: 0em 0.1em 0em 0.1em; background: #e0e0e0;
+    cursor:pointer; }
+
+    span.l { color: red; font-weight: bold; }
+
+    a.mapnode:link {text-decoration: none; color: black; }
+    a.mapnode:visited {text-decoration: none; color: black; }
+    a.mapnode:active {text-decoration: none; color: black; }
+    a.mapnode:hover {text-decoration: none; color: black; background: #eeeee0; }
+
+</style>
+<!-- ^ Position is not set to relative / absolute here because of Mozilla -->
+</head>
+<body>
+
+<script type="text/javascript">
+   // Here we implement folding. It works fine with MSIE5.5, MSIE6.0 and
+   // Mozilla 0.9.6.
+
+   if (document.layers) {
+      //Netscape 4 specific code
+      pre = 'document.';
+      post = ''; }
+   if (document.getElementById) {
+      //Netscape 6 specific code
+      pre = 'document.getElementById("';
+      post = '").style'; }
+   if (document.all) {
+      //IE4+ specific code
+      pre = 'document.all.';
+      post = '.style'; }
+
+function layer_exists(layer) {
+   try {
+      eval(pre + layer + post);
+      return true; }
+   catch (error) {
+      return false; }}
+
+function show_layer(layer) {
+   eval(pre + layer + post).position = 'relative'; 
+   eval(pre + layer + post).visibility = 'visible'; }
+
+function hide_layer(layer) {
+   eval(pre + layer + post).visibility = 'hidden';
+   eval(pre + layer + post).position = 'absolute'; }
+
+function hide_folder(folder) {
+    hide_folding_layer(folder)
+    show_layer('show'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function show_folder(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_layer('show'+folder+'_'+i); }
+}
+function show_folder_completely(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+
+
+function hide_folding_layer(folder) {
+   var i;
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folding_layer(folder+'_'+i); }
+
+   hide_layer('hide'+folder);
+   hide_layer('show'+folder);
+   hide_layer('fold'+folder);
+
+   scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function fold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folder(folder+'_'+i); }
+}
+
+function unfold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+</script>
+<SPAN class="foldspecial" onclick="fold_document()">All +</SPAN>
+<SPAN class="foldspecial" onclick="unfold_document()">All -</SPAN>
+<p>Hive 1.2.1&#25645;&#24314;
+<ul><li>&#22522;&#30784;&#29615;&#22659;
+<ul><li>&#21644;&#19978;&#19968;&#31687; hadoop &#30456;&#21516;&nbsp;http://www.jianshu.com/p/57ffe2e3a092
+
+</li>
+
+</ul>
+</li>
+<li>&#20934;&#22791;&#24037;&#20316;
+<ul><li>&#33719;&#21462;&#23433;&#35013;&#25991;&#20214;
+<ul><li>http://apache.fayea.com/hive/hive-1.2.1/apache-hive-1.2.1-bin.tar.gz 
+
+</li>
+
+</ul>
+</li>
+<li>&#20381;&#36182;MySQL
+<ul><li>&#22240;&#24403;&#21069;&#25805;&#20316;&#31995;&#32479;&#20026;CentOS6
+<ul><li>&#21487;&#23433;&#35013;mysql5.5
+
+</li>
+
+</ul>
+</li>
+<li>&#33719;&#21462;&#65306;MySQL-client-5.5.46-1.linux2.6.x86_64.rpm &#12289;MySQL-server-5.5.46-1.linux2.6.x86_64.rpm
+
+</li>
+<li>&#23433;&#35013;
+<ul><li>rpm -ivh MySQL-client-5.5.46-1.linux2.6.x86_64.rpm
+
+</li>
+<li>rpm -ivh MySQL-server-5.5.46-1.linux2.6.x86_64.rpm
+
+</li>
+
+</ul>
+</li>
+<li>&#21551;&#21160;
+<ul><li>service mysql start
+
+</li>
+
+</ul>
+</li>
+<li>&#35774;&#32622;&#23494;&#30721;
+<ul><li>&#xa;    <p>&#xa;      <font color="rgb(0, 0, 0)" face="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;">/usr/bin/mysqladmin -uroot password '123456 </font>&#xa;    </p>&#xa;  
+</li>
+</ul>
+</li>
+<li>&#39564;&#35777;&#21487;&#29992;
+<ul><li>mysql -uroot -p123456
+
+</li>
+<li>&#33021;&#30331;&#38470;&#25104;&#21151;
+
+</li>
+
+</ul>
+</li>
+<li>&#21019;&#24314;hive&#24211;
+<ul><li>alter database hivemeta character set latin1;
+
+</li>
+
+</ul>
+</li>
+<li>&#35774;&#32622;&#35775;&#38382;&#23494;&#30721;
+<ul><li>grant all privileges on *.* to hive@"%" identified by "123456" with grant option; 
+<br>
+flush privileges;
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>&#27491;&#24335;&#23433;&#35013;
+<ul><li>&#35774;&#32622;&#29615;&#22659;&#21464;&#37327;
+<ul><li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">&#35774;&#32622;&#25991;&#20214; .bashrc</span>
+
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">export HIVE_HOME=/home/hadoop/bigdata/hive
+<br>
+export PATH=$HIVE_HOME/bin:$PATH</span>
+<ul><li><span style="color: #111111;">HIVE_HOME &#34920;&#31034;HIVE&#23433;&#35013;&#30446;&#24405;</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">source .bashrc</span>
+
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">&#39564;&#35777;</span>
+<ul><li><span style="color: #111111;">[hadoop@master ~]$ echo $HIVE_HOME
+<br>
+/home/hadoop/bigdata/hive</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">&#25335;&#36125;&#21040;slave&#26426;&#22120;</span>
+<ul><li><span style="color: #111111;">scp .bashrc hadoop@192.168.0.167:/home/hadoop/</span>
+
+</li>
+<li><span style="color: #111111;">scp .bashrc hadoop@192.168.0.168:/home/hadoop/</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #cc6600;">&#39564;&#35777;slave</span>
+<ul><li>&#26041;&#27861;&#21516;master&#31471;
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>&#37197;&#32622;hive
+<ul><li>&#23433;&#35013;&#30446;&#24405;
+<ul><li>&#xa;    <p>&#xa;      cd /home/hadoop/bigdata/<br >tar -zxf apache-hive-1.2.1-bin.tar.gz&#xa;    </p>&#xa;    <p>&#xa;      mv apache-hive-1.2.1-bin hive<br >&#xa;    </p>&#xa;  
+</li>
+</ul>
+</li>
+<li>hive-sitv&#37197;&#32622;
+<ul><li>&#xa;    <p>&#xa;      cd /home/hadoop/bigdata/hive/conf&#xa;    </p>&#xa;    <p>&#xa;      cp hive-default.xml.template hive-site.xml<br >&#xa;    </p>&#xa;  
+<p><span id="show1_1" class="foldclosed" onClick="show_folder('1_1')" style="POSITION: absolute">+</span> <span id="hide1_1" class="foldopened" onClick="hide_folder('1_1')">-</span>
+&#20462;&#25913;&#30340;&#20869;&#23481;
+<ul id="fold1_1" style="POSITION: relative; VISIBILITY: visible;"><li><p>&lt;property&gt; 
+<br>
+&lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+&lt;value&gt;hdfs://master:9000/hive/warehouse&lt;/value&gt; &nbsp;&nbsp;&nbsp;
+<br>
+&lt;/property&gt; 
+<br>
+&lt;property&gt; &nbsp;&nbsp;
+<br>
+&lt;name&gt;hive.exec.scratchdir&lt;/name&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+&lt;value&gt;hdfs://master:9000/hive/scratchdir&lt;/value&gt; &nbsp;&nbsp;&nbsp;
+<br>
+&lt;/property&gt; 
+<br>
+&lt;property&gt;
+<br>
+ &lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt;
+<br>
+&lt;value&gt;/home/hadoop/bigdata/hive/warehouse&lt;/value&gt; 
+<br>
+&lt;/property&gt; &nbsp;&nbsp;&nbsp;
+<br>
+&lt;property&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+ &lt;name&gt;hive.querylog.location&lt;/name&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+&lt;value&gt;/home/hadoop/bigdata/hive/logs&lt;/value&gt; &nbsp;&nbsp;&nbsp;
+<br>
+&lt;/property&gt; &nbsp;
+<br>
+&lt;property&gt; 
+<br>
+&lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt; &lt;value&gt;jdbc:mysql://master:3306/hivemeta?createDatabaseIfNotExist=true&lt;/value&gt; &nbsp;&nbsp;&nbsp;
+<br>
+&lt;/property&gt; &nbsp;
+<br>
+&lt;property&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+&lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+&lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt; &nbsp;&nbsp;&nbsp;
+<br>
+&lt;/property&gt; &nbsp;
+<br>
+&lt;property&gt; &nbsp;&nbsp;&nbsp;
+<br>
+&lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+&lt;value&gt;hive&lt;/value&gt; &nbsp;&nbsp;
+<br>
+&lt;/property&gt; 
+<br>
+&lt;property&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+&lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+&lt;value&gt;123456&lt;/value&gt; &nbsp;&nbsp;&nbsp;
+<br>
+&lt;/property&gt; 
+<br>
+&lt;property&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+&lt;name&gt;hive.aux.jars.path&lt;/name&gt;
+<br>
+&lt;value&gt;file:///home/hadoop/bigdata/hive/lib/hive-hbase-handler-1.2.1.jar , file:///home/hadoop/bigdata/hive/lib/protobuf-java-2.5.0.jar, file:///home/hadoop/bigdata/hive/lib/hbase-client-1.0.1.1.jar, file:///home/hadoop/bigdata/hive/lib/hbase-common-1.0.1.1.jar, file:///home/hadoop/bigdata/hive/lib/zookeeper-3.4.6.jar, file:///home/hadoop/bigdata/hive/lib/guava-14.0.1.jar&lt;/value&gt; &nbsp;&nbsp;&nbsp;
+<br>
+&lt;/property&gt; &lt;property&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+&lt;name&gt;hive.metastore.local&lt;/name&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+&lt;value&gt;true&lt;/value&gt; &nbsp;&nbsp;&nbsp;
+<br>
+&lt;/property&gt;
+<br>
+ &lt;property&gt; 
+<br>
+&lt;name&gt;hive.metastore.uris&lt;/name&gt;
+<br>
+&lt;value&gt;thrift://master:9083,thrift://slave01:9083,thrift://slave02:9083&lt;/value&gt; &nbsp;&nbsp;&nbsp;
+<br>
+&lt;/property&gt;
+</li>
+</ul></li>
+</ul>
+</li>
+<li>hive-env&#37197;&#32622;
+<ul><li>&#xa;    <p>&#xa;      cd /home/hadoop/bigdata/hive/conf<br >cp hive-env.sh.template hive-env.sh&#xa;    </p>&#xa;  
+<ul><li>export HADOOP_HOME=/home/hadoop/bigdata/hadoop 
+<br>
+export HIVE_CONF_DIR=/home/hadoop/bigdata/hive/conf 
+
+</li>
+
+</ul></li>
+</ul>
+</li>
+<li>hive-log4j&#37197;&#32622;
+<ul><li>&#xa;    <p>&#xa;      cd /home/hadoop/bigdata/hive/conf<br >cp hive-log4j.properties.template hive-log4j.properties&#xa;    </p>&#xa;  
+<ul><li>&#xa;    <p>&#xa;      hive.log.threshold=ALL&#xa;    </p>&#xa;    <p>&#xa;      hive.root.logger=INFO,DRFA&#xa;    </p>&#xa;    <p>&#xa;      hive.log.dir=/home/hadoop/bigdata/hive/log&#xa;    </p>&#xa;    <p>&#xa;      hive.log.file=hive.log&#xa;    </p>&#xa;  
+</li>
+</ul></li>
+</ul>
+</li>
+<li>hive-config&#37197;&#32622;
+<ul><li>&#xa;    <p>&#xa;      cd /home/hadoop/bigdata/hive/bin&#xa;    </p>&#xa;    <p>&#xa;      export JAVA_HOME=/usr/java/jdk1.8.0_60&#xa;    </p>&#xa;    <p>&#xa;      export HADOOP_HOME=/home/hadoop/bigdata/hadoop&#xa;    </p>&#xa;    <p>&#xa;      export HIVE_HOME=/home/hadoop/bigdata/hive<br >&#xa;    </p>&#xa;  
+</li>
+</ul>
+</li>
+<li>&#21019;&#24314;&#30446;&#24405;&#65292;&#24182;&#36171;&#26435;
+<ul><li><p>hdfs dfs -mkdir /hive &nbsp;
+<br>
+hdfs dfs -mkdir /hive/scratchdir &nbsp;
+<br>
+hdfs dfs -mkdir /hive/warehouse &nbsp;
+<br>
+hdfs dfs -chmod g+w /hive/scratchdir &nbsp;
+<br>
+hdfs dfs -chmod g+w /hive/warehouse 
+<br>
+mkdir -p /home/hadoop/bigdata/hive/warehouse &nbsp;
+<br>
+mkdir -p /home/hadoop/bigdata/hive/logs &nbsp;
+<br>
+ssh slave01 mkdir -p /home/hadoop/bigdata/hive/warehouse &nbsp;
+<br>
+ssh slave01 mkdir -p /home/hadoop/bigdata/hive/logs &nbsp;
+<br>
+ssh slave02 mkdir -p /home/hadoop/bigdata/hive/warehouse 
+<br>
+ssh slave02 mkdir -p /home/hadoop/bigdata/hive/logs
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li>&#21551;&#21160;&amp;&#39564;&#35777;
+<ul><li>&#21551;&#21160;
+<ul><li>nohup hive --service metastore -v &amp;
+
+</li>
+<li>hive
+
+</li>
+
+</ul>
+</li>
+<li>&#39564;&#35777;
+<ul><li><p>create table hive_test(id int,name string)
+&#xa;    <p>&#xa;      show tables;<br >hive_test&#xa;    </p>&#xa;    <p>&#xa;      Time taken: 1.87 seconds, Fetched: 1 row(s)<br >&#xa;    </p>&#xa;  
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>&#36935;&#21040;&#38169;&#35823;
+<ul><li>&#xa;    <div id="page">&#xa;      <div id="content" class="clearfix">&#xa;        <div id="main">&#xa;          <div class="blog_main">&#xa;            <div id="blog_content" class="blog_content">&#xa;              <div style="font-size: 14px" class="iteye-blog-content-contain">&#xa;                <div class="dp-highlighter">&#xa;                  <p>&#xa;                    <font size="3">Unable&#160;to&#160;instantiate&#160;org.apache.hadoop.hive.metastore.HiveMetaStoreClient&#160;&#160;</font>&#xa;                  </p>&#xa;                </div>&#xa;              </div>&#xa;            </div>&#xa;          </div>&#xa;        </div>&#xa;      </div>&#xa;    </div>&#xa;  
+<ul><li>1&#65289;mysql jdbc&#39537;&#21160; &#26159;&#21542;&#25918;&#22312;hive/lib 
+
+</li>
+<li>2&#65289;&#26816;&#26597;user&#34920;&#20013;&#26159;&#21542;&#26377; &#31354;&#35760;&#24405;&#65292;&#20808;&#21024;&#38500;&#65292;&#28982;&#21518;flush privileges
+
+</li>
+<li>3&#65289;hive-site.xml &#37197;&#32622;&#26159;&#21542;&#27491;&#30830;
+
+</li>
+
+</ul><p>Exception in thread "main" java.lang.RuntimeException: java.lang.RuntimeException: The root scratch dir: hdfs://master:9000/hive/scratchdir on HDFS should be writable. Current permissions are: rwxr-xr-
+<ul><li>hadoop fs -chmod -R 777 /hive/scratchdir
+
+</li>
+
+</ul><p>Exception in thread "main"java.lang.RuntimeException: java.lang.IllegalArgumentException:java.net.URISyntaxException: Relative path in absolute URI:${system:java.io.tmpdir%7D/$%7Bsystem:user.name%7D
+<ul><li>hive.querylog.location
+
+</li>
+<li>hive.exec.local.scratchdir
+
+</li>
+<li>hive.downloaded.resources.dir
+
+</li>
+<li>&#19977;&#20010;&#20540;&#20889;&#25104;&#32477;&#23545;&#20540;
+
+</li>
+
+</ul><p>NestedThrowablesStackTrace: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Specified key was too long; max key length is 767 bytes 
+<ul><li>alter database hive character set latin1;
+
+</li>
+<li>create table hive_test(id int,name string)
+
+</li>
+
+</ul></li>
+</ul>
+</li>
+
+</ul><SCRIPT type="text/javascript">
+fold_document();
+</SCRIPT>
+</body>
+</html>

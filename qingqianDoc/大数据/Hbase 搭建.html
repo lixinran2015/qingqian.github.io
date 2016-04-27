@@ -1,0 +1,305 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Hbase &#25645;&#24314;</title>
+<style type="text/css">
+    li { list-style: none;  margin: 0; }
+    p { margin: 0; }
+    span.foldopened { color: white; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: visible;
+    cursor:pointer; }
+
+
+    span.foldclosed { color: #666666; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: hidden;
+    cursor:pointer; }
+
+    span.foldspecial { color: #666666; font-size: xx-small; border-style: none solid solid none;
+    border-color: #CCCCCC; border-width: 1; font-family: sans-serif; padding: 0em 0.1em 0em 0.1em; background: #e0e0e0;
+    cursor:pointer; }
+
+    span.l { color: red; font-weight: bold; }
+
+    a.mapnode:link {text-decoration: none; color: black; }
+    a.mapnode:visited {text-decoration: none; color: black; }
+    a.mapnode:active {text-decoration: none; color: black; }
+    a.mapnode:hover {text-decoration: none; color: black; background: #eeeee0; }
+
+</style>
+<!-- ^ Position is not set to relative / absolute here because of Mozilla -->
+</head>
+<body>
+
+<script type="text/javascript">
+   // Here we implement folding. It works fine with MSIE5.5, MSIE6.0 and
+   // Mozilla 0.9.6.
+
+   if (document.layers) {
+      //Netscape 4 specific code
+      pre = 'document.';
+      post = ''; }
+   if (document.getElementById) {
+      //Netscape 6 specific code
+      pre = 'document.getElementById("';
+      post = '").style'; }
+   if (document.all) {
+      //IE4+ specific code
+      pre = 'document.all.';
+      post = '.style'; }
+
+function layer_exists(layer) {
+   try {
+      eval(pre + layer + post);
+      return true; }
+   catch (error) {
+      return false; }}
+
+function show_layer(layer) {
+   eval(pre + layer + post).position = 'relative'; 
+   eval(pre + layer + post).visibility = 'visible'; }
+
+function hide_layer(layer) {
+   eval(pre + layer + post).visibility = 'hidden';
+   eval(pre + layer + post).position = 'absolute'; }
+
+function hide_folder(folder) {
+    hide_folding_layer(folder)
+    show_layer('show'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function show_folder(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_layer('show'+folder+'_'+i); }
+}
+function show_folder_completely(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+
+
+function hide_folding_layer(folder) {
+   var i;
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folding_layer(folder+'_'+i); }
+
+   hide_layer('hide'+folder);
+   hide_layer('show'+folder);
+   hide_layer('fold'+folder);
+
+   scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function fold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folder(folder+'_'+i); }
+}
+
+function unfold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+</script>
+<SPAN class="foldspecial" onclick="fold_document()">All +</SPAN>
+<SPAN class="foldspecial" onclick="unfold_document()">All -</SPAN>
+<p>Hbase &#25645;&#24314;
+<ul><li>&#20934;&#22791;&#24037;&#20316;
+<ul><li>&#25991;&#20214;&#65306;hbase-1.1.2-bin.tar.gz
+
+</li>
+
+</ul>
+</li>
+<li>&#27491;&#24335;&#29615;&#22659;
+<ul><li>&#35774;&#32622;&#29615;&#22659;&#21464;&#37327;
+<ul><li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">&#35774;&#32622;&#25991;&#20214; .bashrc</span>
+
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">export HBASE_HOME=/home/hadoop/bigdata/hbase
+<br>
+export PATH=$HBASE_HOME/bin:$PATH</span>
+<ul><li><span style="color: #111111;">HBASE_HOME &#34920;&#31034;HBASE&#23433;&#35013;&#30446;&#24405;</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">source .bashrc</span>
+
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">&#39564;&#35777;</span>
+<ul><li><span style="color: #111111;">[hadoop@master ~]$ echo $HBASE_HOME
+<br>
+/home/hadoop/bigdata/hbase</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #990000;font-size: 116%;font-family: SansSerif, sans-serif; ">&#25335;&#36125;&#21040;slave&#26426;&#22120;</span>
+<ul><li><span style="color: #111111;">scp .bashrc hadoop@192.168.0.167:/home/hadoop/</span>
+
+</li>
+<li><span style="color: #111111;">scp .bashrc hadoop@192.168.0.168:/home/hadoop/</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #cc6600;">&#39564;&#35777;slave</span>
+<ul><li>&#26041;&#27861;&#21516;master&#31471;
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li>&#23433;&#35013;&#30446;&#24405;
+<ul><li>&#xa;    <p>&#xa;      cd /home/hadoop/bigdata/<br >tar -zxf hbase-1.1.2-bin.tar.gz&#xa;    </p>&#xa;    <p>&#xa;      mv hbase-1.1.2-bin hbase<br >&#xa;    </p>&#xa;  
+</li>
+</ul>
+</li>
+<li>hbase-env&#37197;&#32622;
+<ul><li>cd /home/hadoop/bigdata/hbase/conf 
+
+</li>
+<li>export JAVA_HOME=/usr/java/jdk1.8.0_60
+
+</li>
+
+</ul>
+</li>
+<li>hbase-site&#37197;&#32622;
+<ul><li><p>cd /home/hadoop/bigdata/hbase/conf 
+<p> &lt;property&gt; &nbsp;&nbsp;&lt;name&gt;hbase.rootdir&lt;/name&gt; &nbsp;&nbsp;
+<br>
+&lt;value&gt;hdfs://master:9000/hbase&lt;/value&gt; &nbsp;&nbsp;
+<br>
+&lt;/property&gt;
+<br>
+&lt;property&gt;
+<br>
+&lt;name&gt;hbase.zookeeper.quorum&lt;/name&gt;
+<br>
+&lt;value&gt;master,slave01,slave02&lt;/value&gt;
+<br>
+&lt;/property&gt;
+<br>
+&lt;property&gt;
+<br>
+&lt;name&gt;hbase.cluster.distributed&lt;/name&gt;
+<br>
+&lt;value&gt;true&lt;/value&gt;
+<br>
+ &lt;/property&gt;
+<br>
+&lt;property&gt;
+<br>
+&lt;name&gt;hbase.zookeeper.property.dataDir&lt;/name&gt;
+<br>
+ &lt;value&gt;/home/hadoop/bigdata/zk/zkdata&lt;/value&gt;
+<br>
+ &lt;/property&gt; 
+</li>
+</ul>
+</li>
+<li>RegionServer
+<ul><li>&#xa;    <p>&#xa;      slave01<br >slave02<br >&#xa;    </p>&#xa;  
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li>&#21551;&#21160;&amp;&#39564;&#35777;
+<ul><li>&#21551;&#21160;
+<ul><li>master&#26426;&#22120; &nbsp;start-hbase.sh
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1" class="foldclosed" onClick="show_folder('1_1')" style="POSITION: absolute">+</span> <span id="hide1_1" class="foldopened" onClick="hide_folder('1_1')">-</span>
+&#39564;&#35777;
+<ul id="fold1_1" style="POSITION: relative; VISIBILITY: visible;"><li>master
+<ul><li><p>[hadoop@master bin]$ jps 
+<br>
+14423 HMaster 
+<br>
+15162 ResourceManager 
+<br>
+4939 QuorumPeerMain 
+<br>
+14813 NameNode 
+<br>
+15007 SecondaryNameNode 
+<br>
+14654 Jps
+<p>[hadoop@master bin]$ ./hbase shell 
+<br>
+SLF4J: Class path contains multiple SLF4J bindings. SLF4J: Found binding in [jar:file:/home/hadoop/bigdata/hbase/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class] SLF4J: Found binding in [jar:file:/home/hadoop/bigdata/hadoop/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class] SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation. SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory] 2016-01-23 13:56:28,572 WARN &nbsp;[main] util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable HBase Shell; enter 'help&lt;RETURN&gt;' for list of supported commands. Type "exit&lt;RETURN&gt;" to leave the HBase Shell Version 1.1.2, rcc2b70cf03e3378800661ec5cab11eb43fafe0fc, Wed Aug 26 20:11:27 PDT 2015 
+</li>
+</ul>
+</li>
+<li>slave01
+<ul><li><p>[hadoop@slave02 .ssh]$ jps 
+<br>
+14160 Jps 
+<br>
+5778 DataNode 
+<br>
+11924 QuorumPeerMain 
+<br>
+13974 HRegionServer 
+<br>
+5886 NodeManager 
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_2" class="foldclosed" onClick="show_folder('1_2')" style="POSITION: absolute">+</span> <span id="hide1_2" class="foldopened" onClick="hide_folder('1_2')">-</span>
+&#27979;&#35797;&#20195;&#30721;
+<ul id="fold1_2" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <p>&#xa;      #&#21019;&#24314;&#19968;&#20010;&#26032;&#34920;&#xa;    </p>&#xa;    <p>&#xa;      student create 'student','info'&#160;&#xa;    </p>&#xa;    <p>&#xa;      #&#26597;&#30475;&#25152;&#26377;&#30340;&#34920;&#xa;    </p>&#xa;    <p>&#xa;      list&#xa;    </p>&#xa;    <p>&#xa;      #&#26597;&#30475; student &#30340;&#34920;&#32467;&#26500;&#xa;    </p>&#xa;    <p>&#xa;      describe 'student'<br >#&#21516; student &#34920;&#20013;&#25554;&#20837;&#19968;&#26465;&#25968;&#25454;<br >put 'student','mary','info:age','19'&#xa;    </p>&#xa;    <p>&#xa;      #&#20174; student &#34920;&#20013;&#21462;&#20986; mary &#30340;&#25968;&#25454;&#xa;    </p>&#xa;    <p>&#xa;      get 'student','mary'&#xa;    </p>&#xa;    <p>&#xa;      #&#35753; student &#34920;&#22833;&#25928;&#xa;    </p>&#xa;    <p>&#xa;      disable 'student'&#xa;    </p>&#xa;    <p>&#xa;      #&#21024;&#38500; student &#34920;&#xa;    </p>&#xa;    <p>&#xa;      drop 'student'&#xa;    </p>&#xa;  
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul><SCRIPT type="text/javascript">
+fold_document();
+</SCRIPT>
+</body>
+</html>

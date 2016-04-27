@@ -1,6 +1,5 @@
-# qingqian.github.io
-清浅
+# 清浅的学习区
 
-test
-ddddddddddddddd
-dddddddd
+1. JAVA学习代码
+2. 大数据学习代码
+3. 记录/总结文档

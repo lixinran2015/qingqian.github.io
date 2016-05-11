@@ -22,7 +22,7 @@ import java.util.Random;
  */
 public class SelectionSort {
 
-    public void sort(int[] array) {
+    public void bubble_sort(int[] array) {
         int index;
         int total = array.length;
         int temp;
@@ -43,6 +43,34 @@ public class SelectionSort {
             printAll(array);
         }
     }
+    
+    
+    public int partition(int[] array, int min, int max)
+    {
+        int pivot = array[min];
+        while (min < max)
+        {
+            while (min < max && array[max] > pivot) max--;
+            array[min] = array[max];
+            while (min < max && array[min] <= pivot) min++;
+            array[max] = array[min];
+        }
+        array[min] = pivot;
+        printAll(array);
+        return min;
+    }
+
+    public void quick_sort(int[] array, int min, int max)
+    {
+        int loc = 0;
+        if (min < max)
+        {
+            loc = partition(array, min, max);
+            quick_sort(array, min, loc - 1);
+            quick_sort(array, loc + 1, max);
+        }
+    }
+    
 
     public void printAll(int[] array) {
         for (int value : array) {
@@ -61,8 +89,12 @@ public class SelectionSort {
         SelectionSort selection = new SelectionSort();
         System.out.print("ÅÅÐòÇ°:\t");
         selection.printAll(array);
-        selection.sort(array);
+      //  selection.bubble_sort(array);
+        selection.quick_sort(array, 0, array.length-1);
         System.out.print("ÅÅÐòºó:\t");
         selection.printAll(array);
+        
+        
+        
     }
 }

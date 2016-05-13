@@ -1,0 +1,115 @@
+insert overwrite local directory '/home/hdp/lixr/dim_brand/' select * from dim_brand;
+insert overwrite local directory '/home/hdp/lixr/dim_city/' select  * from dim_city;
+insert overwrite local directory '/home/hdp/lixr/rpt_price/' select * from rpt_price;
+insert overwrite local directory '/home/hdp/lixr/stg_price/' select * from stg_price;
+
+
+load data local inpath '/home/hdp/lixr/dim_brand/000000_0' into table dim_brand;
+load data local inpath '/home/hdp/lixr/dim_city/000000_0' into table dim_city;
+load data local inpath '/home/hdp/lixr/rpt_price/000000_0' into table rpt_price;
+load data local inpath '/home/hdp/lixr/stg_price/000000_0' into table stg_price;
+
+
+
+load data local inpath '/home/hdp/lixr/dim_city/city' into table dim_city;
+
+alter table dim_brand replace columns (brand string, brand_name string);  
+
+alter table dim_brand CHANGE brand brand_name string; 
+
+create table dim_brand (id int,name string) ROW FORMAT DELIMITED FIELDS TERMINATED BY ' ' STORED AS TEXTFILE;
+
+
+show create table dim_city;
+CREATE TABLE `dim_city`(
+  `prov_name` string, 
+  `prov_code` string, 
+  `city_name` string, 
+  `city_code` string, 
+  `data_id` string,
+  `pt` string);
+
+
+show create table dim_brand;
+CREATE TABLE `dim_brand`(
+  `brand_name` string, 
+  `brand_code` string, 
+  `data_id` string, 
+  `pt` string)ROW FORMAT DELIMITED FIELDS TERMINATED BY ' ' STORED AS TEXTFILE;
+
+ show create table stg_price;
+ CREATE TABLE `stg_price`(
+  `brand` string, 
+  `factory` string, 
+  `serial` string, 
+  `yeartype` string, 
+  `volumn` string, 
+  `carstyle` string, 
+  `guide_price` string, 
+  `bare_price` string, 
+  `buy_tax` string, 
+  `deal_price` string, 
+  `comm_ins` string, 
+  `use_tax` string, 
+  `trff_tax` string, 
+  `license_fee` string, 
+  `total_price` string, 
+  `invoce_flg` string, 
+  `promotion` string, 
+  `deal_date` string, 
+  `post_date` string, 
+  `username` string, 
+  `prov` string, 
+  `city` string, 
+  `sales_name` string, 
+  `sales_telno` string, 
+  `sales_addr` string, 
+  `comment` string, 
+  `curl_timestamp` string, 
+  `url` string, 
+  `data_id` string,
+  `pt` string);
+
+ show create table rpt_price;
+ CREATE TABLE `rpt_price`(
+  `brand_name` string, 
+  `brand_code` string, 
+  `factory` string, 
+  `serial` string, 
+  `yeartype` string, 
+  `volumn` string, 
+  `carstyle` string, 
+  `guide_price` string, 
+  `bare_price` string, 
+  `buy_tax` string, 
+  `deal_price` string, 
+  `comm_ins` string, 
+  `use_tax` string, 
+  `trff_tax` string, 
+  `license_fee` string, 
+  `total_price` string, 
+  `invoce_flg` string, 
+  `promotion` string, 
+  `deal_date` string, 
+  `post_date` string, 
+  `username` string, 
+  `prov_name` string, 
+  `prov_code` string, 
+  `city_name` string, 
+  `city_code` string, 
+  `sales_name` string, 
+  `sales_telno` string, 
+  `sales_addr` string, 
+  `comment` string, 
+  `curl_timestamp` string, 
+  `url` string, 
+  `data_id` string, 
+  `used_month` string, 
+  `year_discount` string,
+  `pt` string);
+
+  select * from dim_city where prov_name='江苏省';
+  
+  
+  菲亚特菲亚特致悦2014款10.08万9.80万未填写未填写未填写未填写未填写9.80万0无2015年08月29日2016-02-12胖子迁西板栗坊<i class="icon16 icon16-vorange" title="认证车主"齐齐哈尔尊翔汽车销售服务有限公司4008681573黑龙江省齐齐哈尔市铁锋区联通大道297号4008681573该用户并未对商家服务进行评价。           2016-04-04 18:07:17http://jiage.autohome.com.cn/price/carlist/p-1807918079-20160212-bash-4.2
+  

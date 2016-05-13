@@ -1,0 +1,130 @@
+create database hivemeta character set utf8;
+grant all privileges on *.* to hive@"%" identified by "123456" with grant option; 
+
+
+hive --service hiveserver -p 10000
+
+nohup hive –service hiveserver  -p 10000 &
+
+!connect jdbc:hive2://192.168.2.3:10000/default;
+
+principal=hdp/hdp
+!connect jdbc:hive2://localhost:10000/default;user=hdp;password=hdp
+
+
+<configuration>        
+<property>        
+<name>hive.server2.thrift.port</name>       
+<value>10000</value>     
+</property>    
+<property>       
+<name>hive.server2.thrift.bind.host</name>       
+<value>192.168.2.3</value>     
+</property>    
+
+</configuration>
+
+
+export HADOOP_HOME=/usr/local/hadoop/hadoop
+export HIVE_CONF_DIR=/usr/local/hadoop//hive/conf
+
+
+vi .bashrc
+export JAVA_HOME=/usr/loca/bigdata/tools/jdk1.8.0_60
+export HADOOP_HOME=/usr/loca/bigdata/hadoop
+export HADOOP_USER_NAME=hadoop
+export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
+
+
+
+
+ <property> 
+       <!-- 指定SecondaryNamenode所在地址。本例设为和NN在同一个主机 -->
+       <name>dfs.namenode.secondary.http-address</name> 
+       <value>master:9001</value> 
+ </property> 
+    <property> 
+ <name>dfs.datanode.data.dir</name> 
+ <value>file:/usr/loca/bigdata/hadoop/hdfs/datanode</value> 
+    </property> 
+    <property> 
+ <name>dfs.namenode.name.dir</name> 
+ <value>file:/usr/loca/bigdata/hadoop/hdfs/namenode</value> 
+    </property> 
+    <property> 
+ <name>dfs.replication</name> 
+ <value>3</value> 
+    </property> 
+	
+
+hdfs dfs -mkdir /hive  
+hdfs dfs -mkdir /hive/scratchdir  
+hdfs dfs -mkdir /hive/warehouse  
+hdfs dfs -chmod g+w /hive/scratchdir  
+hdfs dfs -chmod g+w /hive/warehouse
+mkdir -p /usr/local/bigdata/hive/warehouse  
+mkdir -p /usr/local/bigdata/hive/logs  
+
+create table testHiveDriverTable (key int, value string);
+
+create database hivemeta character set latin1;
+
+grant all privileges on *.* to hive@"localhost" identified by "123456" with grant option; 
+grant all privileges on *.* to hive@"%" identified by "123456" with grant option; 
+flush privileges;
+
+
+
+
+
+export JAVA_HOME=/usr/local/bigdata/tools/jdk1.8.0_77
+export HADOOP_HOME=/usr/local/bigdata/hadoop
+export HIVE_HOME=/usr/local/bigdata/hive
+
+
+usermod -a -G hadoop hdp
+usermod -a -G hadoop hadoop
+
+
+
+hdfs dfs -mkdir /hive  
+hdfs dfs -mkdir /hive/scratchdir  
+hdfs dfs -mkdir /hive/warehouse  
+hdfs dfs -chmod g+w /hive/scratchdir  
+hdfs dfs -chmod g+w /hive/warehouse
+hadoop dfs -chmod -R 777 /hive/scratchdir
+
+
+<property>       
+<name>hive.aux.jars.path</name>
+<value>file:///usr/local/bigdata/hive/lib/hive-hbase-handler-1.2.1.jar，
+file:///usr/local/bigdata/hive/lib/protobuf-java-2.5.0.jar, 
+file:///usr/local/bigdata/hive/lib/hbase-client-1.0.1.1.jar, 
+file:///usr/local/bigdata/hive/lib/hbase-common-1.0.1.1.jar, 
+file:///usr/local/bigdata/hive/lib/zookeeper-3.4.6.jar, 
+file:///usr/local/bigdata/hive/lib/guava-14.0.1.jar</value>    
+</property> 
+
+No groups available for user hadoop
+
+
+
+<property>   
+<name>hbase.rootdir</name>   
+ <value>hdfs://chances123:9000/hbase</value>   
+</property>
+<property>
+<name>hbase.zookeeper.quorum</name>
+<value>chances123,chances125</value>
+</property>
+<property>
+<name>hbase.cluster.distributed</name>
+<value>true</value>
+</property>
+<property><name>hbase.zookeeper.property.dataDir</name
+<value>/usr/local/bigdata/zk/zkdata</value
+</property>
+
+
+
+create table dim_city (prov_name string, prov_code string,city_name string,city_code string,data_id string ,pt string) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\054';

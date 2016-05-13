@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://www.jianshu.com/p/aaca0d9e6757 -->
+<html class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<script src="./hadoop 基础操作 - 简书_files/push.js"></script><script type="text/javascript" async="" src="./hadoop 基础操作 - 简书_files/ga.js"></script><script src="./hadoop 基础操作 - 简书_files/hm.js"></script><script type="text/javascript">window.BWEUM||(BWEUM={});BWEUM.info={"beacon":"bi-collector.oneapm.com/beacon/rum/ruby","errorBeacon":"bi-collector.oneapm.com/beacon/error/ruby","licenseKey":"JAb~enriQzVIVYfB","applicationID":1987,"transactionName":"FRIgBzBRBT4nUkEMXSxYLDw2VRhiNVlaEg==","queueTime":2,"applicationTime":96,"agent":"//bi-collector.oneapm.com/static/js/bw-send-411.4.5.js"}</script>
+<script type="text/javascript" src="./hadoop 基础操作 - 简书_files/bw-loader-411.4.5.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="description" content="操作hadoop的基本命令同操作Linux相同，前面加hadoopfs，后面加cmd+参数即可。hadoophdfs操作hadoopfs-cmd&amp;lt;args&amp;gt;#添加目录和文件hadoopfs-mkdir/testhadoopfs-putexample.txt.hdfsdfs-mkdir/testhdfsdfs-copyFromLocal./NOTICE.txt/test#hdfs为hadoop2.X版本上的命令#获取/查看文件内容hadoopfs-getexample.txt.hadoopfs...">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=http://www.jianshu.com/p/aaca0d9e6757">
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/2940328">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="hadoop 基础操作" property="twitter:title">
+  <meta content="操作hadoop的基本命令同操作Linux相同，前面加hadoopfs，后面加cmd+参数即可。hadoophdfs操作hadoopfs-cmd&amp;lt;args&amp;gt;#添加目录和文件hadoopfs-mkdir/testhadoopfs-putexample.txt.hdfsdfs-mkdir/testhdfsdfs-copyFromLocal./NOTICE.txt/test#hdfs为hadoop2.X版本上的命令#获取/查看文件内容hadoopfs-getexample.txt.hadoopfs..." property="twitter:description">
+  <meta content="http://www.jianshu.com/p/aaca0d9e6757" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="hadoop 基础操作">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.jianshu.com/p/aaca0d9e6757">
+  <meta property="og:description" content="操作hadoop的基本命令同操作Linux相同，前面加hadoopfs，后面加cmd+参数即可。hadoophdfs操作hadoopfs-cmd&amp;lt;args&amp;gt;#添加目录和文件hadoo...">
+
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/2940328">
+  <meta property="al:ios:app_store_id" content="888237539">
+  <meta property="al:ios:app_name" content="简书">
+
+  <meta property="al:android:url" content="jianshu://notes/2940328">
+  <meta property="al:android:package" content="com.jianshu.haruki">
+  <meta property="al:android:app_name" content="简书">
+  <!-- End -->
+
+  <title>hadoop 基础操作 - 简书</title>
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="ZAVzwCofDvAHfByltCr5XdtFIUQjO18YO63aWOXlyDPOhAXMVo/tqyvOqEI6uZtx0VBRVpVDaxiyoej84QvI1Q==">
+  <!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link rel="stylesheet" media="all" href="http://cdn0.jianshu.io/assets/base-b831e2f3f4a1307ff86f71cbabc3085b.css">
+
+    <link rel="stylesheet" media="all" href="http://cdn0.jianshu.io/assets/reading-note-aed188b297ca8bc7eb4e1d864fac035b.css">
+  <link rel="stylesheet" media="all" href="http://cdn0.jianshu.io/assets/base-read-mode-83b416e1e492c342436a80881ae09e0f.css">
+  <script src="./hadoop 基础操作 - 简书_files/modernizr-b24c000b09feb5c7177d4db960f050bd.js"></script>
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if IE 8]><link rel="stylesheet" media="all" href="http://cdn0.jianshu.io/assets/scaffolding/for_ie-c23c43d96bfba1567a1a0b22bc83ad3d.css" /><![endif]-->
+  <!--[if lt IE 9]><link rel="stylesheet" media="all" href="http://cdn0.jianshu.io/assets/scaffolding/for_ie-c23c43d96bfba1567a1a0b22bc83ad3d.css" /><![endif]-->
+  <link href="http://baijii-common.b0.upaiyun.com/icons/favicon.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/57-7597f1cff93b0f41cd16ca7641e477eb.png" sizes="57x57">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/72-e02c647005f01e2d24778ac8e7f9dc45.png" sizes="72x72">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/76-4788ffdcd445555b5b93bfb4d1f4747c.png" sizes="76x76">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/114-e89d888a7bce6222606e46082dcab634.png" sizes="114x114">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/120-c7cdad6dd50db5a93175a6e015d6dc08.png" sizes="120x120">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/152-21fa4ed7968f6503816524e90dcb3d91.png" sizes="152x152">
+    <meta id="user_access_temp_token" value="77b5d1de45e4">
+    <meta id="current_user_id" value="1211247">
+    <meta id="current_user_slug" value="dc22c7608c73">
+  <!-- Baidu stats -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0c0e9d9b1e7d617b3e6842e85b9fb068";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+<style type="text/css"></style></head>
+
+<body class="post output zh cn win reader-day-mode reader-font2 " data-js-module="note-show" data-locale="zh-CN">
+  
+  <div class="navbar navbar-jianshu shrink">
+  <div class="dropdown">
+    <a class="dropdown-toggle logo" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
+      简
+    </a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+      <li><a href="http://www.jianshu.com/"><i class="fa fa-home"></i> 首页</a></li>
+      <li><a href="http://www.jianshu.com/collections"><i class="fa fa-th"></i> 专题</a></li>
+      <li><a href="http://www.jianshu.com/user_invitations"><i class="fa fa-money"></i> 发钱啦</a></li>
+        <li><a href="http://www.jianshu.com/timeline"><i class="fa fa-users"></i> 简友圈</a></li>
+        <li><a href="http://www.jianshu.com/writer#/"><i class="fa fa-pencil"></i> 写文章</a></li>
+    </ul>
+  </div>
+</div>
+<div class="navbar-user">
+    <a class="user avatar" data-toggle="dropdown" href="javascript:void(0)">
+      <img src="./hadoop 基础操作 - 简书_files/0" alt="0"> <b class="caret"></b>
+</a>    <ul class="dropdown-menu arrow-top" role="menu" aria-labelledby="dLabel">
+      <li>
+  <a href="http://www.jianshu.com/writer#/"><i class="fa fa-pencil"></i> 写文章</a>
+</li>
+<li>
+  <a target="_blank" href="http://www.jianshu.com/users/dc22c7608c73"><i class="fa fa-user"></i> 我的主页</a>
+</li>
+  <li>
+    <a href="http://www.jianshu.com/favourites">
+      <i class="fa fa-heart"></i> 我喜欢的
+</a>  </li>
+  <li>
+    <a href="http://www.jianshu.com/bookmarks">
+      <i class="fa fa-bookmark"></i> 我的收藏
+</a>  </li>
+  <li>
+    <a href="http://www.jianshu.com/notifications">
+      <i class="fa fa-bell"></i> 提醒
+</a>  </li>
+  <li>
+    <a href="http://www.jianshu.com/chats">
+      <i class="fa fa-envelope"></i> 简信
+</a>  </li>
+  <li><a href="http://www.jianshu.com/settings"><i class="fa fa-cogs"></i> 设置</a></li>
+  <li>
+    <a href="http://www.jianshu.com/wallet">
+      <i class="fa fa-credit-card"></i> 钱包
+</a>  </li>
+  <li><a target="_blank" href="http://www.jianshu.com/user_invitations"><i class="fa fa-money"></i> 简书发钱啦</a></li>
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="http://www.jianshu.com/p/aaca0d9e6757#"><i class="fa fa-question-circle"></i> 帮助</a>
+    <ul class="dropdown-menu">
+      <li><a href="http://www.jianshu.com/notebooks/547/latest" target="_blank">帮助中心</a></li>
+      <li><a target="_blank" href="http://www.jianshu.com/contact">联系我们</a></li>
+    </ul>
+  </li>
+  <li>
+    <a rel="nofollow" data-method="DELETE" href="http://www.jianshu.com/sign_out">
+      <i class="fa fa-sign-out"></i> 登 出
+</a>  </li>
+
+    </ul>
+    <a class="daytime set-view-mode pull-right" href="javascript:void(0)"><i class="fa fa-moon-o"></i></a>
+</div>
+<div class="navbar navbar-jianshu expanded">
+  <div class="dropdown">
+      <a class="active logo" role="button" data-original-title="个人主页" data-container="div.expanded" href="http://www.jianshu.com/">
+        <b>简</b><i class="fa fa-home"></i><span class="title">首页</span>
+</a>      <a data-toggle="tooltip" data-placement="right" data-original-title="专题" data-container="div.expanded" href="http://www.jianshu.com/collections">
+        <i class="fa fa-th"></i><span class="title">专题</span>
+</a>        <a data-toggle="tooltip" data-placement="right" data-original-title="简友圈" data-container="div.expanded" href="http://www.jianshu.com/timeline">
+          <i class="fa fa-users"></i><span class="title">简友圈</span>
+</a>        <a data-toggle="tooltip" data-placement="right" data-original-title="写文章" data-container="div.expanded" href="http://www.jianshu.com/writer#/">
+          <i class="fa fa-pencil"></i><span class="title">写文章</span>
+</a>    <a data-toggle="tooltip" data-placement="right" data-original-title="下载手机应用" data-container="body" href="http://www.jianshu.com/apps">
+      <i class="fa fa-mobile"></i><span class="title">下载手机应用</span>
+</a>  </div>
+  <div class="nav-user">
+      <a data-toggle="tooltip" data-placement="right" data-original-title="我的主页" data-container="div.expanded" href="http://www.jianshu.com/users/dc22c7608c73">
+        <i class="fa fa-user"></i><span class="title">我的主页</span>
+</a>
+        <a data-toggle="tooltip" data-placement="right" data-original-title="我的收藏" data-container="div.expanded" href="http://www.jianshu.com/bookmarks">
+          <i class="fa fa-bookmark"></i><span class="title">我的收藏</span>
+</a>
+        <a data-toggle="tooltip" data-placement="right" data-original-title="提醒" data-container="div.expanded" href="http://www.jianshu.com/notifications">
+
+          <i id="notify-icon" class="fa fa-bell"></i><span class="title">提醒</span>
+</a>
+        <a data-toggle="tooltip" data-placement="right" data-original-title="简信" data-container="div.expanded" href="http://www.jianshu.com/chats">
+            <i id="chat-message-icon" class="fa fa-envelope"></i><span class="title">简信</span>
+</a>
+        <a href="http://www.jianshu.com/p/aaca0d9e6757#view-mode-modal" data-toggle="modal"><i class="fa fa-font"></i><span class="title">显示模式</span></a>
+
+        <a data-toggle="tooltip" data-placement="right" data-original-title="设置" data-container="div.expanded" href="http://www.jianshu.com/settings">
+          <i class="fa fa-cogs"></i><span class="title">设置</span>
+</a>
+        <a data-toggle="tooltip" data-placement="right" data-original-title="登 出" data-container="div.expanded" rel="nofollow" data-method="delete" href="http://www.jianshu.com/sign_out">
+          <i class="fa fa-sign-out"></i><span class="title">登 出</span>
+</a>
+          </div>
+  </div>
+
+  
+    <div class="fixed-btn">
+    <a class="go-top hide-go-top" href="http://www.jianshu.com/p/aaca0d9e6757#"> <i class="fa fa-angle-up"></i></a>
+    <a class="qrcode" data-target="#bottom-qrcode" data-toggle="modal" href="javascript:void(0)"><i class="fa fa-qrcode"></i></a>
+    <a class="writer" href="http://www.jianshu.com/writer#/" data-toggle="tooltip" data-placement="left" title="" data-original-title="写篇文章"><i class="fa fa-pencil"></i></a>
+    <!-- qrcode modal -->
+    <div id="bottom-qrcode" class="modal panel-modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <h4>下载简书移动应用</h4>
+      <div class="panel-body"><img src="./hadoop 基础操作 - 简书_files/download-app-qrcode-85008f146773a25ce86bcc4d7858af68.png" alt="Download app qrcode"></div>
+    </div>
+  </div>
+
+
+  <div id="show-note-container">
+    
+
+<div class="post-bg" id="flag">
+  <div class="wrap-btn" style="top: -1px;">
+    <!-- Notebook and collections button upper left -->
+      <div class="article-related pull-left">
+          <a data-toggle="tooltip" data-placement="bottom" data-original-title="未加入专题" href="javascript:void(null);">
+            <i class="fa fa-th"></i>
+</a>          <a class="notebooks-menu-btn" data-toggle="modal" data-target="#notebooks-menu" href="javascript:void(null);"><i class="fa fa-list-ul"></i></a>
+        <div class="related-avatar-group activities"></div>
+      </div>
+    <!-- ******* -->
+
+      <a class="user avatar" data-toggle="dropdown" href="javascript:void(0)">
+    <img src="./hadoop 基础操作 - 简书_files/0" alt="0"> <b class="caret"></b>
+</a>  <ul class="dropdown-menu arrow-top" role="menu" aria-labelledby="dLabel">
+    <li>
+  <a href="http://www.jianshu.com/writer#/"><i class="fa fa-pencil"></i> 写文章</a>
+</li>
+<li>
+  <a target="_blank" href="http://www.jianshu.com/users/dc22c7608c73"><i class="fa fa-user"></i> 我的主页</a>
+</li>
+  <li>
+    <a href="http://www.jianshu.com/favourites">
+      <i class="fa fa-heart"></i> 我喜欢的
+</a>  </li>
+  <li>
+    <a href="http://www.jianshu.com/bookmarks">
+      <i class="fa fa-bookmark"></i> 我的收藏
+</a>  </li>
+  <li>
+    <a href="http://www.jianshu.com/notifications">
+      <i class="fa fa-bell"></i> 提醒
+</a>  </li>
+  <li>
+    <a href="http://www.jianshu.com/chats">
+      <i class="fa fa-envelope"></i> 简信
+</a>  </li>
+  <li><a href="http://www.jianshu.com/settings"><i class="fa fa-cogs"></i> 设置</a></li>
+  <li>
+    <a href="http://www.jianshu.com/wallet">
+      <i class="fa fa-credit-card"></i> 钱包
+</a>  </li>
+  <li><a target="_blank" href="http://www.jianshu.com/user_invitations"><i class="fa fa-money"></i> 简书发钱啦</a></li>
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="http://www.jianshu.com/p/aaca0d9e6757#"><i class="fa fa-question-circle"></i> 帮助</a>
+    <ul class="dropdown-menu">
+      <li><a href="http://www.jianshu.com/notebooks/547/latest" target="_blank">帮助中心</a></li>
+      <li><a target="_blank" href="http://www.jianshu.com/contact">联系我们</a></li>
+    </ul>
+  </li>
+  <li>
+    <a rel="nofollow" data-method="DELETE" href="http://www.jianshu.com/sign_out">
+      <i class="fa fa-sign-out"></i> 登 出
+</a>  </li>
+
+  </ul>
+
+
+    <!-- Buttons upper right -->
+      <div class="btn-group editor-article">
+                  <a class="daytime set-view-mode" href="javascript:void(0)"><i class="fa fa-moon-o"></i></a>
+        <span>
+          
+          
+          <a class="btn" href="http://www.jianshu.com/writer#/notebooks/2472624/notes/2940328">
+            <i class="fa fa-pencil-square-o"></i>
+</a>
+            <a href="javascript:void(null)" class="btn add-collection" data-toggle="modal" data-target="#contribute-modal" data-original-title="" title="">
+              <i class="fa fa-plus"></i><span><span class="translation_missing" title="translation missing: zh-CN.notes.show.add_to_collection">Add To Collection</span></span>
+            </a>
+
+            <a data-type="json" data-mcomponent="easy-bookmark" class="bookmark" data-remote="true" rel="nofollow" data-method="post" href="http://www.jianshu.com/notes/2940328/bookmark" data-original-title="" title="">
+    <i class="fa fa-bookmark-o"></i><span>收藏文章</span>
+</a>
+        <a href="javascript:void(null)" data-toggle="dropdown" id="top-share-button" data-original-title="" title=""><i class="fa fa-share-square-o"></i></a><ul class="dropdown-menu top-share-dropdown arrow-top"><li><a data-toggle="modal" href="http://www.jianshu.com/p/aaca0d9e6757#share-weixin-modal"><img src="./hadoop 基础操作 - 简书_files/weixin.png"> 分享到微信</a></li><li><a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=1881139527',u=z||d.location,p=['&url=',e(u),'&title=',e(t||d.title),'&source=',e(r),'&sourceUrl=',e(l),'&content=',c||'gb2312','&pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','http://cwb.assets.jianshu.io/notes/images/2940328/weibo/image_bc90eb3e58e9.jpg', '我写了新文章《hadoop 基础操作》（ 分享自 @简书 ）','http://www.jianshu.com/p/aaca0d9e6757','页面编码gb2312|utf-8默认gb2312'));"><img src="./hadoop 基础操作 - 简书_files/weibo.png"> 分享到微博</a></li><li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='http://share.v.t.qq.com/index.php?c=share&a=index&url='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&title='+e('我写了新文章《hadoop 基础操作》（ 分享自 @jianshuio ）'),x=function(){if(!window.open(r,'tweibo','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="./hadoop 基础操作 - 简书_files/tweibo.png"> 分享到腾讯微博</a></li><li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&title='+e('我写了新文章《hadoop 基础操作》'),x=function(){if(!window.open(r,'qzone','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="./hadoop 基础操作 - 简书_files/qzone.png"> 分享到QQ空间</a></li><li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='https://twitter.com/share?url='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&text='+e('我写了新文章《hadoop 基础操作》（ 分享自 @jianshucom ）')+'&related='+e('jianshucom'),x=function(){if(!window.open(r,'twitter','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="./hadoop 基础操作 - 简书_files/twitter.png"> 分享到Twitter</a></li><li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='http://www.douban.com/recommend/?url='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&title='+e('hadoop 基础操作')+'&sel='+e(s)+'&v=1',x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r+'&r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"><img src="./hadoop 基础操作 - 简书_files/douban.png"> 分享到豆瓣</a></li><li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='http://www.facebook.com/sharer.php?s=100&p[url]='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&p[title]='+e('hadoop 基础操作 - 简书社')+'&p[summary]='+e('我写了新文章《hadoop 基础操作》'),x=function(){if(!window.open(r,'facebook','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="./hadoop 基础操作 - 简书_files/facebook.png"> 分享到Facebook</a></li><li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='https://plus.google.com/share?url='+e('http://www.jianshu.com/p/aaca0d9e6757'),x=function(){if(!window.open(r,'google_plus','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="./hadoop 基础操作 - 简书_files/google_plus.png"> 分享到Google+</a></li><li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='http://widget.renren.com/dialog/share?resourceUrl='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&description='+e('我写了新文章《hadoop 基础操作》')+'&title='+e('hadoop 基础操作'),x=function(){if(!window.open(r,'renren','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="./hadoop 基础操作 - 简书_files/renren.png"> 分享到人人网</a></li><li><a href="http://cwb.assets.jianshu.io/notes/images/2940328/weibo/image_bc90eb3e58e9.jpg" target="_blank"><i class="fa fa-arrow-circle-o-down"></i>下载长微博图片</a></li></ul></span>
+      </div>
+    <!-- ******* -->
+  </div>
+
+  <div class="container">
+    <!-- Article activities for width under 768px -->
+    <div class="related-avatar-group activities"></div>
+      <div class="article">
+        <div class="preview">
+          <div class="author-info">
+            
+            <a class="avatar" href="http://www.jianshu.com/users/dc22c7608c73">
+              <img src="./hadoop 基础操作 - 简书_files/0" alt="0">
+</a>            <span class="label">
+                作者
+            </span>
+            <a class="author-name blue-link" href="http://www.jianshu.com/users/dc22c7608c73">
+              <span>清浅2015</span>
+</a>              <span>2016.01.31 20:54</span>
+            <div>
+              <span>写了55322字</span>，<span>被4人关注</span>，<span>获得了2个喜欢</span>
+            </div>
+          </div>
+          <h1 class="title">hadoop 基础操作</h1>
+          <div class="meta-top">
+            <span class="wordage">字数311</span>
+            <span class="views-count">阅读1</span>
+            <span class="comments-count">评论0</span>
+            <span class="likes-count">喜欢0</span>
+          </div>
+
+          <!-- Collection/Bookmark/Share for width under 768px -->
+          <div class="article-share">  <a href="javascript:void(null)" class="add-collection" data-toggle="modal" data-target="#contribute-modal"><i class="fa fa-plus"></i><span>加入专题</span></a>
+    <a data-type="json" data-mcomponent="easy-bookmark" class="bookmark" data-remote="true" rel="nofollow" data-method="post" href="http://www.jianshu.com/notes/2940328/bookmark">
+    <i class="fa fa-bookmark-o"></i><span>收藏文章</span>
+</a>
+  <span>
+    <a href="javascript:void(null)" data-toggle="dropdown"><i class="fa fa-share-square-o"></i> 分享</a>
+    <ul class="dropdown-menu arrow-top">
+        <li><a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=1881139527',u=z||d.location,p=['&url=',e(u),'&title=',e(t||d.title),'&source=',e(r),'&sourceUrl=',e(l),'&content=',c||'gb2312','&pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','http://cwb.assets.jianshu.io/notes/images/2940328/weibo/image_bc90eb3e58e9.jpg', '我写了新文章《hadoop 基础操作》（ 分享自 @简书 ）','http://www.jianshu.com/p/aaca0d9e6757','页面编码gb2312|utf-8默认gb2312'));"><img src="./hadoop 基础操作 - 简书_files/weibo.png"></a></li>
+        <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='http://www.douban.com/recommend/?url='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&title='+e('hadoop 基础操作')+'&sel='+e(s)+'&v=1',x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r+'&r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"><img src="./hadoop 基础操作 - 简书_files/douban.png"></a></li>
+        <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='http://share.v.t.qq.com/index.php?c=share&a=index&url='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&title='+e('我写了新文章《hadoop 基础操作》（ 分享自 @jianshuio ）'),x=function(){if(!window.open(r,'tweibo','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="./hadoop 基础操作 - 简书_files/tweibo.png"></a></li>
+        <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&title='+e('我写了新文章《hadoop 基础操作》'),x=function(){if(!window.open(r,'qzone','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="./hadoop 基础操作 - 简书_files/qzone.png"></a></li>
+        <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='https://twitter.com/share?url='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&text='+e('我写了新文章《hadoop 基础操作》（ 分享自 @jianshucom ）')+'&related='+e('jianshucom'),x=function(){if(!window.open(r,'twitter','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="./hadoop 基础操作 - 简书_files/twitter.png"></a></li>
+        <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='http://www.facebook.com/sharer.php?s=100&p[url]='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&p[title]='+e('hadoop 基础操作 - 简书社')+'&p[summary]='+e('我写了新文章《hadoop 基础操作》'),x=function(){if(!window.open(r,'facebook','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="./hadoop 基础操作 - 简书_files/facebook.png"></a></li>
+        <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='https://plus.google.com/share?url='+e('http://www.jianshu.com/p/aaca0d9e6757'),x=function(){if(!window.open(r,'google_plus','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="./hadoop 基础操作 - 简书_files/google_plus.png"></a></li>
+        <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='http://widget.renren.com/dialog/share?resourceUrl='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&description='+e('我写了新文章《hadoop 基础操作》')+'&title='+e('hadoop 基础操作'),x=function(){if(!window.open(r,'renren','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img src="./hadoop 基础操作 - 简书_files/renren.png"></a></li>
+    </ul>
+  </span>
+</div>
+          <!-- -->
+
+          <div class="show-content"><p>操作hadoop的基本命令同操作Linux相同，前面加hadoop fs，后面加cmd+参数即可。</p>
+<h1>hadoop hdfs 操作</h1>
+<pre class="hljs bash"><code class="bash">hadoop fs -cmd &lt;args&gt;
+<span class="hljs-comment">#添加目录和文件</span>
+hadoop fs -mkdir /<span class="hljs-built_in">test</span>
+hadoop fs -put example.txt .
+hdfs dfs -mkdir /<span class="hljs-built_in">test</span>
+hdfs dfs -copyFromLocal ./NOTICE.txt /<span class="hljs-built_in">test</span>
+<span class="hljs-comment">#hdfs为hadoop 2.X版本上的命令</span>
+<span class="hljs-comment">#获取/查看文件内容</span>
+hadoop fs -get example.txt .
+hadoop fs -cat example.txt
+<span class="hljs-comment">#删除文件</span>
+hadoop fs -rm example.txt
+<span class="hljs-comment">#显示目录下有哪些文件</span>
+hadoop fs -ls /tmp/output 
+<span class="hljs-comment">#查看hdfs状态</span>
+hadoop dfs admin -report
+<span class="hljs-comment">#比如有哪些datanode，每个datanode的情况</span>
+<span class="hljs-comment">#离开和进入安全模式</span>
+hadoop dfsadmin -safemode leave
+hadoop dfsadmin -safemode enter</code></pre>
+<h1>hive 操作</h1>
+<p>将test1.txt文件中内容存入hive中</p>
+<pre class="hljs cpp"><code class="cpp"><span class="hljs-number">1</span> shandong
+<span class="hljs-number">2</span> changchun
+<span class="hljs-number">3</span> shanghai
+<span class="hljs-number">4</span> beijing
+<span class="hljs-number">5</span> shenzhen
+<span class="hljs-number">6</span> guangzhou</code></pre>
+<pre class="hljs sql"><code class="sql">#建表
+<span class="hljs-operator"><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> qingqian (<span class="hljs-keyword">id</span> <span class="hljs-built_in">int</span>,<span class="hljs-keyword">name</span> <span class="hljs-keyword">string</span>) <span class="hljs-keyword">ROW</span> <span class="hljs-keyword">FORMAT</span> <span class="hljs-keyword">DELIMITED</span> <span class="hljs-keyword">FIELDS</span> <span class="hljs-keyword">TERMINATED</span> <span class="hljs-keyword">BY</span> <span class="hljs-string">' '</span> <span class="hljs-keyword">STORED</span> <span class="hljs-keyword">AS</span> TEXTFILE;</span>
+#导入数据
+<span class="hljs-operator"><span class="hljs-keyword">load</span> <span class="hljs-keyword">data</span> <span class="hljs-keyword">local</span> inpath <span class="hljs-string">'/home/hadoop/test/01/test1.txt'</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">table</span> qingqian;</span>
+#查数据
+<span class="hljs-operator">select * <span class="hljs-keyword">from</span> qingqian;</span>
+#删除数据
+<span class="hljs-operator"><span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> qingqian;</span>
+#将数据导出
+hive -e "<span class="hljs-operator">select * <span class="hljs-keyword">from</span> qingqian<span class="hljs-string">" &gt;&gt; local/wyp.txt</span></span></code></pre>
+<h1>hbase 操作</h1>
+<pre class="hljs bash"><code class="bash"><span class="hljs-comment">#建表</span>
+create <span class="hljs-string">'qingqian'</span>,<span class="hljs-string">'info'</span>;
+<span class="hljs-comment">#查表</span>
+describe <span class="hljs-string">'qingqian'</span>;
+<span class="hljs-comment">#往表中写数据</span>
+put <span class="hljs-string">'qingqian'</span>,<span class="hljs-string">'qingqian2'</span>,<span class="hljs-string">'info:birthday'</span>,<span class="hljs-string">'1987-6-17'</span>;
+put <span class="hljs-string">'qingqian'</span>,<span class="hljs-string">'qingqian2'</span>,<span class="hljs-string">'info:age'</span>,<span class="hljs-string">'24'</span>;
+<span class="hljs-comment">#获取表中数据某个数据</span>
+get <span class="hljs-string">'qingqian'</span>,<span class="hljs-string">'qingqian2'</span>;
+<span class="hljs-comment">#查表所有数据</span>
+scan <span class="hljs-string">'qingqian'</span>
+<span class="hljs-comment">#让表失效</span>
+<span class="hljs-built_in">disable</span> <span class="hljs-string">'qingqian'</span>
+<span class="hljs-comment">#查所有的表</span>
+list</code></pre>
+</div>
+        </div>
+      </div>
+
+      <div class="visitor_edit">
+        <!-- further readings -->
+        <div id="further-readings" data-user-slug="dc22c7608c73" data-user-nickname="清浅2015">
+          <div id="further-reading-line" class="hide further-reading-line"></div>
+          <ul id="further-readings-list" class="reading-list unstyled"></ul>
+          <div id="further-reading-new" class="reading-edit">
+              <a id="further-reading-new-prompt" href="javascript:void(null)">
+                <i class="fa fa-plus-circle"></i> 推荐拓展阅读
+</a>            <div id="further-reading-form"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reward / Support Author -->
+        <div class="support-author">
+          <p>在犯二的过程中不断成长，给我更多的二吧。</p>
+            <span>本文已收到 <a class="rewards-total-count" data-toggle="modal" href="http://www.jianshu.com/p/aaca0d9e6757#rewards-modal">0</a> 次打赏</span>
+          <div class="avatar-list">
+</div>
+        </div>
+
+      <!-- article meta bottom -->
+      <div class="meta-bottom clearfix">
+        <!--  Like Button -->
+        <div class="like ">
+            <div class="like-button">
+              <a class="like-content" data-remote="true" rel="nofollow" data-method="post" href="http://www.jianshu.com/notes/2940328/like">
+                <i class="fa fa-heart-o"></i>  喜欢
+</a></div>          <span id="likes-count" data-toggle="tooltip" data-placement="right" title="" data-original-title="查看所有喜欢的用户">0</span>        </div>
+        <!--  share group -->
+        <div class="share-group pull-right">
+          <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=1881139527',u=z||d.location,p=['&url=',e(u),'&title=',e(t||d.title),'&source=',e(r),'&sourceUrl=',e(l),'&content=',c||'gb2312','&pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','http://cwb.assets.jianshu.io/notes/images/2940328/weibo/image_bc90eb3e58e9.jpg', '我写了新文章《hadoop 基础操作》（ 分享自 @简书 ）','http://www.jianshu.com/p/aaca0d9e6757','页面编码gb2312|utf-8默认gb2312'));" data-name="weibo">
+            <i class="fa fa-weibo"></i><span>分享到微博</span>
+          </a>
+          <a data-toggle="modal" href="http://www.jianshu.com/p/aaca0d9e6757#share-weixin-modal" data-name="weixin">
+            <i class="fa fa-weixin"></i><span>分享到微信</span>
+          </a>
+          <div class="more">
+            <a href="javascript:void(0)" data-toggle="dropdown">更多分享<i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-menu arrow-top">
+                <li><a href="http://cwb.assets.jianshu.io/notes/images/2940328/weibo/image_bc90eb3e58e9.jpg" target="_blank" data-name="changweibo"><i class="fa fa-arrow-circle-o-down"></i> 下载长微博图片</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='http://share.v.t.qq.com/index.php?c=share&a=index&url='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&title='+e('我写了新文章《hadoop 基础操作》（ 分享自 @jianshuio ）'),x=function(){if(!window.open(r,'tweibo','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="tweibo"><img src="./hadoop 基础操作 - 简书_files/tweibo.png">分享到腾讯微博</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&title='+e('我写了新文章《hadoop 基础操作》'),x=function(){if(!window.open(r,'qzone','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="qzone"><img src="./hadoop 基础操作 - 简书_files/qzone.png">分享到QQ空间</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='https://twitter.com/share?url='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&text='+e('我写了新文章《hadoop 基础操作》（ 分享自 @jianshucom ）')+'&related='+e('jianshucom'),x=function(){if(!window.open(r,'twitter','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="twitter"><img src="./hadoop 基础操作 - 简书_files/twitter.png">分享到Twitter</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='http://www.facebook.com/sharer.php?s=100&p[url]='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&p[title]='+e('hadoop 基础操作 - 简书社')+'&p[summary]='+e('我写了新文章《hadoop 基础操作》'),x=function(){if(!window.open(r,'facebook','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="facebook"><img src="./hadoop 基础操作 - 简书_files/facebook.png">分享到Facebook</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='https://plus.google.com/share?url='+e('http://www.jianshu.com/p/aaca0d9e6757'),x=function(){if(!window.open(r,'google_plus','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="google_plus"><img src="./hadoop 基础操作 - 简书_files/google_plus.png">分享到Google+</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r='http://widget.renren.com/dialog/share?resourceUrl='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&description='+e('我写了新文章《hadoop 基础操作》')+'&title='+e('hadoop 基础操作'),x=function(){if(!window.open(r,'renren','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="renren"><img src="./hadoop 基础操作 - 简书_files/renren.png">分享到人人网</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='http://www.douban.com/recommend/?url='+e('http://www.jianshu.com/p/aaca0d9e6757')+'&title='+e('hadoop 基础操作')+'&sel='+e(s)+'&v=1',x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r+'&r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()" data-name="douban"><img src="./hadoop 基础操作 - 简书_files/douban.png">分享到豆瓣</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modals -->
+      <div id="share-weixin-modal" class="modal hide fade share-weixin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body" title="http://www.jianshu.com/p/aaca0d9e6757?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=reader_share&amp;utm_source=weixin">
+    <h5>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</h5>
+  <canvas width="170" height="170" style="display: none;"></canvas><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKoAAACqCAYAAAA9dtSCAAAOwElEQVR4Xu2d23LbTK9Ek/d/6OySa/8VkpKwuNRDWc7Xvp0TptFoYIak/PvXr19/fr3h78+f58v8/v17Z8Gx77HdmDutS/NcuW4yN9k9tRs8rvSL3cONISXqE9QSMhEhkrmtk7f9ya5t3xL1gPSVgBjHHAmQkInWTeb+zxOVwDUAEfmmyD2uQ3atcrpdx5Qo1JfWXonX5MctlmST8bHhzq3vce5d6ifDzGJmE0Q0sovGn7XbrkPkm1KuwccqPe2jRN0gYBxBRCPgaXyJehaBvZJZ3Kn/eSuqqCNWBDQF3xQwpL60dlP/5tRPYJprD3KqAZ5qVlNXTWk02b9Ri0d9t2sb7B7NZQLG4EElSIIfjR1rVJNSaSFzj0pOn9YyynQs2mkPZFfSXqLub0nVYapE3T+ISIhIY0vUEnXkyFQ2mEAlIlJ7ifoPEPXKlJyUJMYuU5KkNerZ66dbv2QPZKcJdLLjR9SotAlSK3MINIc8Y1eJOnuJsCxRxcsy5vaB+iaqlwRmooJEJmo3gvEjD1MJAOTUpv65NtziR36g9h9PVCKTqXVoLpOC6d6Q1nq1PXH4o7rTlDMJmRK7aexHpH5yaInqrsmSLFGiDrVgibpHgNSF8PrPEZUASQ4EK1VyqqMofSdONWUEHWIMluQXsyezhwRLspnm/rbX/ErU8x9WWKxKVBEWpCAW/LNLk0KQXebgQWtNcyVjCYsSlRDatBMhStQqqil3vu3jPvOMnQ4X23YbIKvG3kBftSez3+O6x+upd+IhdEx3LVE3txGJU0tUzT01oEQtUXeESTKMYp7sXKKWqD+DqH/M8VNGwavdKQVPd262vjMF/bGvgc7syfR9ZL/5FCVd61Uf23G/S9TnkNHNRIlq6fZ6/xJ1wK5EfZ1Yq0eWqCXq0xp1NdmS+dQj1Kmesepj7hxpg0kKprl/erut2Y1f7NwJliVqgt4PGGvJVKIeXvMzgBAfqqjPEfpniLo99VP6JsJs24k8yRXKp1wTJXswL468a7/kX7rKSvhDAbU7TCULWTATJ9u1tv0JbNM32UOJuvdiiXpgdYl6/q2toyAQdonQlagl6rLrp48hKkWQSbkUXeblB7JrVRolm6mGm/a0cizV/9Na6R5XnUOIS0c7xwt/2tRVBCFHUGRPdeYEEO13JdkSOwifEvWAQIn6/EBgSW/UuESFeo7kepWSkSOqqOsORJQlpnbrJzOXSv20ieR6JjE6CZjpdEnAEx7maitJz2Tn9DCF9mDG2qwx1bc0V/RSSon63O1G9emwaALz1teQbVrbBAQFAO2hRBX/vpIcY5xRos5o0b3pXQAlL05XUauoJnij1L/9X6iJopB0v7qh27iVdpmbClr3StU0eBl1uqov2UtY0nj1ml9yACBDzOHKzGXIZPoea0EbUCsD+yrymXnJJyUqIGTIZ/qWqETNfXuJWqIu/YcRSR15VVb8EgXzPmpyBzmplVWylVcq5okQaUgyV6o4W9vM9VSKPWHyavt44U91U4l6/sqFsDzOVKLuESlRh3tVS66JbHauEvWbiEop5ao7WEo15nrKzjWlXIOHPW2vJPmzEoKweHTrYYN1rI+vqlGNYygNJhumua9yDJHNlFG0/xL14OUEXHLcVafNEvWMFj7uQwFC2NrxVdQNAk3954lriWbEiKy4m2v7CJUGUwTZ8c/6U9lg1iGw35U2aR2yc1XGITKRna+WSjQv+Tz6fVRa3BBqAiBZhwiQzD3tj4A/jiU7S9Rfv15+XfxTnGwI86lZoUTd/3fCpn44IL6aBUghKahL1ICoVM8Yp5pDjHWqeXSZ2EHpPCHbu0of41PyQxqcJhOONarZFJE2IYgBhMiS2FGizl4mfIgjU7CWqBt0CGjbPjkmCZjE4UZ8qqgHpIkAVdSXz7u7D/1uOP4TRLURZOqqlc/2jRqR+kz1rcVj1bN+upkwgW363tad9mAE4zgX7Yn8dNmnKEnkrqwzCYASdY9QiXp4vS65wK6izlc5JtNNKkkZhdTaZFESFPUDFJNhVgXNJlYCQnZOAWRSH61zVbChw9/4OweEAdm6CzjzXX+J+jxNHg8q5KQS1dD08M0UDS1RS1TiyFR2mLF32auK+hy+pEarou5vEBKSft0gmF9KIfDNAYlIMG3M1LcJQFQbU81q8JjspBuUqZ1wtntMDmrGp+NLKXZTK8E1hCpR4QWOzYHJ+pT6l6iCqSVqiTrSpal/fpRpAuhKLFde2ifpWmgPP+qdvkKl2sgYYsqEVfN+FeFwb3jVKdXuwbyqaOY2qfwRXmatxMfkp/EnfUrUVW7ieUpUKGeqqH9JZNIxU8/1KFFL1B1jVj4RclSce5eo4lMUSvXJfd1055ise5vXvAG1UjVN/Uc12LsOLSa4EpuP9a7B6lGtPF74k6HmdFminn/jacLqGJiGeLYv+Z/mW8WPL+JOT6bI0FWGVFFnl5MfiDCvtqfrruJHifqqB/9/nElnidOTsckW03V/BFFpk9MmzNijI4g8Ky/lTc1Oe9ruw/S1RExq9CTz0Vjax2Wpn8AuUZ8/5SLsyKnmYGbmIrIlgUt2lKgbhMgRpN5J8FVRoU6f3kc1aYJSLp1kt+0011Xpm5SM2o2SrbzPNUpGyrUyYFb6afxmqkTdp+cS1f2+QIl60RetRERqr6LuEShRS9QdI/4TqT/5xWlT70x9qSaldUzkTrUy2WFKIbKZDmZTrWjnfhX7d+6X1op+cXoVYEQQWqdEJYSet6881Bkr7A1LiRp8X2QcQ30/hTDfpeRV1D/nPx8hZScwiYw/IQX/SKKSPJNjE8e9a6y5pCebElX8rrGmVqb9JyXYdHa4tUU/5Fui7uH9LrIl65aoFH4f0l5FPR9s5LIqKiEUtJeoP4SoyW9PbbeY1LP0xIfaJ57S2ImoVDetvGhPDmqE/eQn2qM5ABLW5qB2t6cS9e8nIlRzkyMM6ROCUF2ZpGATMBQgSe1coh6uqwy5StS5TCB8IkWdHqFSxJi0MCmIVTJSlAmQlVGe7ClR1JV+mchl1PW2H4Ot9Xl0PVWi7hEw6lyinn8QE9+jlqgl6tmDmikLvoh5eEOuirpBmlKdSVfUt4oqFXXVqZ+uMo3jEsLQ2KS+NXtMFeSqq79k/+RDg72dK/r3PeS4s2nBqosp2snGq+YqUWfkS9Th7f9H0JWo6z7brqIeGHYVuayyT2m0ivpGRaUI2RJmpWOojjJPXqxd0x0slRGmPbkLJXyMHVNfi92Vd7LR59Il6uuUKFGd4paoA16UUV6n6f1TnGQtOpi8amcV9cGF7gSmUR/qa5yakIfIQXbS+FdvVMy8H0XU5PdRk3puKhsMmNTXEJPmMsR957rvOlzSYXNl8N2tVaISPf+2l6h7rEhxDV7khejX/Kqoz+Gtor7xn/ZSxJSoJepUK1+mqHQ/Z+7JTL1C6pNs2MxtbL5hNfU36xLutjacBIT2aK4cjV8sHnd2Ji9Or9qU3QTVM+ZEPL1DSo4oUff/6cXc3Njgi17zK1Gf/35qEnx2rDn1/5OKSinJqNFKMCe7qK5OHr8mSm7U2fR9ZNPkF1IyU3Ma0tO6GJzmZydNqiPCJHVUiXr+pWMkQPBbsyXq8KXoIwW5qgQhZTM1Gc1lHoAY8pm+JoPSYfJRuxGnOwWuov6FhBSiqR/+se5BnZNy746oyX9FoWh99Z51JWFIJaIoF2nTkDztS+p99laEyjdqX4ntsrenCNwEPDOW7Fga5SXqDu4rsS1RN1AbhbgNMzcIFEAr201gJ+QyeJm+j7AtUUvUpzFC5KL2t6V+ivLkHjW56zO18ZV7uCv4g/8HYG4uVu5p5c2Fmcvs4UthzXf9xjEUbSXq8xM0YWecnBxMk7HmEPtoP0cMStRBBS1hVgWfXTcREKOCpvYtUeFX40htEqdSyVGiPkefsJv8cpf6r4yYK0/IhiATkWn/BmyrirT21m6yI8FjpZ/MXITXLvUbsKy0G6NXqqKZi/ZPBFl5yjUp2WQJwmOln8xcJSp5ZtNeoq69G15K1OnjPqobpnSEESKe6iRzCZ6Ob+ybeV7pa15KeWX+s2M+xY477pWofyFZeR1zlhj/6/cpBPkUO0rUgUEl6v47MCqFbDAm/cfPpZv6z38TlDjhNvZTlOxT7LjjXvJkKnHOu6J15UmdauWrrr6SdclH09zpuiuvyaInUwRC4rhk7umQZ2yiUiAJgqMdyVtMCVYlKqBXRd0DVKLu8Tjyo4q6wYdSHbUbta6izkp2R1TzzVSSYt6lGFeSicg11WRkl6nnkrlo7HaP1Ne2G/7clV0l6l/4bDky1bC2vi1R51Jo/KUUEwHUt4p6/gtOOqQZJbMBU0U9fKtvAKEgWDVXFXU+0FjSWzyn2xp14b+SMEk9d7TDpM1prKlBb31J+UwAXYVHsidSbuKD8QutVaIufDnGnPpX1rdXBR+Rp0QVv7hxA8tE7lVONU57pMZVVKjhzdtT5IxPSHUmHR9JnqRJwobUqUQNiGqKYVtov0pqIgTZQWSc7KK1Tbux0wbfVdia/VFfs/8vQTH/FWVanBZOrqdWBkyJ+vzHh4lcK9uJL3clWol6/r8rf5ejqqjfqKiTSpJjqN57NX3TuoaoZOPKLJFkq+RwacaaTPYI529L/SXq+ZeyKU2WqMMdI0VIoiikbDR3FfUvAgYrewtSRR0etz4C0yiKORCaVE9OI1U0dhnymb4lKjxupHrtXU62Tp3IZfdkgoLsfNcDEArObbvNkj/i1G/LilVqRARIyER7SuY2j2NpnZVnhxL1otq5RM1+KeUqkn+VJJ94j0rqQ2l1iuSJjCXqDyUqpQlTo1GNYk7qV9WsZKMJEMKO1qLxZ9uvDD6zh9SOb3vNz5D8XQpLwJeo84sjxqeEtTpMnY3aR/2SCCJCVFHPeybxA53qDdlSO6qowT+IOE+X+57Gyck6KUGmkszsIbXj2z7uW3nXtwUsAWSlklvVn/aQlD5kB7UnQbKSyCXqxhMl6nzqt6QtUYdPVaqoezqRYlK7Jae55DdlRRW1irrjImUVQ9yVivp/50XBgj7ZGDMAAAAASUVORK5CYII=" style="display: block;"></div>
+</div>
+
+      <div id="contribute-modal" tabindex="-1" class="arrow-top user-editor-actions modal hide fade">
+  <div class="modal-header">
+    <b>
+      向专题投稿
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </b>
+  </div>
+  <div class="modal-body">
+    <div class="search">
+      <input type="text" name="search_term" id="search_term" class="input-large search-query" placeholder="搜索更多专题投稿" data-search-collections-url="/collections/search?note_id=2940328">
+    </div>
+    <ul class="add-list"></ul>
+  </div>
+</div>
+
+      <div id="notebooks-menu" class="panel notebooks-menu arrow-top modal hide fade"><img class="loader-tiny" src="./hadoop 基础操作 - 简书_files/tiny.gif" alt="Tiny"></div>
+      <div id="collection-menu" class="panel collection-menu arrow-top modal hide fade"><img class="loader-tiny" src="./hadoop 基础操作 - 简书_files/tiny.gif" alt="Tiny"></div>
+      <div id="rewards-modal" class="modal modal_new support_list-modal fullscreen hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>读者打赏</h3>
+      </div>
+      <div class="modal-body">
+        <ul class="unstyled users">
+          <img class="loader-tiny editor-loading" src="./hadoop 基础操作 - 简书_files/tiny.gif" alt="Tiny">
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <div id="likes-modal" class="modal modal_new support_list-modal fullscreen hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>喜欢的用户</h3>
+      </div>
+      <div class="modal-body">
+        <ul class="unstyled users">
+</ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Comments -->
+    <div id="comments" class="comment-list clearfix">
+        <div class="comment-head clearfix">
+          0条评论
+          <span class="order">
+            （
+            <a data-order="asc" class="active" href="javascript:void(0)">按时间正序</a>·
+            <a data-order="desc" href="javascript:void(0)">按时间倒序</a>·
+            <a data-order="likes_count" href="javascript:void(0)">按喜欢排序</a>
+            ）
+          </span>
+            <a href="javascript:void(null)" class="goto-comment pull-right"><i class="fa fa-pencil"></i>添加新评论</a>
+            <a class="close-comment pull-right" disable_with="请等待..." data-remote="true" rel="nofollow" data-method="put" href="http://www.jianshu.com/notes/aaca0d9e6757/toggle_comment">关闭评论</a>
+        </div>
+        <div id="comment-list"><script type="application/json" data-name="comments-info">
+  {"comments":[],"liked":[]}
+</script>
+
+
+
+</div>
+          <form class="new_comment" id="new_comment" data-type="json" action="http://www.jianshu.com/notes/2940328/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">
+    <div class="comment-text">
+      <textarea maxlength="2000" placeholder="写下你的评论…" class="mousetrap" name="comment[content]" id="comment_content"></textarea>
+      <div>
+        <input type="submit" name="commit" value="发 表" class="btn btn-info" data-disable-with="提交中...">
+          <div class="emoji">
+    <a href="http://www.jianshu.com/p/aaca0d9e6757#emoji-modal" data-toggle="modal"><i class="fa fa-smile-o"></i></a>
+    <div id="emoji-modal" class="emoji-modal arrow-top hide" tabindex="-1" aria-hidden="true">
+      <ul id="emojiTab" class="emoji-nav-tabs modal-header">
+          <li class="active"><a href="http://www.jianshu.com/p/aaca0d9e6757#emoji-pane-1" data-toggle="tab">1</a></li>
+          <li class=""><a href="http://www.jianshu.com/p/aaca0d9e6757#emoji-pane-2" data-toggle="tab">2</a></li>
+          <li class=""><a href="http://www.jianshu.com/p/aaca0d9e6757#emoji-pane-3" data-toggle="tab">3</a></li>
+          <li class=""><a href="http://www.jianshu.com/p/aaca0d9e6757#emoji-pane-4" data-toggle="tab">4</a></li>
+      </ul>
+      <div id="emojiTabContent" class="tab-content">
+          <div class="tab-pane fade active in" id="emoji-pane-1">
+          <ul>
+          </ul>
+        </div>
+          <div class="tab-pane fade  in" id="emoji-pane-2">
+          <ul>
+          </ul>
+        </div>
+          <div class="tab-pane fade  in" id="emoji-pane-3">
+          <ul>
+          </ul>
+        </div>
+          <div class="tab-pane fade  in" id="emoji-pane-4">
+          <ul>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+          <span class="hotkey">Ctrl+Enter 发表</span>
+        <span class="warning" style="display: none"><i class="fa fa-exclamation-circle"></i><span class="warning-text"></span></span>
+      </div>
+    </div>
+</form>
+    </div>
+    <!-- -->
+
+  </div>
+
+  <script type="application/json" data-name="note">
+    {"id":2940328,"abbr":"操作hadoop的基本命令同操作Linux相同，前面加hadoopfs，后面加cmd+参数即可。hadoophdfs操作hadoopfs-cmd&lt;args&gt;#添加目录和文件hadoopfs-mkdir/testhadoopfs-putexample.txt.hdfsdfs-mkdir/testhdfsdfs-copyFromLocal./NOTICE.txt/test#hdfs为hadoop2.X版本上的命令#获取/查看文件内容hadoopfs-getexample.txt.hadoopfs...","slug":"aaca0d9e6757","url":"http://www.jianshu.com/p/aaca0d9e6757","image_url":"http://cwb.assets.jianshu.io/notes/images/2940328/weibo/image_bc90eb3e58e9.jpg","wordage":311,"has_further_readings":false,"views_count":1,"likes_count":0,"comments_count":0,"rewards_total_count":0}
+  </script>
+
+  <script type="application/json" data-name="uuid">
+    {"uuid":"5c6bf6f0-aa5c-0133-76cb-52540095852f"}
+  </script>
+
+  <script type="application/json" data-name="author">
+    {"id":1211247,"nickname":"清浅2015","slug":"dc22c7608c73","public_notes_count":102,"followers_count":4,"total_likes_count":2,"is_current_user":true}
+  </script>
+
+    <script type="application/json" data-name="current-user">
+      {"id":1211247,"slug":"dc22c7608c73","nickname":"清浅2015","avatar_url":"http://wx.qlogo.cn/mmopen/xiaR0Twic472lOTwH1OBL4JawS4r3eE74A9A28BDB7X0nULyV08Dich9z9IIErOBiaUoJCpaMhuBdaprYDkVYOhmFFpNONphgLuu/0","blocked_by_author":false,"blocked_user_ids":[],"balance_in_cent":0}
+    </script>
+
+    <script type="application/json" data-name="comment-participants">
+      []
+    </script>
+
+
+      <script type="application/json" data-name="reward">
+        {"rewards":[]}
+      </script>
+
+
+  <!-- Modal -->
+</div>
+
+  </div>
+  <div id="flash" class="hide"></div>
+  
+  <div id="view-mode-modal" tabindex="-1" class="modal hide read-modal" aria-hidden="false" data-js-module="view-mode-modal">
+    <div class="btn-group change-background" data-toggle="buttons-radio">
+
+      <a class="btn btn-daytime active" data-mode="day" data-remote="true" rel="nofollow" data-method="put" href="http://www.jianshu.com/preferences?read_mode=day">
+        <i class="fa fa-sun-o"></i>
+</a>      <a class="btn btn-nighttime " data-mode="night" data-remote="true" rel="nofollow" data-method="put" href="http://www.jianshu.com/preferences?read_mode=night">
+        <i class="fa fa-moon-o"></i>
+</a>    </div>
+    <div class="btn-group change-font" data-toggle="buttons-radio">
+      <a class="btn font " data-font="font1" data-remote="true" rel="nofollow" data-method="put" href="http://www.jianshu.com/preferences?default_font=font1">宋体</a>
+      <a class="btn font hei active" data-font="font2" data-remote="true" rel="nofollow" data-method="put" href="http://www.jianshu.com/preferences?default_font=font2">黑体</a>
+    </div>
+    <div class="btn-group change-locale" data-toggle="buttons-radio">
+      <a class="btn font active" data-locale="zh-CN" data-remote="true" rel="nofollow" data-method="put" href="http://www.jianshu.com/preferences/set_locale?locale=zh-CN">简</a>
+      <a class="btn font hei " data-locale="zh-TW" data-remote="true" rel="nofollow" data-method="put" href="http://www.jianshu.com/preferences/set_locale?locale=zh-TW">繁</a>
+    </div>
+  </div>
+
+  <div id="report-modal" class="modal hide fade modal_report fullscreen" tabindex="-1" role="dialog" aria-labelledby="reportModal" aria-hidden="true" data-js-module="report-modal">
+  <form id="report-form" data-type="json" action="javascript:void(0)" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">
+    <input type="hidden" name="type" id="type" value="other">
+
+    <div class="modal-header">
+      <b>举报原因</b>
+    </div>
+    <div class="modal-body">
+      <textarea name="content" id="content" maxlength="2000" placeholder="写下你的举报原因..."></textarea>
+    </div>
+    <div class="modal-footer">
+      <a class="btn" data-dismiss="modal" aria-hidden="true" href="javascript:void(0)">取消</a>
+      <input type="submit" name="commit" value="确认" class="btn btn-info">
+    </div>
+</form></div>
+
+
+  <script src="./hadoop 基础操作 - 简书_files/base-73cea4d745b4ee6617c3da2a1a8bcb4f.js"></script>
+  
+  <script src="./hadoop 基础操作 - 简书_files/reading-base-10a1300669d1fe119a5b133a09d026c0.js"></script>
+  <script src="./hadoop 基础操作 - 简书_files/note_show-75978bc1a39e4b29199bcfb377d4b358.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35169517-1']);
+  _gaq.push(['_setCustomVar', 2, 'User Type', 'Member', 1 ]);
+  _gaq.push(['_trackPageview']);
+
+  
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+<div id="atwho-container"><div id="atwho-ground-comment_content"><div class="atwho-view" id="at-view-64"><ul class="atwho-view-ul"></ul></div></div><div id="atwho-ground-comment_content"><div class="atwho-view" id="at-view-58"><ul class="atwho-view-ul"></ul></div></div></div><script src="./hadoop 基础操作 - 简书_files/bw-send-411.4.5.js"></script><script type="text/javascript" src="./hadoop 基础操作 - 简书_files/saved_resource" async=""></script></body></html>

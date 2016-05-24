@@ -2,8 +2,8 @@
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
 <node COLOR="#000000" CREATED="1452959666307" ID="7vps2bed4423oirubnpdu9otdt" MODIFIED="1453511028701" STYLE="fork" TEXT="hadoop&#x642d;&#x5efa;&#x73af;&#x5883;">
 <font NAME="SansSerif" SIZE="20"/>
-<hook NAME="accessories/plugins/HierarchicalIcons.properties"/>
 <hook NAME="accessories/plugins/AutomaticLayout.properties"/>
+<hook NAME="accessories/plugins/HierarchicalIcons.properties"/>
 <node COLOR="#0033ff" CREATED="1452959666308" ID="2hmsll8v7jnd98mjt5abrmgfdg" MODIFIED="1453511030927" POSITION="right" STYLE="fork" TEXT="1 &#x76ee;&#x7684;">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="SansSerif" SIZE="18"/>
@@ -12,7 +12,7 @@
 <font NAME="SansSerif" SIZE="16"/>
 </node>
 </node>
-<node COLOR="#0033ff" CREATED="1452959666308" ID="06kc13h87n0jjqtp9scn1dh2l8" MODIFIED="1453511018990" POSITION="right" STYLE="fork" TEXT="2 &#x63d0;&#x4f9b;&#x73af;&#x5883;">
+<node COLOR="#0033ff" CREATED="1452959666308" FOLDED="true" ID="06kc13h87n0jjqtp9scn1dh2l8" MODIFIED="1463986577134" POSITION="right" STYLE="fork" TEXT="2 &#x63d0;&#x4f9b;&#x73af;&#x5883;">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="SansSerif" SIZE="18"/>
 <node COLOR="#00b439" CREATED="1452959666308" ID="6j9khab0chnm0c0q0u0l0ajb3l" MODIFIED="1452960495745" STYLE="fork" TEXT="&#x8df3;&#x6273;&#x673a;">
@@ -33,10 +33,10 @@
 </node>
 </node>
 </node>
-<node COLOR="#0033ff" CREATED="1452959666308" ID="2sr7vnr6te3i016q7e7k56brkq" MODIFIED="1453511347436" POSITION="right" STYLE="fork" TEXT="3 &#x51c6;&#x5907;&#x5de5;&#x4f5c;">
+<node COLOR="#0033ff" CREATED="1452959666308" FOLDED="true" ID="2sr7vnr6te3i016q7e7k56brkq" MODIFIED="1463992904140" POSITION="right" STYLE="fork" TEXT="3 &#x51c6;&#x5907;&#x5de5;&#x4f5c;">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="SansSerif" SIZE="18"/>
-<node COLOR="#00b439" CREATED="1452959666308" ID="527hj1ou0son3cpui77u6t738c" MODIFIED="1452960495750" STYLE="fork" TEXT="&#x68c0;&#x67e5;&#x73af;&#x5883;">
+<node COLOR="#00b439" CREATED="1452959666308" FOLDED="true" ID="527hj1ou0son3cpui77u6t738c" MODIFIED="1463986572535" STYLE="fork" TEXT="&#x68c0;&#x67e5;&#x73af;&#x5883;">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="SansSerif" SIZE="16"/>
 <node COLOR="#990000" CREATED="1452959666308" ID="12hqtte1223grqcsk5f5nr5o6b" MODIFIED="1452960495750" STYLE="fork" TEXT="1&#xff09;&#x670d;&#x52a1;&#x5668;&#x662f;&#x5426;&#x53ef;&#x767b;&#x5f55;">
@@ -63,7 +63,7 @@
 <node COLOR="#111111" CREATED="1452959666309" ID="74fiksdkjl5culsnscvst3aqp0" MODIFIED="1452960495753" STYLE="fork" TEXT="openssh"/>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1452959666309" ID="2kiecb8k1r1fu20gjd01pp6jq7" MODIFIED="1452960495754" STYLE="fork" TEXT="&#x51c6;&#x5907;&#x5b89;&#x88c5;&#x6587;&#x4ef6;">
+<node COLOR="#00b439" CREATED="1452959666309" FOLDED="true" ID="2kiecb8k1r1fu20gjd01pp6jq7" MODIFIED="1463986571150" STYLE="fork" TEXT="&#x51c6;&#x5907;&#x5b89;&#x88c5;&#x6587;&#x4ef6;">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="SansSerif" SIZE="16"/>
 <node COLOR="#990000" CREATED="1452959666309" ID="4bilj8g8vm40qiirpmcer48nac" MODIFIED="1452960495754" STYLE="fork" TEXT="jdk-8u60-linux-x64.rpm">
@@ -73,7 +73,7 @@
 <font NAME="SansSerif" SIZE="14"/>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1452959666309" ID="76p2mcglatpm5gitc3qnvimapb" MODIFIED="1452960495756" STYLE="fork" TEXT="&#x4f1a;&#x7528;&#x5230;&#x547d;&#x4ee4;">
+<node COLOR="#00b439" CREATED="1452959666309" FOLDED="true" ID="76p2mcglatpm5gitc3qnvimapb" MODIFIED="1463986570439" STYLE="fork" TEXT="&#x4f1a;&#x7528;&#x5230;&#x547d;&#x4ee4;">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="SansSerif" SIZE="16"/>
 <node COLOR="#990000" CREATED="1452959666309" ID="6d020khkb40qrs91sg225h1m14" MODIFIED="1452960495756" STYLE="fork" TEXT="scp">
@@ -86,7 +86,7 @@
 <font NAME="SansSerif" SIZE="14"/>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1452959666309" ID="2hil67bmqb31csq5r7d22ahjni" MODIFIED="1452960495759" STYLE="fork" TEXT="&#x914d;&#x7f6e;hostname">
+<node COLOR="#00b439" CREATED="1452959666309" ID="2hil67bmqb31csq5r7d22ahjni" MODIFIED="1463992902000" STYLE="fork" TEXT="&#x914d;&#x7f6e;hostname">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="SansSerif" SIZE="16"/>
 <node COLOR="#990000" CREATED="1452959666310" ID="0uvkjshrcafbjgv44l8ttur7d7" MODIFIED="1452960495759" STYLE="fork" TEXT="vi /etc/hosts&#xd;&#xa;192.168.0.166 master&#xd;&#xa;192.168.0.167 slave01&#xd;&#xa;192.168.0.168 slave02">
@@ -106,7 +106,7 @@
 </node>
 </node>
 </node>
-<node COLOR="#0033ff" CREATED="1452959666310" ID="7sqd8av7226bul6cf72fsak6b7" MODIFIED="1453544003485" POSITION="right" STYLE="fork" TEXT="4 &#x6b63;&#x5f0f;&#x5b89;&#x88c5;">
+<node COLOR="#0033ff" CREATED="1452959666310" FOLDED="true" ID="7sqd8av7226bul6cf72fsak6b7" MODIFIED="1463992906377" POSITION="right" STYLE="fork" TEXT="4 &#x6b63;&#x5f0f;&#x5b89;&#x88c5;">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="SansSerif" SIZE="18"/>
 <node COLOR="#00b439" CREATED="1452959666310" FOLDED="true" ID="1c2dhct55qr47i1q1pqbpfuo12" MODIFIED="1453544453516" STYLE="fork" TEXT="&#x914d;&#x7f6e;&#x73af;&#x5883;&#x53d8;&#x91cf;">
@@ -148,7 +148,7 @@
 </node>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1452959666311" ID="7j9r7vjn44nehirtqompsrel29" MODIFIED="1454228160317" STYLE="fork" TEXT="&#x914d;&#x7f6e;&#x65e0;&#x5bc6;&#x7801;&#x767b;&#x5f55;">
+<node COLOR="#00b439" CREATED="1452959666311" FOLDED="true" ID="7j9r7vjn44nehirtqompsrel29" MODIFIED="1463986567577" STYLE="fork" TEXT="&#x914d;&#x7f6e;&#x65e0;&#x5bc6;&#x7801;&#x767b;&#x5f55;">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="SansSerif" SIZE="16"/>
 <node COLOR="#990000" CREATED="1452959666311" ID="5s9trj2ktvpg98ealimgp2qc3i" MODIFIED="1453511358553" STYLE="fork" TEXT="&#x76ee;&#x7684;">
@@ -228,7 +228,7 @@
 </node>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1452959666312" ID="4or4pbb60ujsvn81aofpgafjkd" MODIFIED="1453544459314" STYLE="fork" TEXT="&#x914d;&#x7f6e;hadoop">
+<node COLOR="#00b439" CREATED="1452959666312" FOLDED="true" ID="4or4pbb60ujsvn81aofpgafjkd" MODIFIED="1463986566321" STYLE="fork" TEXT="&#x914d;&#x7f6e;hadoop">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="SansSerif" SIZE="16"/>
 <node COLOR="#990000" CREATED="1452959666312" ID="2q041bcnbv57vcd466r9bgr7mi" MODIFIED="1452960495791" STYLE="fork" TEXT="&#x5c06;hadoop &#x5b89;&#x88c5;&#x6587;&#x4ef6;&#x590d;&#x5236;&#x5230; master&#x673a;&#x5668;">
@@ -274,7 +274,7 @@
 </node>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1452959666313" FOLDED="true" ID="72o64rm2uph5lv35hm11g7ggbg" MODIFIED="1454338901596" STYLE="fork" TEXT="&#x542f;&#x52a8;hadoop">
+<node COLOR="#00b439" CREATED="1452959666313" ID="72o64rm2uph5lv35hm11g7ggbg" MODIFIED="1463992899506" STYLE="fork" TEXT="&#x542f;&#x52a8;hadoop">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="SansSerif" SIZE="16"/>
 <node COLOR="#990000" CREATED="1452959666313" ID="6p0pujmgg5l4o6ct207g6uq6gf" MODIFIED="1452960495798" STYLE="fork" TEXT="&#x542f;&#x52a8;&#x547d;&#x4ee4;&#x5728;&#xff1a;/home/hadoop/bigdata/hadoop/sbin">
@@ -327,10 +327,10 @@
 </node>
 </node>
 </node>
-<node COLOR="#0033ff" CREATED="1452959666314" ID="2q0ivasckb67ekdalebbms0rqo" MODIFIED="1460442724865" POSITION="right" STYLE="fork" TEXT="5 &#x9a8c;&#x8bc1;">
+<node COLOR="#0033ff" CREATED="1452959666314" FOLDED="true" ID="2q0ivasckb67ekdalebbms0rqo" MODIFIED="1463992913742" POSITION="right" STYLE="fork" TEXT="5 &#x9a8c;&#x8bc1;">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="SansSerif" SIZE="18"/>
-<node COLOR="#00b439" CREATED="1452959666314" ID="4io49our6ejk07j7dprhb24qtp" MODIFIED="1460442724921" STYLE="fork" TEXT="master">
+<node COLOR="#00b439" CREATED="1452959666314" FOLDED="true" ID="4io49our6ejk07j7dprhb24qtp" MODIFIED="1463992912774" STYLE="fork" TEXT="master">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="SansSerif" SIZE="16"/>
 <node COLOR="#990000" CREATED="1452959666314" ID="3icatb0at41kp2ar5a8ppokg3u" MODIFIED="1452960495808" STYLE="fork" TEXT="[hadoop@master sbin]$ hdfs dfsadmin -report&#xd;&#xa;16/01/16 15:16:52 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable&#xd;&#xa;Configured Capacity: 19391348736 (18.06 GB)&#xd;&#xa;Present Capacity: 12925202432 (12.04 GB)&#xd;&#xa;DFS Remaining: 12925153280 (12.04 GB)&#xd;&#xa;DFS Used: 49152 (48 KB)&#xd;&#xa;DFS Used%: 0.00%&#xd;&#xa;Under replicated blocks: 0&#xd;&#xa;Blocks with corrupt replicas: 0&#xd;&#xa;Missing blocks: 0&#xd;&#xa;Missing blocks (with replication factor 1): 0&#xd;&#xa;&#xd;&#xa;-------------------------------------------------&#xd;&#xa;Live datanodes (2):&#xd;&#xa;&#xd;&#xa;Name: 192.168.0.167:50010 (slave01)&#xd;&#xa;Hostname: slave01&#xd;&#xa;Decommission Status : Normal&#xd;&#xa;Configured Capacity: 9695674368 (9.03 GB)&#xd;&#xa;DFS Used: 24576 (24 KB)&#xd;&#xa;Non DFS Used: 3649736704 (3.40 GB)&#xd;&#xa;DFS Remaining: 6045913088 (5.63 GB)&#xd;&#xa;DFS Used%: 0.00%&#xd;&#xa;DFS Remaining%: 62.36%&#xd;&#xa;Configured Cache Capacity: 0 (0 B)&#xd;&#xa;Cache Used: 0 (0 B)&#xd;&#xa;Cache Remaining: 0 (0 B)&#xd;&#xa;Cache Used%: 100.00%&#xd;&#xa;Cache Remaining%: 0.00%&#xd;&#xa;Xceivers: 1&#xd;&#xa;Last contact: Sat Jan 16 15:16:53 CST 2016&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;Name: 192.168.0.168:50010 (slave02)&#xd;&#xa;Hostname: slave02&#xd;&#xa;Decommission Status : Normal&#xd;&#xa;Configured Capacity: 9695674368 (9.03 GB)&#xd;&#xa;DFS Used: 24576 (24 KB)&#xd;&#xa;Non DFS Used: 2816409600 (2.62 GB)&#xd;&#xa;DFS Remaining: 6879240192 (6.41 GB)&#xd;&#xa;DFS Used%: 0.00%&#xd;&#xa;DFS Remaining%: 70.95%&#xd;&#xa;Configured Cache Capacity: 0 (0 B)&#xd;&#xa;Cache Used: 0 (0 B)&#xd;&#xa;Cache Remaining: 0 (0 B)&#xd;&#xa;Cache Used%: 100.00%&#xd;&#xa;Cache Remaining%: 0.00%&#xd;&#xa;Xceivers: 1&#xd;&#xa;Last contact: Sat Jan 16 15:16:53 CST 2016">

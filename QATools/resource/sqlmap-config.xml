@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+ <settings cacheModelsEnabled="true" enhancementEnabled="true"  
+        statementCachingEnabled="true" maxSessions="512" maxTransactions="128"  
+        maxRequests="1024" />
+     <sqlMap resource="ibatis/BugPrevention.xml"/>
+     <sqlMap resource="ibatis/BugReproduce.xml"/>
+     <sqlMap resource="ibatis/Fault.xml"/>
+     <sqlMap resource="ibatis/Process.xml"/>
+     <sqlMap resource="ibatis/ProcessViolate.xml"/>
+     <sqlMap resource="ibatis/Product.xml"/>
+     <sqlMap resource="ibatis/Project.xml"/>
+     <sqlMap resource="ibatis/ProjectTeam.xml"/>
+     <sqlMap resource="ibatis/Review.xml"/>
+     <sqlMap resource="ibatis/ReviewTeam.xml"/>
+     <sqlMap resource="ibatis/Upgrade.xml"/>
+     <sqlMap resource="ibatis/UpgradeInfoDev.xml"/>
+     <sqlMap resource="ibatis/UpgradeInfoOP.xml"/>
+     <sqlMap resource="ibatis/UpgradeInfoQC.xml"/>
+     <sqlMap resource="ibatis/User.xml"/>
+</sqlMapConfig>

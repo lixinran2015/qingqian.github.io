@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BugPrevention">
+	<resultMap id="bugPrevention-result" class="chances.qa.entity.BugPrevention">
+		<result property="contentId" column="ID" />
+		<result property="contentCode" column="CODE" />
+		<result property="title" column="TITLE" />
+		<result property="titleBrief" column="SUB_TITLE" />
+		<result property="poster" column="POSTER" />
+		<result property="still" column="STILL" />
+		<result property="icon" column="ICON" />
+		<result property="background" column="BACKGROUND_IMG" />
+		<result property="topIcon" column="TOP_IMG" />
+	</resultMap>
+	
+	<resultMap id="albumItem-result" class="chances.epg.entity.content.AlbumItem">
+		<result property="id" column="ID" />
+		<result property="albumCode" column="ALBUM_CODE" />
+		<result property="contentType" column="CONTENT_TYPE" />
+		<result property="contentCode" column="CONTENT_CODE" />
+		<result property="contentTitle" column="CONTENT_TITLE" />
+		<result property="itemOrder" column="ORDER_NUMBER" />
+		<result property="validTime" column="VALID_TIME" />
+		<result property="contentIcon" column="CONTENT_ICON" />
+		<result property="contentPoster" column="CONTENT_POSTER" />
+		<result property="contentStill" column="CONTENT_STILL" />
+		<result property="showFlag" column="SHOW_FLAG" />
+	</resultMap>
+
+	<cacheModel id="queryAlbumByCode_CM" type="LRU" readOnly="true"
+		serialize="false">
+		<flushInterval minutes="5" />
+		<property name="cache-size" value="5000" />
+	</cacheModel>
+	
+	<statement id="queryAlbumByCode" resultMap="album-result"
+		cacheModel="queryAlbumByCode_CM">
+		<![CDATA[
+            select * from EPG_ALBUM where CODE = #contentCode#
+        ]]>
+	</statement>
+	
+	<cacheModel id="queryAlbumItemByAlbumCode_CM" type="LRU" readOnly="true"
+		serialize="false">
+		<flushInterval minutes="5" />
+		<property name="cache-size" value="10000" />
+	</cacheModel>
+	
+	<statement id="queryAlbumItemByAlbumCode" resultMap="albumItem-result"
+		cacheModel="queryAlbumItemByAlbumCode_CM">
+		<![CDATA[
+			select ID,ALBUM_CODE,CONTENT_TYPE,CONTENT_CODE,CONTENT_TITLE,ORDER_NUMBER,VALID_TIME,CONTENT_ICON, CONTENT_POSTER,CONTENT_STILL,SHOW_FLAG from EPG_ALBUM_ITEM  where ALBUM_CODE = #albumCode#  and (#curTime# > VALID_TIME or VALID_TIME is NULL)  order by ORDER_NUMBER asc,ID desc
+        ]]>
+	</statement>
+</sqlMap>

@@ -20,7 +20,7 @@ public class MySQLDialect implements Dialect {
 		 * sb.append(limit (offset-1) + 1); sb.append(" and "); sb.append(limit
 		 * offset);
 		 */
-		// offset 第几�?limit 每页个数
+		// offset limit 每页个数
 		sql = trim(sql);
 		StringBuffer sb = new StringBuffer(sql.length() + 20);
 		sb.append(sql);

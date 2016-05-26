@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class QALogFactory {
-	private static final Logger sysLogger = LoggerFactory.getLogger("qa");
+	private static final Logger qaSysLogger = LoggerFactory.getLogger("qaSys");
 	private static final Logger accessLogger = LoggerFactory.getLogger("access");
 	
 	/**
@@ -12,7 +12,7 @@ public class QALogFactory {
 	 * @return
 	 */
 	public static final Logger getSystemLogger() {
-		return sysLogger;
+		return qaSysLogger;
 	}
 	
 	/**

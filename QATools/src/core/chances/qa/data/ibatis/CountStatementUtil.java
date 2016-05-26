@@ -19,7 +19,7 @@ import com.ibatis.sqlmap.engine.mapping.statement.SelectStatement;
 import com.ibatis.sqlmap.engine.scope.ErrorContext;
 import com.ibatis.sqlmap.engine.scope.StatementScope;
 /**
- * 查询总数ibatis statement 工具�?
+ * 查询总数ibatis statement 工具
  * @author zhangxs
  *
  */
@@ -98,7 +98,8 @@ class CountStatement extends SelectStatement {
 					parameterObject);
 
 			errorContext.setMoreInfo("Check the result map.");
-			ResultMap resultMap = getResultMap(request, parameterObject, sql);
+			ResultMap resultMap = getResultMap();
+	//		ResultMap resultMap = getResultMap(request, parameterObject, sql);
 
 			request.setResultMap(resultMap);
 			request.setParameterMap(parameterMap);
@@ -140,7 +141,7 @@ class CountStatement extends SelectStatement {
 			Sql sql) {
 		String sqlString = sql.getSql(request, parameterObject);
 
-		//System.out.print("动�?SQL �? + request.getDynamicSql());
+		//System.out.print("动�?SQL �? + request.getDynamicSql());
 
 		/*int start = sqlString.toLowerCase().indexOf("from");
 		if (start >= 0) {
@@ -150,8 +151,9 @@ class CountStatement extends SelectStatement {
 		return sqlString;
 	}
 
+	/*
 	private ResultMap getResultMap(StatementScope request,
 			Object parameterObject, Sql sql) {
 		return getResultMap();
-	}
+	}*/
 }

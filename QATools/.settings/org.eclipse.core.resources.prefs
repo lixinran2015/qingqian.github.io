@@ -1,3 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/core/chances/qa/commons/log/QALogFactory.java=UTF-8
-encoding//src/core/chances/qa/data/ibatis/CountDao.java=UTF-8
+encoding//src/core/chances/qa/data/DataException.java=UTF-8
+encoding//src/core/chances/qa/data/ibatis/CountStatementUtil.java=UTF-8
+encoding//src/core/chances/qa/data/ibatis/Dialect.java=UTF-8
+encoding//src/core/chances/qa/data/ibatis/MySQLDialect.java=UTF-8
+encoding//src/core/chances/qa/exception=UTF-8

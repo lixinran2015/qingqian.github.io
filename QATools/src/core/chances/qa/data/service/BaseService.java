@@ -6,19 +6,15 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-
-
 import com.ibatis.sqlmap.client.SqlMapClient;
+
+import chances.qa.data.DataException;
 
 public abstract class BaseService {
 	private static final int MAX_ROW = 500;
 	
 	@Autowired
-	private SqlMapClient sqlMapClient;
-	
-	
-	@Autowired
-	protected CountDao countDao;
+	private SqlMapClient sqlMapClient;	
 	
 	/**
 	 * 
@@ -78,24 +74,6 @@ public abstract class BaseService {
 	
 	/**
 	 * 
-	 * @param queryName
-	 * @param paramsMap
-	 * @param pageBean
-	 * @return
-	 */
-	public List<?> queryForList(String statementId,Map<String,Object> paramsMap,int start,PageBean pageBean) {
-		try {
-			long recordCount = this.countDao.getObjectTotal(statementId, paramsMap);
-			pageBean.setRecordCount(recordCount - start);
-			int startRecord = pageBean.getCurrentPageFirstRecord() + start;
-			return this.sqlMapClient.queryForList(statementId,paramsMap,startRecord,pageBean.getPageSize());
-		} catch (SQLException e) {
-			throw new DataException("execute query error,statementId:" + statementId, e);
-		}
-	}
-	
-	/**
-	 * 
 	 * @param statementId
 	 * @param paramsMap
 	 * @return
@@ -106,8 +84,7 @@ public abstract class BaseService {
 		} catch (SQLException e) {
 			throw new DataException("execute insert error,statementId:" + statementId, e);
 		}
-	}
-	
+	}	
 	
 	/**
 	 * 
@@ -138,10 +115,5 @@ public abstract class BaseService {
 		
 	public void setSqlMapClient(SqlMapClient sqlMapClient) {
 		this.sqlMapClient = sqlMapClient;
-	}
-
-
-	public void setCountDao(CountDao countDao) {
-		this.countDao = countDao;
 	}
 }

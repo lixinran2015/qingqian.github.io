@@ -1,0 +1,43 @@
+<configuration scan="true" scanPeriod="5 minutes">
+	<property name="LOG_PATH" value="/opt/product/qatools/logs/" />
+	<property name="LOG_BACKUP_PATH" value="/opt/product/qatools/logs/backup" /> 
+	
+
+	<appender name="syslog"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/syslog.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_BACKUP_PATH}/syslog.log.%d{yyyyMMdd}
+			</fileNamePattern>
+			<maxHistory>5</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="access"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/access.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_BACKUP_PATH}/access.log.%d{yyyyMMdd}
+			</fileNamePattern>
+			<maxHistory>5</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<logger name="qaSys" level="INFO" additivity="false">
+		<appender-ref ref="syslog" />
+	</logger>
+
+	<logger name="access" level="INFO" additivity="false">
+		<appender-ref ref="access" />
+	</logger>
+	
+	<root level="INFO">
+		<appender-ref ref="syslog" />
+	</root>
+</configuration>

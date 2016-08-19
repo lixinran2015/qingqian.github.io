@@ -1,0 +1,11 @@
+bin/mysqld --defaults-file=/opt/mysql5.1/my.cnf --user=root
+
+
+bin/mysqladmin -hlocalhost -uroot password "123456" --socket=/tmp/mysql5.sock
+
+bin/mysql -hlocalhost -uroot -p123456 --socket=/tmp/mysql5.sock
+
+bin/mysqld_safe --datadir=/opt/mysql5.1/data  >/dev/null 2>&1 &
+
+
+sysbench --mysql-db=sbtest --num-threads=8 --oltp-read-only=on --mysql-socket=/tmp/mysql5.sock --mysql-host=localhost --mysql-port=3308 --mysql-user=root --mysql-password=123456 --oltp-tables-count=10 --oltp-table-size=10000000 --report-interval=5 --max-time=600 --test=/opt/test/lixr/tools/sysbench-0.5/sysbench/tests/db/oltp.lua prepare >/dev/null 2>&1 &

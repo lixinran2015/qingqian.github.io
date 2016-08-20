@@ -1,0 +1,106 @@
+ select count(*) from sctvch_dcms_test4.tb_TestTable where decode(status, '0', '0') = '0';
+ 
+ set autotrace off
+ 
+  set autotrace traceonly
+  
+  
+  select count(*) from sctvch_dcms_test4.tb_TestTable where status=1;
+  
+  
+    26  recursive calls
+   0  db block gets
+  93  consistent gets
+  47  physical reads
+   0  redo size
+ 526  bytes sent via SQL*Net to client
+ 523  bytes received via SQL*Net from client
+   2  SQL*Net roundtrips to/from client
+   0  sorts (memory)
+   0  sorts (disk)
+   1  rows processed
+   
+   
+   5  recursive calls
+   0  db block gets
+   34213  consistent gets
+   34069  physical reads
+   0  redo size
+ 526  bytes sent via SQL*Net to client
+ 523  bytes received via SQL*Net from client
+   2  SQL*Net roundtrips to/from client
+   0  sorts (memory)
+   0  sorts (disk)
+   1  rows processed
+   
+   
+   	 74  recursive calls
+	  0  db block gets
+	112  consistent gets
+	 72  physical reads
+	  0  redo size
+	526  bytes sent via SQL*Net to client
+	524  bytes received via SQL*Net from client
+	  2  SQL*Net roundtrips to/from client
+	  0  sorts (memory)
+	  0  sorts (disk)
+	  1  rows processed
+
+	  
+	   insert into sctvch_dcms_test4.tb_TestTable(id, userName, userPWD, userEmail,status)  values(3002275000,  'xuewei',  '123456','xuewei.sky@163.com',2); 
+	  
+	   insert into sctvch_dcms_test4.tb_TestTable(id, userName, userPWD, userEmail,status)  values(3002275001,  'xuewei',  '123456','xuewei.sky@163.com',2); 
+	  
+	   insert into sctvch_dcms_test4.tb_TestTable(id, userName, userPWD, userEmail,status)  values(3002275002,  'xuewei',  '123456','xuewei.sky@163.com',2); 
+	   
+	     insert into sctvch_dcms_test4.tb_TestTable(id, userName, userPWD, userEmail,status)  values(3002275003,  'xuewei',  '123456','xuewei.sky@163.com',2); 
+		 
+		   insert into sctvch_dcms_test4.tb_TestTable(id, userName, userPWD, userEmail,status)  values(3002275004,  'xuewei',  '123456','xuewei.sky@163.com',2); 
+		   insert into sctvch_dcms_test4.tb_TestTable(id, userName, userPWD, userEmail,status)  values(3002275005,  'xuewei',  '123456','xuewei.sky@163.com',0); 
+		   
+		    insert into sctvch_dcms_test4.tb_TestTable(id, userName, userPWD, userEmail,status)  values(3002275006,  'xuewei',  '123456','xuewei.sky@163.com',0); 
+		 
+		 
+        update  sctvch_dcms_test4.tb_TestTable set userName='lixdr' where status=0; 
+		
+	     update  sctvch_dcms_test4.tb_TestTable set userName='lixdr' where decode(status, '0', '0') = '0';
+   
+ 
+
+
+ analyze index sctvch_dcms_test4.inx_status validate structure;
+   
+   
+   create index inx_status on sctvch_dcms_test4.tb_testtable(decode(status,0,0));
+   
+   create index inx_status on sctvch_dcms_test4.tb_testtable(status);
+   
+   create index inx_status on sctvch_dcms_test4.tb_testtable(decode(status,'0','0'));
+   
+   
+   select name,btree_space,lf_rows,height from index_stats;
+   
+   delete from index_stats where name='inx_status';
+   
+   drop index sctvch_dcms_test4.inx_status;
+   drop index inx_status;
+   
+SQL> select name,btree_space,lf_rows,height from index_stats;
+
+NAME			       BTREE_SPACE    LF_ROWS	  HEIGHT
+------------------------------ ----------- ---------- ----------
+INX_STATUS			      7996	    4	       1
+
+SQL> 
+
+
+explain plan for update  sctvch_dcms_test4.tb_TestTable set userName='lixdr' where decode(status, '0', '0') = '0';
+
+explain plan for update  sctvch_dcms_test4.tb_TestTable set userName='lixdr' where status=0;
+
+explain plan for  select count(*) from sctvch_dcms_test4.tb_TestTable where decode(status, '0', '0') = '0';
+
+
+@?/rdbms/admin/utlxplan
+
+

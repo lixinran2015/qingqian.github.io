@@ -1,0 +1,51 @@
+  123服务器上 已有的dokcer，如启动一个docker中tomcat,简易操作如下：
+     1： systemctl start  docker.service （启动docker）
+   2： docker images (查看镜像)
+
+[root@wxtest1607 lixr]# docker images
+REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE
+tomcat8jdk1.8        1.0                 10e5d134c730        28 minutes ago      806 MB
+centos               latest              970633036444        2 weeks ago         196.7 MB
+hello-world          latest              693bce725149        10 weeks ago        967 B
+nimmis/java-centos   latest              33370664c59c        11 weeks ago        399.5 MB
+  3：docker run -d -p 59099:9099 10e5 /root/run.sh  （启动tomcat）
+
+    /root/run.sh 脚本：
+  4： [root@wxtest1607 lixr]# docker ps -a  (检查进程)
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                     NAMES
+ec5d0877b3ec        10e5                "/root/run.sh"      10 seconds ago      Up 8 seconds        0.0.0.0:58080->9099/tcp   cocky_galileo
+[root@wxtest1607 lixr]#
+  5： IE 访问：
+  
+ 
+ 
+ 6： docker exec -ti ec5d /bin/bash  （登录容器）
+    [root@ec5d0877b3ec ~]#        
+    登录后-可做任何操作，安装新东西等
+ 7： [root@ec5d0877b3ec ~]# ps -ef|grep tomcat  （检查tomcat 的启动）
+root          7      1 10 14:17 ?        00:00:18 /opt/product/tools/jdk1.8.0_101/bin/java -Djava.util.logging.config.file=/opt/product/tools/tomcat8/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -server -Xms512m -Xmx10240m -Dcom.sun.management.jmxremote -Djava.endorsed.dirs=/opt/product/tools/tomcat8/endorsed -classpath /opt/product/tools/tomcat8/bin/bootstrap.jar:/opt/product/tools/tomcat8/bin/tomcat-juli.jar -Dcatalina.base=/opt/product/tools/tomcat8 -Dcatalina.home=/opt/product/tools/tomcat8 -Djava.io.tmpdir=/opt/product/tools/tomcat8/temp org.apache.catalina.startup.Bootstrap start
+root         65     51  0 14:20 ?        00:00:00 grep --color=auto tomcat
+8： exit 退出容器
+如有更新，可把容器 保存成新的镜像：
+9： docker commit ec5d tomcat8:2.0 
+再用docker images 查看
+[root@wxtest1607 lixr]# docker images
+REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE
+tomcat8              2.0                 2f80c59c0976        16 minutes ago      992.8 MB
+tomcat8jdk1.8        1.0                 10e5d134c730        38 minutes ago      806 MB
+centos               latest              970633036444        2 weeks ago         196.7 MB
+hello-world          latest              693bce725149        10 weeks ago        967 B
+nimmis/java-centos   latest              33370664c59c        11 weeks ago        399.5 MB
+
+10：停止容器
+[root@wxtest1607 lixr]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                     NAMES
+ec5d0877b3ec        10e5                "/root/run.sh"      8 minutes ago       Up 7 minutes        0.0.0.0:58080->9099/tcp   cocky_galileo
+#docker stop ec5d
+11：移除容器
+docker rm ec5d
+ 
+12：停止容器的服务
+systemctl stop  docker.service
+
+ 

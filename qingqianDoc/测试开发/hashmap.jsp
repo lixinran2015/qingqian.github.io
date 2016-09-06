@@ -21,5 +21,7 @@ if(key !=null){
 	obj.put(key,key);
 }
 %>
+<%=key%>=<%=value%>
+
 
 <%=key%>=<%=value%>

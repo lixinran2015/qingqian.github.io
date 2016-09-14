@@ -1,0 +1,66 @@
+#--查询bug总体情况  
+#select ProjectName,ModulePath,BugTitle,BugStatus,OpenedDate from bf_buginfo order by ProjectName,ModulePath,OpenedDate;  
+  
+#--查询每个项目的bug数目（XXXX算一个项目）  
+#select count(*),ProjectName from bf_buginfo group by ProjectName having count(*) >= 1;  
+  
+#--查询XXXX项目每个模块的bug数目  
+#select count(*),ModulePath from bf_buginfo where ProjectName like 'XXXX' group by ModulePath having count(*) >= 1;  
+  
+#select * from bf_buginfo where ProjectName like 'XXXX' and ModulePath = '/';  
+  
+#select BugId,ProjectName,ModulePath,BugTitle,BugStatus,OpenedDate from bf_buginfo order by OpenedDate,ResolvedDate,ClosedDate group by DATE_FORMAT(OpenedDate,'%Y%m');  
+  
+#--查询每个月产生的bug数目  
+#select count(*),DATE_FORMAT(OpenedDate,'%Y-%m') from bf_buginfo group by DATE_FORMAT(OpenedDate,'%Y%m');  
+  
+#--查询XXXX每个月产生的bug数目  
+#select count(*),DATE_FORMAT(OpenedDate,'%Y-%m') from bf_buginfo where ProjectName like 'XXXX' group by DATE_FORMAT(OpenedDate,'%Y%m');  
+  
+#--查询XXXXbug高峰期的详细内容  
+#select ModulePath,BugTitle,BugStatus,OpenedDate,DATE_FORMAT(OpenedDate,'%Y-%m') from bf_buginfo where ProjectName like 'XXXX' and ( DATE_FORMAT(OpenedDate,'%Y%m') = '201310' or DATE_FORMAT(OpenedDate,'%Y%m') = '201406' );  
+  
+#--查询XXXXbug状态情况  
+#select count(*),BugStatus from bf_buginfo where ProjectName like 'XXXX' group by BugStatus  
+  
+#--查询全项目bug状态情况  
+#select count(*),BugStatus from bf_buginfo group by BugStatus  
+  
+#--查询重难点bug：初级过滤方法：从已解决的bug中分析：reopen的 : 需要了解如何获取reopen的记录 ：bf_testaction和bf_buginfo  
+#select count(distinct(bugId)) from Bf_testaction as taction , bf_buginfo as buginfo where ActionType = 'Activated' and taction.idvalue = buginfo.bugid   
+#select count(distinct(bugId)) from bf_testaction as taction , bf_buginfo as buginfo where ActionType = 'Activated' and taction.idvalue = buginfo.bugid and ProjectName like 'XXXX'  
+#activated 226  
+#activated 138  
+  
+#--查询重难点bug：初级过滤方法：从已解决的bug中分析：长时间未解决  
+#690/1695/2715 datediff>=2-fixed/closed/all  
+#select count(*),BugID,ResolvedDate,ProjectName,ModulePath,BugTitle,datediff(ResolvedDate,OpenedDate) from bf_buginfo where bugstatus = 'closed' and datediff(ResolvedDate,OpenedDate) >= 2 and Resolution = 'Fixed' order by ModulePath DESC,BugID DESC  
+#378/927/1248 datediff>=2-fixed/closed/all  
+#ResolvedDate用于对比svn记录，方便查看  
+#select BugID,ResolvedDate,ProjectName,ModulePath,BugTitle,datediff(ResolvedDate,OpenedDate) from bf_buginfo where ProjectName like 'XXXX' and bugstatus = 'closed' and datediff(ResolvedDate,OpenedDate) >= 2 and Resolution = 'Fixed' order by ModulePath DESC,BugID DESC  
+  
+#--根据解决人查询bug  
+#select count(*),ResolvedBy from bf_buginfo where Resolution = 'fixed' and BugStatus = 'closed' group by ResolvedBy order by count(*)  
+  
+#--定义每个项目子模块解决本项目子模块bug最多的人为项目子模块负责人，查询每个人所负责的项目子模块数  
+select count(*),ResolvedBy from (  
+select B.* from (select ModulePath, ResolvedBy, count(*) as num from bf_buginfo where Resolution = 'fixed' and BugStatus = 'closed' group by ModulePath, ResolvedBy) B ,  
+ (select A.ModulePath, MAX(A.num) as num from (  
+   select ModulePath,ResolvedBy,count(*) as num from bf_buginfo where Resolution = 'fixed' and BugStatus = 'closed' group by ModulePath, ResolvedBy  
+ ) A group by A.ModulePath )  
+C where B.ModulePath = C.ModulePath and B.num = C.num order by B.ResolvedBy ) D group by ResolvedBy  
+
+
+
+#修复Bug数量
+select count(*) bugs,u.login from issues i,users u where i.assigned_to_id=u.id group by i.assigned_to_id having count(*) >= 1 order by bugs desc;  
+#每个研发每年产生的Bug数量
+#select count(*) bugs,u.login from issues i,users u where i.assigned_to_id=u.id and DATE_FORMAT(i.created_on,'%Y')='2016' group by i.assigned_to_id having count(*) >= 1 order by bugs desc;  
+#每个研发每年修复的Bug数量
+#select count(*) bugs,u.login from issues i,users u where i.assigned_to_id=u.id and DATE_FORMAT(i.created_on,'%Y')='2016' and i.status_id=5 group by i.assigned_to_id having count(*) >= 1 order by bugs desc;  
+#研发个人
+select count(*) bugs,i.author_id,i.project_id from issues i,users u where i.assigned_to_id=u.id  and u.login='zhouzhan' and DATE_FORMAT(i.created_on,'%Y')='2016'  group by author_id;11
+#会丽个人数据
+#select count(*),i.project_id,p.`name` from issues i ,projects p where i.author_id=11 and i.project_id=p.id group by i.project_id ;
+#select count(*),i.tracker_id from issues i where i.author_id=11 and i.project_id in (3,6,21,26,77,107,108,110,113,116,122,188,141,123,132)  group by i.tracker_id;
+

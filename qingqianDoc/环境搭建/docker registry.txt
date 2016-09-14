@@ -1,0 +1,80 @@
+openssl req -x509 -days 3650 -subj '/CN=192.168.220.123/' -nodes -newkey rsa:2048 -keyout registry.key -out registry.crt;
+
+./letsencrypt-auto certonly --standalone -d 192.168.220.123
+
+wxtest1607.chances.com.cn
+
+openssl req -x509 -days 3650 -subj '/CN=wxtest1607.chances.com.cn/' -nodes -newkey rsa:2048 -keyout registry.key -out registry.crt;
+
+docker run -d -p 5001:5000 --restart=always --name registry -v `pwd`/auth:/auth -e "REGISTRY_AUTH=htpasswd" -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" -e "REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd" -v `pwd`/certs:/certs -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/server.pem -e REGISTRY_HTTP_TLS_KEY=/certs/server-key.pem -e REGISTRY_STORAGE_DELETE_ENABLED=true -v /opt/test/lixr/registry:/var/lib/registry  registry
+docker run -d -p 5000:5000 --restart=always --name registry -v `pwd`/auth:/auth -e "REGISTRY_AUTH=htpasswd" -e "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm" -e "REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd" -v `pwd`/certs:/certs -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/registry.crt -e REGISTRY_HTTP_TLS_KEY=/certs/registry.key -e REGISTRY_STORAGE_DELETE_ENABLED=true -v /opt/test/lixr/registry:/var/lib/registry  registry
+
+docker run -d -p 58082:8080 --restart=always --name web -e REGISTRY_HOST=172.17.0.1  -e REGISTRY_PORT=5000 hyper/docker-registry-web
+	
+docker run -ti -d --restart=always --name shipyard-rethinkdb rethinkdb
+docker run -ti -d -p 54001:4001 -p 57001:7001 --restart=always --name shipyard-discovery  microbox/etcd -name discovery
+docker run -ti -d -p 2375:2375 --hostname=192.168.220.123 --restart=always  --name shipyard-proxy -v /var/run/docker.sock:/var/run/docker.sock -e PORT=2375 shipyard/docker-proxy:latest
+docker run -ti -d --restart=always --name shipyard-swarm-manager swarm:latest manage --host tcp://0.0.0.0:3375 etcd://192.168.220.123:54001
+docker run -ti -d --restart=always --name shipyard-swarm-agent swarm:latest join --addr 192.168.220.123:2375 etcd://192.168.220.123:54001
+docker run -ti -d --restart=always --name shipyard-controller --link shipyard-rethinkdb:rethinkdb --link shipyard-swarm-manager:swarm  -p 58081:8080 shipyard/shipyard:latest server -d tcp://swarm:3375
+
+docker run -p 58080:8082 -v /opt/test/lixr/registry:/var/lib/registry  atcol/docker-registry-ui
+
+docker -d --tlsverify --tlscacert=/etc/pki/tls/certs/ca.pem --tlscert=/etc/pki/tls/certs/wxtest1607.chances.com.cn-cert.pem --tlskey=/etc/pki/tls/private/wxtest1607.chances.com.cn-key.pem -H tcp://0.0.0.0:2376
+
+
+docker run -d -p 3376:3376 -t \  
+-v /var/lib/boot2docker:/carts:ro swarm manage \
+-H 0.0.0.0:3376 \
+--tlsverify --tlscacert=/etc/docker/certs/ca.pem --tlscert=/etc/docker/certs/server.pem --tlskey=/etc/docker/certs/server-key.pem 
+
+docker run --rm -v $(pwd)/certs:/certs ehazlett/certm -d /certs bundle generate -o shipyard --host proxy --host 192.168.220.123
+	
+curl -sSL https://shipyard-project.com/deploy | TLS_CERT_PATH=~/registry/certs PROXY_PORT=58081 bash -s
+
+docker run --rm -v $(pwd)/certs:/certs ehazlett/certm -d /certs ca generate -o=wxtest1607.chances.com.cn
+docker run --rm -v $(pwd)/certs:/certs ehazlett/certm -d /certs server generate --host localhost --host 192.168.220.123 -o=wxtest1607.chances.com.cn
+docker run --rm -v $(pwd)/certs:/certs ehazlett/certm -d /certs bundle generate --host wxtest1607.chances.com.cn -o=wxtest1607.chances.com.cn
+
+docker run --rm -v $(pwd)/certs:/certs ehazlett/certm -d /certs bundle  generate  -o shipyard --host proxy  --host 127.0.0.1
+
+OPTIONS='--tlsverify --tlscacert=/etc/docker/certs/ca.pem --tlscert=/etc/docker/certs/cert.pem --tlskey=/etc/docker/certs/key.pem -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock'
+
+swarm manage --tlsverify --tlscacert=/home/key/ca.pem --tlscert=/home/key/swarmCRT.pem --tlskey=/home/key/swarmKEY.pem --host=0.0.0.0:2376 node1:2375 node2:2375
+
+--tls=true
+
+
+
+
+docker run -d --privileged=true -p 5000:5000 -v /opt/test/lixr/registry:/tmp/registry registry
+
+docker run --entrypoint htpasswd registry -Bbn chances chances123 > auth/htpasswd;
+
+[ CA_default ]
+  dir    = /etc/ssl/demoCA    # Where everything is kept
+  certs     = $dir/certs   # Where the issued certs are kept
+  crl_dir   = $dir/crl     # Where the issued crl are kept
+  database  = $dir/index.txt  # database index file.
+  #unique_subject = no     # Set to 'no' to allow creation of
+            # several ctificates with same subject.
+  new_certs_dir   = $dir/newcerts   # default place for new certs.
+  certificate  = $dir/certs/cacert.pem   # The CA certificate
+  serial    = $dir/serial     # The current serial number
+  crlnumber    = $dir/crlnumber  # the current crl number
+            # must be commented out to leave a V1 CRL
+  crl    = $dir/crl.pem    # The current CRL
+  private_key  = $dir/private/cakey.pem# The private key
+  RANDFILE  = $dir/private/.rand # private random number file
+  [ v3_req ]
+  # Extensions to add to a certificate request
+  basicConstraints = CA:FALSE
+  keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+  
+  
+openssl req -x509 -days 3650 -subj '/CN=reg.zimug.com/' -nodes -newkey rsa:2048 -keyout registry.key -out registry.crt;
+
+
+
+
+openssl x509 -req -days 3650 -in swarm.csr -CA ca.pem -CAkey CAkey.pem -CAcreateserial -out swarmCRT.pem -extensions v3_req -extfile /etc/openssl/openssl.cnf

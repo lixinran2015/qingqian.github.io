@@ -1,0 +1,13 @@
+[Unit]
+Description=tomcat
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/product/tools/tomcat-epg/bin/startup.sh
+ExecStop=/opt/product/tools/tomcat-epg/bin/shutdown.sh
+ExecReload=/bin/kill -s HUP $MAINPID
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

@@ -48,4 +48,501 @@ docker rm ec5d
 12：停止容器的服务
 systemctl stop  docker.service
 
+docker save busybox-1 > /home/save.tar
+
+docker load < /home/save.tar
+
+
+docker build -t <镜像名> <Dockerfile路径>
+
+
+
+
+
+
+查看容器的root用户密码
+
+docker logs <容器名orID> 2>&1 | grep '^User: ' | tail -n1
+
+因为Docker容器启动时的root用户的密码是随机分配的。所以，通过这种方式就可以得到redmine容器的root用户的密码了。
+
+
+查看容器日志
+
+docker logs -f <容器名orID>
+
+查看正在运行的容器
+
+docker ps
+docker ps -a为查看所有的容器，包括已经停止的。
+
+删除所有容器
+
+docker rm $(docker ps -a -q)
+
+删除单个容器
+
+docker rm <容器名orID>
+
+停止、启动、杀死一个容器
+
+docker stop <容器名orID>
+docker start <容器名orID>
+docker kill <容器名orID>
+
+查看所有镜像
+
+docker images
+删除所有镜像
+docker rmi $(docker images | grep none | awk '{print $3}' | sort -r)
+
+运行一个新容器，同时为它命名、端口映射、文件夹映射。以redmine镜像为例
+
+docker run --name redmine -p 9003:80 -p 9023:22 -d -v /var/redmine/files:/redmine/files -v /var/redmine/mysql:/var/lib/mysql sameersbn/redmine
+
+一个容器连接到另一个容器
+
+docker run -i -t --name sonar -d -link mmysql:db   tpires/sonar-server
+sonar
+
+容器连接到mmysql容器，并将mmysql容器重命名为db。这样，sonar容器就可以使用db的相关的环境变量了。
+
+
+拉取镜像
+
+docker pull <镜像名:tag>
+
+如
+
+docker pull sameersbn/redmine:latest
+
+当需要把一台机器上的镜像迁移到另一台机器的时候，需要保存镜像与加载镜像。
+
+机器a
+
+docker save busybox-1 > /home/save.tar
+
+使用scp将save.tar拷到机器b上，然后：
+
+docker load < /home/save.tar
+
+构建自己的镜像
+
+docker build -t <镜像名> <Dockerfile路径>
+
+如Dockerfile在当前路径：
+
+docker build -t xx/gitlab .
+重新查看container的stdout
+# 启动top命令，后台运行
+$ ID=$(sudo docker run -d ubuntu /usr/bin/top -b)
+# 获取正在running的container的输出
+$ sudo docker attach $ID
+top - 02:05:52 up  3:05,  0 users,  load average: 0.01, 0.02, 0.05
+Tasks:   1 total,   1 running,   0 sleeping,   0 stopped,   0 zombie
+Cpu(s):  0.1%us,  0.2%sy,  0.0%ni, 99.7%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:    373572k total,   355560k used,    18012k free,    27872k buffers
+Swap:   786428k total,        0k used,   786428k free,   221740k cached
+^C$
+$ sudo docker stop $ID
+
+后台运行(-d)、并暴露端口(-p)
+
+docker run -d -p 127.0.0.1:33301:22 centos6-ssh
+
+从Container中拷贝文件出来
+
+sudo docker cp 7bb0e258aefe:/etc/debian_version .
+
+拷贝7bb0e258aefe中的/etc/debian_version到当前目录下。
+
+注意：只要7bb0e258aefe没有被删除，文件命名空间就还在，可以放心的把exit状态的container的文件拷贝出来
+
+坑
+
+
+ubuntu14下的docker是没有service服务。去除每次sudo运行docker命令，需要添加组：
+
+# Add the docker group if it doesn't already exist.
+$ sudo groupadd docker
+#改完后需要重新登陆用户
+$ sudo gpasswd -a ${USER} docker
+
+ubuntu14的febootstrap没有-i命令
+
+Dockerfile中的EXPOSE、docker run --expose、docker run -p之间的区别
+Dockerfile的EXPOSE相当于docker run --expose，提供container之间的端口访问。docker run -p允许container外部主机访问container的端口
+
+
+
+docker run -d  --privileged -ti -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 58888:8080 tomcat:base2 /usr/sbin/init
+
+
+
+[Unit]
+Description=tomcat
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/test/lixr/tomcat8/bin/startup.sh
+ExecStop=/opt/test/lixr/tomcat8/bin/shutdown.sh
+ExecReload=/bin/kill -s HUP $MAINPID
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+
+
+http://open.daocloud.io/build-java-web-runtime-with-docker/
+
+明天参考
+
+
+http://www.blogjava.net/yongboy/archive/2013/12/16/407643.html
+
+
+https://downloads.mariadb.org/interstitial/mariadb-10.1.16/bintar-linux-x86_64/mariadb-10.1.16-linux-x86_64.tar.gz/from/http%3A//mirrors.tuna.tsinghua.edu.cn/mariadb/
+
+https://mirrors.tuna.tsinghua.edu.cn/mariadb//mariadb-10.1.16/bintar-linux-x86_64/mariadb-10.1.16-linux-x86_64.tar.gz
+
+0 2 * * 0 /usr/sbin/ntpdate 188.2.152.110
+
+
+FROM centos
+#File Author / qingqian
+RUN yum -y install mariadb mariadb-server
+RUN mysql_install_db --user=mysql
+RUN mysqld_safe &
+RUN /usr/bin/mysqladmin -u root password '123456'
+EXPOSE 23311
+CMD ["--port 23311"]
+# Set default container command
+ENTRYPOINT /usr/bin/mysql
+
+
+--南传现网
+ docker run --name=mariadb -d -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=chances mariadb10.1:v4
+ 
+ GRANT REPLICATION CLIENT, REPLICATION SLAVE ON *.* TO repl@'%' IDENTIFIED BY 'repl@ncsnm';
+ 
+docker run -ti -d --restart=always --name shipyard-rethinkdb rethinkdb
+docker run -ti -d -p 54001:4001 -p 57001:7001 --restart=always --name shipyard-discovery  microbox/etcd -name discovery
+docker run -ti -d -p 2375:2375 --hostname=192.168.220.123 --restart=always --name shipyard-proxy -v /var/run/docker.sock:/var/run/docker.sock -e PORT=2375 shipyard/docker-proxy:latest
+docker run -ti -d --restart=always --name shipyard-swarm-manager swarm:latest manage --host tcp://0.0.0.0:3375 etcd://192.168.220.123:54001
+docker run -ti -d --restart=always --name shipyard-swarm-agent swarm:latest join --addr 192.168.220.123:2375 etcd://192.168.220.123:54001
+docker run -ti -d --restart=always --name shipyard-controller --link shipyard-rethinkdb:rethinkdb --link shipyard-swarm-manager:swarm  -p 58081:8080 shipyard/shipyard:latest server -d tcp://swarm:3375
+#127服务器，shipyard有两个节点 一个是自己本身，一个是127
+
+
+yum -y install epel-release
+yum -y install python-pip
+pip install -U docker-compose
+git clone https://github.com/SUSE/Portus.git
+cd Portus
+修改Gemfile和Gemfile.lock 的第一行：https://rubygems.org修改为“http://rubygems.org
+compose-setup.sh -e 188.2.152.105
+#这里就是漫长的安装过程啦，有人推荐先将所需的依赖镜像下载，然后再安装
+ （Portus安装依赖MariaDB，portus_web、rails4.2.2,Registry2.3.1，使用docker load 命令加载成镜像）
+看到如下信息表示，安装成功。
+Creating portus_db_1
+Creating portus_crono_1
+Creating portus_web_1
+Creating portus_registry_1
+Waiting for mariadb to be ready in 5 seconds
+Portus: configuring database... failed, will retry
+Waiting for mariadb to be ready in 5 seconds
+Portus: configuring database... [SUCCESS]
+
+
+ mysql -uadmin -padmin2012 -e"create database tvportal default character set utf8;"
+ mysql -uadmin -padmin2012 tvportal < /home/chances/epg_user.sql
+ 
+ 
+ vim /etc/yum.repos.d/docker.repo 
+[dockerrepo]
+name=Docker Repository
+baseurl=https://yum.dockerproject.org/repo/main/centos/7/
+enabled=1
+gpgcheck=1
+gpgkey=https://yum.dockerproject.org/gpg
+
+yum -y install docker-engine mariadb
+systemctl enable docker.service
+systemctl start docker.service
+docker --version
+Docker version 1.12.1, build 23cf638 
+
+docker run -ti -d -p 2375:2375 --hostname=188.2.152.121 --restart=always --name shipyard-proxy -v /var/run/docker.sock:/var/run/docker.sock -e PORT=2375 shipyard/docker-proxy:latest
+docker run -ti -d --restart=always --name shipyard-swarm-agent swarm:latest join --addr 188.2.152.121:2375 etcd://188.2.152.105:54001
+
+systemctl restart docker.service
+ 
+ mkdir -p /data/ncyd/dockerfile
+ mkdir -p /data/ncyd/mysql
+ mkdir -p /data/ncyd/apps
+ mkdir -p /data/ncyd/epg-data
+ mkdir -p /data/ncyd/apk
+ mkdir -p /data/ncyd/logs
+ mkdir -p /data/ncyd/shell
+ mkdir -p /data/ncyd/work
+ mkdir /var/lib/mysql
+ 
+  docker run --name=ydsz17-slave --restart=always -d -p 3306:3306 -v /data/ncyd/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=chances dd153
+  
+ docker pull 188.2.152.105:5000/mariadb10.1:v5.0
+ docker rmi 188.2.152.105:5000/mariadb10.1:v4.0
+ cd /data/ncyd/mysql/
+ mv my.cnf ../
+ rm -rf /data/ncyd/mysql/*
+ mv ../my.cnf ./
+ 
+ docker run --name=ydsz17-slave --restart=always -d -p 3306:3306 -h "ydsz17-slave" -v /data/ncyd/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=chances dd153
+ docker run --name=ydsz19-slave --restart=always -d -p 3306:3306 -h "ydsz19-slave" -v /data/ncyd/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=chances dd153
+ docker run --name=ydsz21-slave --restart=always -d -p 3306:3306 -h "ydsz21-slave" -v /data/ncyd/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=chances dd153
+ docker run --name=ydsz22-slave --restart=always -d -p 3306:3306 -h "ydsz22-slave" -v /data/ncyd/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=chances dd153
+ docker run --name=ydsz23-slave --restart=always -d -p 3306:3306 -h "ydsz23-slave" -v /data/ncyd/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=chances dd153
+ docker run --name=ydsz24-slave --restart=always -d -p 3306:3306 -h "ydsz24-slave" -v /data/ncyd/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=chances dd153
+ 
+ docker run --name=ydsz17-ubuntursync --restart=always -d -ti -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/ubuntursync:v4.0
+ 
+ 
+ ln -s /data/ncyd/mysql/mysql.sock /var/lib/mysql/mysql.sock
+ scp -P3122 chances@188.2.152.112:/home/chances/snm_epg_releasedatabylixr.sql .
+ 
+  scp -P3122 chances@188.2.152.105:/home/chances/apps.tar.gz .
+   mysql -uroot -pchances -e"delete database snm_epg_release;"
+   
+   
+    scp -P3122 chances@188.2.152.114:/home/chances/epg.tar.gz .
+	
+  
+ ln -s /data/ncyd/mysql/mysql.sock /var/lib/mysql/mysql.sock
+ mysql -uroot -pchances -e"stop slave;"
+ mysql -uroot -pchances -e"create database snm_epg_release default character set utf8;"
+ mysql -uroot -pchances snm_epg_release < /home/chances/Downloads/snm_epg_releasedatabylixr.sql
+ mysql -uroot -pchances -e"CHANGE MASTER TO MASTER_HOST='188.2.152.112', MASTER_USER='repl', MASTER_PASSWORD='repl@ncsnm',MASTER_PORT=3306,master_log_file='mysql-bin.000001',master_log_pos=313;"
+ mysql -uroot -pchances -e"start slave;"
+ mysql -uroot -pchances -e"show slave status\G"
+ 
+docker run --name=ydsz17-tomcatepg --restart=always -d --link ydsz17-slave:mysql -ti -p 58080:8080 -v /data/ncyd/:/opt/product/data  188.2.152.105:5000/tomcatepg:v6.0
+docker run --name=ydsz19-tomcatepg --restart=always -d --link ydsz19-slave:mysql -ti -p 58080:8080 -v /data/ncyd/:/opt/product/data  188.2.152.105:5000/tomcatepg:v6.0
+docker run --name=ydsz21-tomcatepg --restart=always -d --link ydsz21-slave:mysql -ti -p 58080:8080 -v /data/ncyd/:/opt/product/data  188.2.152.105:5000/tomcatepg:v6.0
+docker run --name=ydsz22-tomcatepg --restart=always -d --link ydsz22-slave:mysql -ti -p 58080:8080 -v /data/ncyd/:/opt/product/data  188.2.152.105:5000/tomcatepg:v6.0
+docker run --name=ydsz23-tomcatepg --restart=always -d --link ydsz23-slave:mysql -ti -p 58080:8080 -v /data/ncyd/:/opt/product/data  188.2.152.105:5000/tomcatepg:v6.0
+docker run --name=ydsz24-tomcatepg --restart=always -d --link ydsz24-slave:mysql -ti -p 58080:8080 -v /data/ncyd/:/opt/product/data  188.2.152.105:5000/tomcatepg:v6.0
+
+
+docker run --name=ydsz19-ubuntursync --restart=always -d -ti -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/ubuntursync:v4.0
+ 
+ 
+docker run --name=tomcatapr -d -ti -p 58080:8080  tomcatapr:v3.0
+   
+   
+docker exec -ti ydsz17-slave 'mysql' -uroot -pchances --socket=/data/ncyd/mysql/mysql.sock  -e"create database snm_epg_release default character set utf8;"
+
+  
+ mysql -uroot -pchances -e"stop slave;"
+ mysql -uroot -pchances snm_epg_release < /home/snm_epg_releasedatabylixr.sql
+ mysql -uroot -pchances -e"CHANGE MASTER TO MASTER_HOST='188.2.152.112', MASTER_USER='repl', MASTER_PASSWORD='repl@ncsnm',MASTER_PORT=3306,master_log_file='mysql-bin.000001',master_log_pos=313;"
+ mysql -uroot -pchances -e"start slave;"
+ mysql -uroot -pchances -e"show slave status\G"
+ 
+
+  mysql -uroot -pchances -e"GRANT ALL ON *.* TO admin@'%' IDENTIFIED BY 'admin2012' WITH GRANT OPTION;"
+  mysql -uroot -pchances -e"GRANT ALL ON *.* TO admin@'localhost' IDENTIFIED BY 'admin2012' WITH GRANT OPTION;"
+ 
+ docker build -t ydsz17-slave:v1.0 /data/ncyd/dockerfile/
+ 
+ docker tag tomcatepg:v3.0 188.2.152.105:5000/tomcatepg:v3.0
+ docker tag ubuntursync:v4.0 188.2.152.105:5000/ubuntursync:v4.0
+ 
+ docker push 188.2.152.105:5000/ubuntursync:v4.0
+ docker pull 188.2.152.105:5000/ubuntursync:v4.0
+ 
+  
+ docker push 188.2.152.105:5000/tomcatepg:v3.0
+ docker pull 188.2.152.105:5000/tomcatepg:v3.0
+ 
+ docker tag mariadb:v5.0 188.2.152.105:5000/mariadb10.1:v5.0
+ docker push 188.2.152.105:5000/mariadb10.1:v5.0
+ 
+ 
+ 　RUN echo "Asia/shanghai">>/etc/timezone;
+ 
+ 
+ docker run --name=tomcatepg -d -ti -p 58080:8080 -v /home/chances/data:/opt/product/data tomcatepg:2.0
+ 
+ docker run --name=ubuntursync -d -ti -v /home/chances/data:/opt/product/data ubuntursync:3.0
+--南传现网
+http://183.235.16.93:3000/  南传 私有库 管理界面 用户名chances 密码：ch@nces123
+http://183.235.16.93:58081/ 南传容器管理界面 用户名：admin 密码：shipyard
+
+docker start portus_db_1 portus_web_1 portus_crono_1 portus_registry_1
+
+docker tag  ubuntursync:3.0 188.2.152.105:5000/ubuntursync:3.0
+docker push 188.2.152.105:5000/ubuntursync:3.0
+
+docker stop portus_db_1 portus_web_1 portus_crono_1 portus_registry_1
+
+ 
+ docker build -t tomcatepg:1.6 /home/chances/tempall
+ docker build -t mariadb10.1:v3 /home/chances/tempall
+ 
+ 1) docker login 188.2.152.105:5000
+输入在portus中新建的用户名和密码 
+2) docker push 188.2.152.105:5000/ubuntursync:3.0
+上传成功
+
+ docker login -u chances -p chances@123 -e lixr@chances.com.cn 
+ 
+ slave 配置参考 http://blog.csdn.net/qq362228416/article/details/48569293
+ https://segmentfault.com/a/1190000004328677
+ 
+ 
+ GRANT REPLICATION CLIENT, REPLICATION SLAVE ON *.* TO repl@'%' IDENTIFIED BY 'repl@ncsnm';
+ 
+ MariaDB [(none)]> show master status\G;
+*************************** 1. row ***************************
+            File: mysql-bin.000001
+        Position: 313
+    Binlog_Do_DB: 
+Binlog_Ignore_DB: 
+1 row in set (0.00 sec)
+
+ERROR: No query specified
+
+ FROM centos
+MAINTAINER chances-lixr
+LABEL Vendor="CentOS"
+LABEL License=GPLv2
+LABEL Version 10.1.16
+
+RUN yum -y install --setopt=tsflags=nodocs epel-release && \ 
+    yum -y install --setopt=tsflags=nodocs mariadb-server bind-utils pwgen psmisc hostname && \ 
+    yum -y erase vim-minimal && \
+    yum -y update && yum clean all
+	
+RUN mkdir -p /usr/local/mysql/;groupadd mysql;useradd -g mysql mysql;
+ADD ./mysql/ /usr/local/mysql/
+ADD my.cnf /etc/
+RUN cd /usr/local/mysql/;chown -R mysql .;chgrp -R mysql .;
+RUN scripts/mysql_install_db --user=mysql; 
+RUN bin/mysqld_safe --user=mysql &;
+
+# Fix permissions to allow for running on openshift
+COPY fix-permissions.sh ./
+RUN ./fix-permissions.sh /var/lib/mysql/   && \
+    ./fix-permissions.sh /var/log/mariadb/ && \
+    ./fix-permissions.sh /var/run/
+
+COPY docker-entrypoint.sh /
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+VOLUME /var/lib/mysql
+
+# By default will run as random user on openshift and the mysql user (27)
+# everywhere else
+USER 27
+
+EXPOSE 3306
+CMD ["mysqld_safe"]
+
+
+#!/bin/bash
+export JAVA_HOME=/opt/product/tools
+export PATH=$JAVA_HOME/bin:$PATH
+nohup /usr/sbin/sshd &
+
+if [ ! -d /var/lib/mysql/mysql ]; then
+    /usr/bin/mysql_install_db --user=mysql
+    chown -R mysql:mysql /var/lib/mysql/
+    /usr/bin/mysqld_safe &
+    sleep 10
+    /usr/bin/mysqladmin -u root password 'chances'
+    /usr/bin/mysql -uroot -pchances -e "GRANT ALL PRIVILEGES ON *.* TO admin@'localhost' IDENTIFIED BY 'admin';"
+    /usr/bin/mysql -uroot -pchances -e "GRANT ALL PRIVILEGES ON *.* TO admin@'%' IDENTIFIED BY 'admin';"
+    /usr/bin/mysql -uroot -pchances -e "FLUSH PRIVILEGES;"
+else
+   /usr/bin/mysqld_safe &
+fi
+sh /opt/product/tools/tomcat8/bin/catalina.sh run
+
+
+docker build -t mariadb10.1:v2 /home/chances/dockerfiles/
+
+docker run -d -e REPLICATION_SLAVE=true -e MYSQL_PASS=admin -e MYSQL_USER=admin -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql --name slaveDb --link mysql:mysql xixicat/mysql5.6
+
+docker run --name=mariadb -d -ti -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=chances mariadb10.1:v2
+
+
+0 2 * * 0 /etc/cron.weekly/ntpdateweekly.sh
+* * * * * /opt/product/data/shell/epg-data.sh
+* * * * * /opt/product/data/shell/apk.sh
+
+crontab -l > crontab.bak
+echo "* * * * * /opt/product/data/shell/epg-data.sh" >> crontab.bak
+echo "* * * * * /opt/product/data/shell/apk.sh" >> crontab.bak
+crontab crontab.bak
+
+
+
+* * * * * /opt/product/data/shell/epg-data.sh
+
+* * * * * /opt/product/data/shell/epg-data.sh
+* * * * * /opt/product/data/shell/apk.sh
+
+docker run --name=ubuntursync -d -ti -v /home/chances/data:/opt/product/data -e mariadb10.1:v2 ubuntursync:1.0
+
+
+
+
+cd  /data/ncyd/shell/
+touch apk.sh
+touch epg-data.sh
+chmod +x *.sh
+docker pull 188.2.152.105:5000/ubuntursync:v4.0
+docker pull 188.2.152.105:5000/tomcatepg:v6.0
+timedatectl set-timezone Asia/Shanghai
+cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+timedatectl set-local-rtc 1
+ 
+docker run --name=ydsz21-ubuntursync --restart=always -d -ti -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/ubuntursync:v4.0
+docker run --name=ydsz22-ubuntursync --restart=always -d -ti -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/ubuntursync:v4.0
+docker run --name=ydsz23-ubuntursync --restart=always -d -ti -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/ubuntursync:v4.0
+docker run --name=ydsz24-ubuntursync --restart=always -d -ti -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/ubuntursync:v4.0
+
+
+mkdir -p /data/ncyd/apps/epg
+cd  /data/ncyd/apps/epg
+scp -P3122 chances@188.2.152.114:/home/chances/epg.tar.gz .
+tar -zxf epg.tar.gz 
+vim ./WEB-INF/conf/epg.properties
+
+
+docker run -ti -d -p 2375:2375 --hostname=192.168.220.127 --restart=always --name shipyard-proxy -v /var/run/docker.sock:/var/run/docker.sock -e PORT=2375 shipyard/docker-proxy:latest
+docker run -ti -d --restart=always --name shipyard-swarm-agent swarm:latest join --addr 192.168.220.127:2375 etcd://192.168.220.123:54001
+
+
+
+debconf: delaying package configuration, since apt-utils is not installed
+
+docker run -ti --privileged -v //root/registry/shipyard-registry-v2:/root/registry shipyard-builder3 /bin/bash
+
+
+docker run -ti -d --restart=always --name shipyard-controller2 --link shipyard-rethinkdb:rethinkdb --link shipyard-swarm-manager:swarm  -p 58081:8080 shipyard-registry-v2:latest server -d tcp://swarm:3375
+
+
+docker run -it --rm --link shipyard-controller3:shipyard shipyard/shipyard-cli echo "For login URL use: http://$SHIPYARD_PORT_8080_TCP_ADDR:58082"
+docker run -it --rm --link shipyard:shipyard shipyard/shipyard-cli
+
+
+
+
+
+docker run --name=ydsz17-tomcatepg2 --restart=always -d --link ydsz17-slave:mysql -ti -p 58083:8080 -e "MYSQL_NAME=MYSQL3307" -v /data/ncyd/:/opt/product/data  188.2.152.105:5000/tomcatepg:160930
+
+
+ 
  

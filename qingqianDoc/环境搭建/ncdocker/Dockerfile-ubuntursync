@@ -1,0 +1,17 @@
+FROM ubuntu:14.04
+MAINTAINER chances-lixr
+VOLUME [ "/opt/product/data/" ]
+RUN echo "chances:chances" >/etc/rsyncd.secrets;chmod 600 /etc/rsyncd.secrets;
+RUN mkdir /code
+WORKDIR /code
+ADD crontabfile /code
+RUN apt-get update && apt-get -y install rsync
+RUN crontab /code/crontabfile
+RUN apt-get -y install rsyslog 
+RUN cp /code/crontabfile /etc/crontab
+RUN echo "Asia/shanghai">>/etc/timezone;
+RUN touch /var/log/cron.log
+ADD run.sh /code
+RUN chmod +x /code/run.sh
+WORKDIR /code
+CMD ["bash","/code/run.sh"]

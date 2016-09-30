@@ -1,0 +1,32 @@
+FROM centos
+MAINTAINER chances-lixr
+VOLUME [ "/sys/fs/cgroup" ]
+RUN  /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN /bin/echo -e "ZONE="Asia/Shanghai"\nUTC=false\nRTC=false" > /etc/sysconfig/clock
+#ADD ./localtime /etc/localtime
+RUN mkdir -p /opt/product/tools/
+ADD ./tools/ /opt/product/tools/
+ENV JAVA_HOME /opt/product/tools/jdk1.8.0_51
+RUN chmod +x /opt/product/tools/jdk1.8.0_51/bin/* ; chmod +x /opt/product/tools/tomcat-epg/bin/*.sh;
+ADD tomcat.service /lib/systemd/system/
+#ADD epg.xml /opt/product/tools/tomcat-epg/conf/Catalina/localhost
+
+RUN yum -y install gcc automake autoconf libtool make  
+#install openssl openssl-dev apr-devel
+RUN yum -y install openssl openssl-devel apr-devel  
+#install tomcat-native
+WORKDIR /opt/product/tools/tomcat-epg/bin
+RUN tar zxvf tomcat-native.tar.gz
+WORKDIR tomcat-native-1.2.4-src/native
+RUN chmod +x ./configure  
+RUN chmod +x ./build/*.sh  
+RUN ./configure --with-apr=/usr/bin/apr-1-config --with-java-home=$JAVA_HOME --with-ssl=yes  
+RUN make & make install  
+#config apr
+ENV LD_LIBRARY_PATH /usr/local/apr/lib 
+WORKDIR /opt/product/tools/tomcat-epg
+RUN systemctl enable tomcat.service
+EXPOSE 8080
+
+CMD ["/usr/sbin/init"]
+

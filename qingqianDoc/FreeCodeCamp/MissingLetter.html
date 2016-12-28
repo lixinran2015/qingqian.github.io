@@ -1,0 +1,31 @@
+<script>
+function fearNotLetter(str) {
+  var allChar = "abcdefghijklmnopqrstuvwxyz";
+  var idx = "";
+  idx = allChar.indexOf(str);
+  var allCodeAt = [];
+  var num ;
+  
+  if ( idx !== -1) {
+    return undefined;
+  }else {
+    var letters = str.split("");
+    for (var i=0;i<letters.length;i++){
+	    allCodeAt.push(letters[i].charCodeAt());
+	}
+	for (var j=0;j<allCodeAt.length;j++){
+	     if ( allCodeAt[j] +1 != allCodeAt[j+1]  ){
+		    console.log(allCodeAt[j],allCodeAt[j+1] );
+		    num = allCodeAt[j] +1;
+			return String.fromCharCode(num);
+		 }
+	}
+  
+    
+  }
+  
+ // console.log(str.charCodeAt(4));
+ // return str;
+}
+console.log(fearNotLetter("abce"));
+</script>

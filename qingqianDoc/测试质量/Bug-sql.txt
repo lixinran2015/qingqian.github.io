@@ -64,3 +64,8 @@ select count(*) bugs,i.author_id,i.project_id from issues i,users u where i.assi
 #select count(*),i.project_id,p.`name` from issues i ,projects p where i.author_id=11 and i.project_id=p.id group by i.project_id ;
 #select count(*),i.tracker_id from issues i where i.author_id=11 and i.project_id in (3,6,21,26,77,107,108,110,113,116,122,188,141,123,132)  group by i.tracker_id;
 
+#每月新增Bug
+select count(*),DATE_FORMAT(created_on,'%Y-%m') from issues where created_on>'2016-01-01' group by DATE_FORMAT(created_on,'%Y%m') ;  
+#每月已关闭Bug
+select count(*),DATE_FORMAT(updated_on,'%Y-%m') from issues where (status_id=5 or status_id=7 or status_id=8) and updated_on>'2016-01-01' group by DATE_FORMAT(updated_on,'%Y%m') ;   
+

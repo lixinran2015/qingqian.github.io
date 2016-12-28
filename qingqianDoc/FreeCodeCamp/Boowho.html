@@ -1,0 +1,28 @@
+<script>
+function boo(bool) {
+
+  if ( bool == true || bool == false) {
+    return true;
+  }
+  var x = Boolean(bool);
+  console.log(x);
+  if (x) {
+     return false;
+  }
+  return true;
+}
+
+
+function boo(bool) {
+
+  if ( bool === true || bool === false) {
+    return true;
+  }else {
+     return false;
+  }
+    
+}
+
+console.log(boo({ "a": 1 }));
+console.log(boo(NaN));
+</script>

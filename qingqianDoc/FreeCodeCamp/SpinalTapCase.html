@@ -1,0 +1,25 @@
+<script>
+function spinalCase(str) {
+  var newstr ;
+  
+ //  alert(str.indexOf(" ") );
+   
+  if ( str.indexOf("_") !== -1) {
+       newstr=str.replace(/\_/g,'-') ;  
+   } else if (str.indexOf(" ") == -1 ){
+     
+	   newstr=str.replace(/[A-Z]/g, function(word){ 
+         return ("-").concat(word) ;
+		 });   
+  }else {
+      newstr = str.replace(/\s/g,"-");
+   }
+  
+   newstr = newstr.toLowerCase(str);
+  
+  return newstr;
+}
+
+console.log("thisIsSpinalTap::::::::" + spinalCase('thisIsSpinalTap'));
+console.log(spinalCase("The_Andy_Griffith_Show"));
+</script>

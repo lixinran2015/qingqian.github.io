@@ -1,0 +1,27 @@
+<script>
+function myReplace(str, before, after) {
+  var re = "/" + before + "/gi";
+ // var array = before.split("");
+ // var c = array.splice(0,1);
+   var c = before.substr(0,1)
+  var flag;
+  if(c<'A' || c>'Z'){
+     flag=false;
+  }else {
+     flag=true;
+  }
+  if (flag) {
+    // afters = before.split("");
+	 after = after.replace(/(\w)/),function(v){return v.toUpperCase()});
+  }
+  console.log(after);
+ 
+  var newstr = str.replace(eval(re),after);
+  return newstr;
+}
+
+myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped");
+myReplace("Let us go to the store", "store", "mall");
+myReplace("He is Sleeping on the couch", "Sleeping", "sitting") 
+
+</script>

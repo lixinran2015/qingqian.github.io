@@ -1,0 +1,63 @@
+<script>
+function convert(num) {
+  var alpha = [ 'I', 'V', 'X', 'L', 'C', 'D', 'M' ], roman = "", bit = 0;
+        while (num > 0){  
+            var tempnum = num % 10;
+            switch (tempnum){  
+                case 3:{   
+                    roman = alpha[bit] + roman;  
+                    tempnum--;
+                }  
+                case 2:{  
+                    roman = alpha[bit] + roman;  
+                    tempnum--;
+                }  
+                case 1:{  
+                    roman = alpha[bit] + roman;  
+                    break;  
+                }  
+                case 4:{  
+                    roman = alpha[bit + 1] + roman;
+                    roman = alpha[bit] + roman;  
+                    break;  
+                }  
+                case 8:{  
+                    roman = alpha[bit] + roman; 
+                    tempnum--;
+                }  
+                case 7:{  
+                    roman = alpha[bit] + roman; 
+                    tempnum--;
+                }  
+                case 6:{  
+                    roman = alpha[bit] + roman;  
+                    tempnum--;
+                }  
+                case 5:{  
+                    roman = alpha[bit + 1] + roman;  
+                    break;  
+                }  
+                case 9:{ 
+                    roman = alpha[bit + 2] + roman; 
+                    roman = alpha[bit] + roman; 
+                    break;  
+                }  
+                default:{  
+                    break;  
+                }  
+            }  
+            bit += 2;  
+            num = Math.floor(num / 10);  
+        }  
+        return roman;
+
+	}
+
+  // console.log("result36" + convert(36));
+   console.log("result99" + convert(99));
+   console.log("result36" + convert(36));
+   console.log("result12" + convert(12));
+   console.log("result44" + convert(45));
+   console.log("result68" + convert(68));
+   console.log("result83" + convert(83));
+</script>

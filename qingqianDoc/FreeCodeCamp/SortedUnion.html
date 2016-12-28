@@ -1,0 +1,34 @@
+<script>
+function unite(arr1) {
+  var length = arguments.length;
+  var newArr = [];
+  var searchArr = arguments[length-1];
+  var flag = true;
+  
+  
+  for (var i=0; i< arguments.length; i++){
+     var temp = arguments[i];
+	 newArr = newArr.concat(temp);
+   }
+   var arr = []; 
+
+   arr = newArr.reduce(function(previousValue, currentValue, index, array){
+       if( arr.indexOf(currentValue) == -1){  
+		  arr.push(currentValue);
+		}
+		return arr;
+   },newArr[0]);
+   
+   
+  // for(var i = 0; i < newArr.length; i++){    
+  //     if(arr.indexOf(newArr[i]) == -1){  
+  //          arr.push(newArr[i]);  
+  //      }  
+  //   }  
+   return arr;
+}
+
+console.log(unite([1, 3, 2], [5, 2, 1, 4], [2, 1]));
+console.log(" [1, 3, 2, [5], [4]] :::::" + unite([1, 3, 2], [1, [5]], [2, [4]]));
+ 
+</script>

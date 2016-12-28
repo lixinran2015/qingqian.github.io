@@ -1,0 +1,38 @@
+<script>
+function translate(str) {
+  var c = str.substr(0,1);
+  var cc = str.substr(0,2);
+  var array = ['e','o','a','i','u'];
+  var carray = ['gl','th'];
+  var idx = array.indexOf(c);
+  var cidx = carray.indexOf(cc);
+  var temp ;
+  console.log(idx);
+  
+  if ( cidx != -1) {
+    temp = str.split("");
+    var c1 = temp.splice(0,1);
+	var c2 = temp.splice(0,1);
+	console.log(c);
+    temp.push(c1);
+	temp.push(c2);
+    str = temp.join("") + "ay"; 
+	return str;
+  }else if (idx == -1 ) {
+    console.log("index");
+    temp = str.split("");
+    c = temp.splice(0,1);
+    temp.push(c);
+    str = temp.join("") + "ay"; 
+  }else {
+    console.log("eeeeeeeee");
+    str = str + "way";   
+  }
+  return str;
+}
+
+translate("consonant");
+
+
+console.log(translate("glove"));
+</script>

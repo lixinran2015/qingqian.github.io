@@ -18,6 +18,15 @@ docker run -ti -d --restart=always --name shipyard-swarm-manager swarm:latest ma
 docker run -ti -d --restart=always --name shipyard-swarm-agent swarm:latest join --addr 192.168.220.123:2375 etcd://192.168.220.123:54001
 docker run -ti -d --restart=always --name shipyard-controller --link shipyard-rethinkdb:rethinkdb --link shipyard-swarm-manager:swarm  -p 58081:8080 shipyard/shipyard:latest server -d tcp://swarm:3375
 
+docker run -ti -d --restart=always --name shipyard-controller --link shipyard-rethinkdb:rethinkdb --link shipyard-swarm-manager:swarm  -p 58081:8080 shipyard-registry-v2:latest server -d tcp://swarm:3375
+
+docker run -ti -d --restart=always --name shipyard-controller2 --link shipyard-rethinkdb:rethinkdb --link shipyard-swarm-manager:swarm  -p 58082:8080 shipyard-controller3:latest server -d tcp://swarm:3375
+
+docker run -ti -d --restart=always --name shipyard-controller1 --link shipyard-rethinkdb:rethinkdb --link shipyard-swarm-manager:swarm  -p 58083:8080 shipyard/shipyard:latest server -d tcp://swarm:3375
+docker run -ti -d --restart=always --name shipyard-controller1 --link shipyard-rethinkdb:rethinkdb --link shipyard-swarm-manager:swarm  -p 58081:8080 shipyard-registry-v2:1008 server -d tcp://swarm:3375
+
+
+
 docker run -p 58080:8082 -v /opt/test/lixr/registry:/var/lib/registry  atcol/docker-registry-ui
 
 docker -d --tlsverify --tlscacert=/etc/pki/tls/certs/ca.pem --tlscert=/etc/pki/tls/certs/wxtest1607.chances.com.cn-cert.pem --tlskey=/etc/pki/tls/private/wxtest1607.chances.com.cn-key.pem -H tcp://0.0.0.0:2376
@@ -74,7 +83,33 @@ docker run --entrypoint htpasswd registry -Bbn chances chances123 > auth/htpassw
   
 openssl req -x509 -days 3650 -subj '/CN=reg.zimug.com/' -nodes -newkey rsa:2048 -keyout registry.key -out registry.crt;
 
+http://183.235.16.101:58081/category/201610/08/2016100817384080885805.png
 
+docker run --name=ydsz17-nginx --restart=always -d -ti -p 58081:80 -v /home/chances/data/:/opt/product/data  nginx:161009
 
+#docker run --name=ydsz17-nginx --restart=always -d -ti -p 58081:80 -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/nginx:1610092
+#docker run --name=ydsz19-nginx --restart=always -d -ti -p 58081:80 -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/nginx:1610092
+#docker run --name=ydsz21-nginx --restart=always -d -ti -p 58081:80 -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/nginx:1610092
+#docker run --name=ydsz22-nginx --restart=always -d -ti -p 58081:80 -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/nginx:1610092
+#docker run --name=ydsz23-nginx --restart=always -d -ti -p 58081:80 -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/nginx:1610092
+#docker run --name=ydsz24-nginx --restart=always -d -ti -p 58081:80 -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/nginx:1610092
 
 openssl x509 -req -days 3650 -in swarm.csr -CA ca.pem -CAkey CAkey.pem -CAcreateserial -out swarmCRT.pem -extensions v3_req -extfile /etc/openssl/openssl.cnf
+
+
+
+#docker run --name=ydsz17-ubuntursync --restart=always  -ti -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/ubuntursync:161009
+#docker run --name=ydsz19-ubuntursync --restart=always  -ti -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/ubuntursync:161009
+#docker run --name=ydsz21-ubuntursync --restart=always  -ti -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/ubuntursync:161009
+#docker run --name=ydsz22-ubuntursync --restart=always  -ti -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/ubuntursync:161009
+#docker run --name=ydsz23-ubuntursync --restart=always  -ti -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/ubuntursync:161009
+#docker run --name=ydsz24-ubuntursync --restart=always  -ti -v /data/ncyd/:/opt/product/data 188.2.152.105:5000/ubuntursync:161009
+
+
+docker run --name=ydsz17-epg --restart=always -d --link ydsz17-slave:mysql -ti -p 58082:8080 -e "VIP_ADDR=103" -v /data/ncyd/:/opt/product/data  188.2.152.105:5000/epg:161010
+docker run --name=ydsz19-epg --restart=always -d --link ydsz19-slave:mysql -ti -p 58082:8080 -e "VIP_ADDR=103" -v /data/ncyd/:/opt/product/data  188.2.152.105:5000/epg:161010
+docker run --name=ydsz21-epg --restart=always -d --link ydsz21-slave:mysql -ti -p 58082:8080 -e "VIP_ADDR=103" -v /data/ncyd/:/opt/product/data  188.2.152.105:5000/epg:161010
+docker run --name=ydsz22-epg --restart=always -d --link ydsz22-slave:mysql -ti -p 58082:8080 -e "VIP_ADDR=103" -v /data/ncyd/:/opt/product/data  188.2.152.105:5000/epg:161010
+docker run --name=ydsz23-epg --restart=always -d --link ydsz23-slave:mysql -ti -p 58082:8080 -e "VIP_ADDR=103" -v /data/ncyd/:/opt/product/data  188.2.152.105:5000/epg:161010
+docker run --name=ydsz24-epg --restart=always -d --link ydsz24-slave:mysql -ti -p 58082:8080 -e "VIP_ADDR=103" -v /data/ncyd/:/opt/product/data  188.2.152.105:5000/epg:161010
+

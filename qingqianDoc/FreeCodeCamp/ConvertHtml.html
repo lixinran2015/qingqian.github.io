@@ -1,0 +1,21 @@
+<script>
+function convert(str) {
+  var htmlEnty = {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&apos;"};
+  var arry = str.split(" ");
+  for ( var i=0;i<arry.length;i++){
+	for ( var key in htmlEnty ){
+	  if ( arry[i] == key ) {
+	       console.log(key);
+	       var re = "/" + key + "/gi";
+	       str = str.replace(eval(re),htmlEnty[key]);
+	       break;
+	  }
+	}
+  }
+   
+  return str;
+}
+
+console.log(convert("Hamburgers < Pizza < Tacos"));
+
+</script>

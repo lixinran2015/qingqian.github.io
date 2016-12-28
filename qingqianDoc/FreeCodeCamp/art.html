@@ -1,0 +1,34 @@
+<script>
+function where(collection, source) {
+  var arr = [];
+  var flag ;
+   for (var i=0;i<collection.length;i++){
+      for(var item in source){   
+         if ( collection[i].hasOwnProperty(item)) {
+			 if ( source[item] == collection[i][item] ){
+				 //console.log(source[item] + "ITEM:" + item);	
+				 flag = true;
+                 					 
+		    }else {
+			    flag = false;
+			}
+		 }else {
+		   flag = false;
+           //i++;
+		 }	 	 
+      }
+	 if ( flag ){
+	   arr.push(collection[i]);
+
+	 }
+	 
+  }
+  console.log(arr.join(""));
+  return arr;
+  
+
+}
+
+where([{ "a": 1, "b": 2 }, { "a": 1 }, { "a": 1, "b": 2, "c": 2 }], { "a": 1, "b": 2 });
+</script>
+ 

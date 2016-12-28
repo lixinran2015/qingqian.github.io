@@ -1,0 +1,60 @@
+<script>
+
+function convert(num) {
+  var alpha = [ 'I', 'V', 'X', 'L', 'C', 'D', 'M' ];
+  var nums = [1,5,10,50,100,500,1000];
+  var bit = 0;
+  var roman = "";
+  var temp = "";
+  var newsA = [];
+    var idx = nums.indexOf(num);
+	if (idx != -1) {
+       roman = alpha[idx];
+    }else {
+	    temp = String(num);  
+		var length = temp.length;
+		for (var i=0;i<length;i++){
+		    var n = length-i-1;
+			var tempnum = parseInt(temp[i]); 
+			idx = nums.indexOf(Math.pow(10,n));
+			if ( idx == 6 ){
+			   roman = alpha[idx];		   
+			   if  ( tempnum <= 3 ){
+			      roman = str_repeat(roman,tempnum);
+			   }	   
+			}else if ( idx == 4 || idx == 2 || idx == 0) {
+			        console.log("startidx:" + idx + "roman:" + roman  + "tempnum:" + tempnum); 
+				   if ( tempnum == 9) {
+					  roman = roman + alpha[idx] + alpha[idx+2];
+				   }else if ( tempnum >5 && tempnum <=8 ){
+					 roman = roman + alpha[idx+1];
+					 roman = roman + str_repeat(alpha[idx],tempnum-5);
+				   }else if  ( tempnum <= 3 && tempnum >0 ){ 
+					  roman = roman + str_repeat(alpha[idx],tempnum);
+				   }else if ( tempnum == 4 ){			   
+					 roman = roman + alpha[idx] + alpha[idx+1];
+				   }else if ( tempnum == 0 ){
+				     console.log("nothing to do ");
+				   }else if ( tempnum == 5){
+				       idx =nums.indexOf(tempnum*Math.pow(10,n));
+					    if (idx != -1) {
+                          roman = roman + alpha[idx];
+                        }
+				   }
+			  // console.log("idx:" + idx + "roman:" + roman  + "tempnum:" + tempnum); 
+			}
+		}
+               		
+	   }
+    return roman;
+
+}
+function str_repeat(str, num){ 
+    return new Array( num + 1 ).join( str ); 
+}
+   console.log("resultDCXLIX:" + convert(45));
+ //   console.log("resutMIV::" +convert(3999));
+  //  console.log("resutMIV::" +convert(16));
+ //   console.log("resutMIV::" +convert(1004));
+</script>
+ 

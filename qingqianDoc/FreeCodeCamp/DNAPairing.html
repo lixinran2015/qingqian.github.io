@@ -1,0 +1,20 @@
+<script>
+function pair(str) {
+  var array = str.split("");
+  var newDNA = [];
+  var dnatemp = {'T':'A','C':'G','A':'T','G':'C'};
+  var dnaValue = "";
+  for (var i=0;i<array.length;i++){
+        newDNA[i] = [];
+        newDNA[i].push(array[i]);
+      if ( dnatemp[array[i]] !== null){
+           dnaValue = dnatemp[array[i]];  
+           newDNA[i].push(dnaValue);
+         }     
+  }
+  
+  
+  return newDNA;
+}
+console.log(pair("GCG"));
+</script>
